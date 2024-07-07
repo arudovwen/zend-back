@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb: 71, 84, 103;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
@@ -29,5 +29,20 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+   /* Chrome, Safari and Opera */
+   .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .btn {
+    @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[12px] bg-[#F2F2F2] border border-transparent font-normal text-base text-primary capitalize tracking-widest hover:opacity-90 rounded-lg;
+  }
+  .input {
+    @apply border border-[#D2D2D7] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60;
   }
 }
