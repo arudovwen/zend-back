@@ -10,6 +10,7 @@ import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
 
 export default function Login() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -21,6 +22,7 @@ export default function Login() {
   });
   const onSubmit = (data: any) => {
     console.log("🚀 ~ onSubmit ~ data:", data);
+    router.push("/dashboard")
   };
   return (
     <div className="py-4">
