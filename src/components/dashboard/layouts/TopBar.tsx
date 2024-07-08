@@ -3,7 +3,7 @@ import AppIcon from "@/components/AppIcon";
 import React from "react";
 import Image from "next/image";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Switch } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import { navigations } from "@/constants";
@@ -17,7 +17,8 @@ export default function TopBar() {
   const [enabled, setEnabled] = useState<boolean | null>(null);
   const [isOpen, setOpen] = useState(false);
   const [isSideOpen, setSideOpen] = useState(false);
-
+  const router = useRouter();
+  
   useEffect(() => {
     setEnabled(localStorage.theme === "light" ? false : true);
   }, []);
@@ -51,7 +52,7 @@ export default function TopBar() {
         <span>
           {" "}
           <Switch
-          // @ts-ignore
+            // @ts-ignore
             checked={enabled}
             onChange={setEnabled}
             className="group relative flex items-center h-5 w-10 cursor-pointer rounded-full bg-primary  p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white data-[checked]:bg-gray-700/50"
@@ -128,7 +129,10 @@ export default function TopBar() {
             >
               No
             </button>
-            <button className="border border-gray-200 rounded px-5 py-1">
+            <button
+              onClick={() => router.push("/")}
+              className="border border-gray-200 rounded px-5 py-1"
+            >
               Yes
             </button>
           </div>

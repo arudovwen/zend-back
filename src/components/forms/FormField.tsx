@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import clsx from "clsx";
+import OtpInput from "react-otp-input";
 
 // Define the props interface
 interface FormFieldProps {
@@ -17,6 +18,10 @@ interface FormFieldProps {
   isCheckbox?: boolean;
   isRadio?: boolean;
   maxW?: string;
+  numInputs?: number;
+  isOtp?: boolean;
+  setValue?: any;
+  trigger?: any;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -32,9 +37,13 @@ const FormField: React.FC<FormFieldProps> = ({
   isCheckbox = false,
   isRadio = false,
   maxW = "max-w-[374px]",
+  isOtp = false,
+  numInputs = 6,
+  setValue,
+  trigger,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  const [otp, setOtp] = useState("");
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -44,7 +53,9 @@ const FormField: React.FC<FormFieldProps> = ({
   return (
     <div className={`w-full ${maxW}`}>
       {label && !isCheckbox && !isRadio && (
-        <label className="block text-sm text-[#686878] dark:text-gray-300 mb-2">{label}</label>
+        <label className="block text-sm text-[#686878] dark:text-gray-300 mb-2">
+          {label}
+        </label>
       )}
       <div className="flex items-center relative">
         {isCheckbox ? (
@@ -71,12 +82,30 @@ const FormField: React.FC<FormFieldProps> = ({
             </label>
           </div>
         ) : (
-          <input
-            className={merged}
-            placeholder={placeholder}
-            {...(register ? register(name) : {})}
-            type={type === "password" && isPasswordVisible ? "text" : type}
-          />
+          <>
+            {isOtp ? (
+              <OtpInput
+                value={value}
+                onChange={(val) => {
+                  register ? register(name) : {};
+                  setValue(name, val);
+                  trigger && trigger(name);
+                }}
+                numInputs={numInputs}
+                renderSeparator={<span> </span>}
+                containerStyle="flex gap-x-1 justify-between"
+                inputStyle="input !w-12 h-12 !p-1 w-full"
+                renderInput={(props) => <input {...props} />}
+              />
+            ) : (
+              <input
+                className={merged}
+                placeholder={placeholder}
+                {...(register ? register(name) : {})}
+                type={type === "password" && isPasswordVisible ? "text" : type}
+              />
+            )}
+          </>
         )}
         {icon && (
           <span
@@ -85,7 +114,11 @@ const FormField: React.FC<FormFieldProps> = ({
             }`}
           >
             {type === "password" ? (
-              <button className="text-secondary dark:text-white" type="button" onClick={togglePasswordVisibility}>
+              <button
+                className="text-secondary dark:text-white"
+                type="button"
+                onClick={togglePasswordVisibility}
+              >
                 {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
               </button>
             ) : (

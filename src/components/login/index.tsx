@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -10,7 +10,8 @@ import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
 
 export default function Login() {
-  const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,8 +22,9 @@ export default function Login() {
     resolver: yupResolver(LoginSchema),
   });
   const onSubmit = (data: any) => {
+    setLoading(true);
     console.log("🚀 ~ onSubmit ~ data:", data);
-    router.push("/dashboard")
+    router.push("/verify");
   };
   return (
     <div className="py-4">
@@ -57,6 +59,7 @@ export default function Login() {
           <ButtonComponent
             className="w-full text-center !bg-primary !text-white items-center"
             type="submit"
+            isLoading={loading}
           >
             Login
           </ButtonComponent>
