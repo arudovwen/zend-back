@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import VerifyLogin from "@/components/login/verify";
-import { updateTheme } from "@/plugins/Theme";
-import { useEffect } from "react";
 
 export const metadata: Metadata = {
   title: "Verify Login Zendwallet Backoffice",
@@ -10,9 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function Verify() {
-  useEffect(() => {
-    updateTheme();
-  }, []);
+
   return (
     <main className="flex h-screen w-screen bg-gray-100 dark:bg-gray-800 flex-col items-center justify-between p-24 bg-[url('/wave.svg')] bg-no-repeat bg-bottom">
       <div className="mt-12">
