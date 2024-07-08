@@ -10,27 +10,24 @@ import { navigations } from "@/constants";
 import CenterModal from "@/components/modals/CenterModal";
 import SideModal from "@/components/modals/SideModal";
 import SideBar from "./SideBar";
+import { toLightMode, toDarkMode } from "@/plugins/Theme";
 
 export default function TopBar() {
   const pathname = usePathname();
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState<boolean | null>(null);
   const [isOpen, setOpen] = useState(false);
   const [isSideOpen, setSideOpen] = useState(false);
 
   useEffect(() => {
-    if (!enabled) {
-      localStorage.theme = "light";
-    } else {
-      localStorage.theme = "dark";
+    setEnabled(localStorage.theme === "light" ? false : true);
+  }, []);
+
+  useEffect(() => {
+    if (enabled === false) {
+      toLightMode();
     }
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    if (enabled === true) {
+      toDarkMode();
     }
   }, [enabled]);
 
@@ -54,6 +51,7 @@ export default function TopBar() {
         <span>
           {" "}
           <Switch
+          // @ts-ignore
             checked={enabled}
             onChange={setEnabled}
             className="group relative flex items-center h-5 w-10 cursor-pointer rounded-full bg-primary  p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white data-[checked]:bg-gray-700/50"

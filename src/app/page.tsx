@@ -1,7 +1,20 @@
+"use client";
 import Image from "next/image";
 import Login from "@/components/login";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
   return (
     <main className="flex h-screen w-screen bg-gray-100 dark:bg-gray-800 flex-col items-center justify-between p-24 bg-[url('/wave.svg')] bg-no-repeat bg-bottom">
       <div className="mt-12">
@@ -15,7 +28,7 @@ export default function Home() {
             className="h-auto block mx-auto dark:hidden"
             priority
           />
-           <Image
+          <Image
             alt="logo"
             src="/zendwhite.png"
             width={150}

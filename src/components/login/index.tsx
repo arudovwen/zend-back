@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import FormField from "@/components/forms/FormField";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { LoginSchema } from "@/schema";
 import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <div className="py-4">
       {" "}
-      <h1 className="font-semibold text-xl text-center mb-6">
+      <h1 className="font-semibold text-xl text-center mb-6 text-secondary dark:text-white">
         Administrator Sign In
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -80,12 +80,12 @@ const FormField: React.FC<FormFieldProps> = ({
         )}
         {icon && (
           <span
-            className={`text-xl absolute right-4 ${
+            className={`text-xl absolute right-4 text-secondary dark:text-white ${
               type === "password" ? "top-1/2 transform -translate-y-1/2" : ""
             }`}
           >
             {type === "password" ? (
-              <button type="button" onClick={togglePasswordVisibility}>
+              <button className="text-secondary dark:text-white" type="button" onClick={togglePasswordVisibility}>
                 {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
               </button>
             ) : (
