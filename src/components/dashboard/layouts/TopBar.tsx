@@ -12,6 +12,7 @@ import SideBar from "./SideBar";
 import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import Search from "./Search"
 import Announcement from "./Announcement"
+import TypeSwitch from "./TypeSwitch"
 
 export default function TopBar() {
   const pathname = usePathname();
@@ -48,13 +49,13 @@ export default function TopBar() {
         {/* <span className="font-semibold text-sm lg:text-base">
           {navigations.find((i: any) => i.url === pathname)?.label}
         </span> */}
-        <span className="text-xs font-medium flex gap-x-2 items-center"><span className="text-[11px]">BTC - $61,000</span> <AppIcon icon="heroicons:slash-20-solid" /> <span className="text-[11px]">ETH - $61,000</span> <span className="text-[10px] font-light ">as at June 1, 2024</span></span>
+        <span className="text-sm font-medium flex gap-x-2 items-center"><span className="">BTC - $61,000</span> <AppIcon icon="heroicons:slash-20-solid" /> <span className="">ETH - $61,000</span> <span className="text-[11px] font-light ">as at June 1, 2024</span></span>
       </span>
       <span className="flex gap-x-4 lg:gap-x-6 dark:gap-x-6 dark:lg:gap-x-8 items-center">
        
-        <span>
+        {/* <span>
           <AppIcon icon="solar:bell-bold-duotone" iconClass="text-xl" />
-        </span>
+        </span> */}
         <span className="text-[#475467] dark:text-white hidden lg:inline-block">
           {" "}
         </span>
@@ -70,6 +71,7 @@ export default function TopBar() {
         </span>
         <span><Search /></span>
         <span><Announcement /></span>
+        <span><TypeSwitch /></span>
       </span>
       <CenterModal setOpen={() => {}} open={isOpen}>
         <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white p-6 rounded-lg">
