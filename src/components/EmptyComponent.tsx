@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function EmptyComponent({ heading, text }) {
+export default function EmptyComponent({ heading, text }: any) {
   return (
     <div className="p-6 flex flex-col justify-center mt-20 mb-20 text-center">
       <Image

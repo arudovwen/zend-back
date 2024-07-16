@@ -56,7 +56,7 @@ export default function VerifyLogin() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
           <FormField
-            label="Enter OTP"
+            label=""
             name="otp"
             placeholder="Provide your otp"
             register={register}

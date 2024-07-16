@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import AppIcon from "@/components/AppIcon";
 import clsx from "clsx";
 import OtpInput from "react-otp-input";
 
@@ -36,7 +36,7 @@ const FormField: React.FC<FormFieldProps> = ({
   errors,
   isCheckbox = false,
   isRadio = false,
-  maxW = "max-w-[374px]",
+  maxW = "",
   isOtp = false,
   numInputs = 6,
   setValue,
@@ -93,7 +93,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 }}
                 numInputs={numInputs}
                 renderSeparator={<span> </span>}
-                containerStyle="flex gap-x-1 justify-between"
+                containerStyle="flex gap-x-1 justify-between  w-full"
                 inputStyle="input !w-12 h-12 !p-1 w-full"
                 renderInput={(props) => <input {...props} />}
               />
@@ -119,7 +119,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 type="button"
                 onClick={togglePasswordVisibility}
               >
-                {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+                 {isPasswordVisible ? <AppIcon icon="jam:padlock-alt-open" /> : <AppIcon icon="jam:padlock-alt" /> }
               </button>
             ) : (
               icon

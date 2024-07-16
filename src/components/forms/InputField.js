@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import AppIcon from "@/components/AppIcon";
 import clsx from "clsx";
 
 export default function InputField({
@@ -57,7 +57,7 @@ export default function InputField({
           >
             {type === "password" ? (
               <button type="button" onClick={togglePasswordVisibility}>
-                {isPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
+                {isPasswordVisible ? <AppIcon icon="jam:padlock-alt-open" /> : <AppIcon icon="jam:padlock-alt-close" /> }
               </button>
             ) : (
               icon

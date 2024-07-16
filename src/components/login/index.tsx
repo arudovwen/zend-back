@@ -29,10 +29,11 @@ export default function Login() {
   return (
     <div className="py-4">
       {" "}
-      <h1 className="font-semibold text-xl text-center mb-6 text-secondary dark:text-white">
-        Administrator Sign In
+      <h1 className="font-semibold text-xl text-center mb-1 text-secondary dark:text-white">
+       Welcome Back
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <p className="text-sm text-secondary text-center mb-6">Access your account to manage the platform</p>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="mb-6">
           <FormField
             label="Email"
@@ -42,9 +43,10 @@ export default function Login() {
             type="email"
             register={register}
             errors={errors.email}
+            maxW="max-w-none"
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-10">
           <FormField
             label="Password"
             name="password"
@@ -53,6 +55,7 @@ export default function Login() {
             type="password"
             register={register}
             errors={errors.password}
+             maxW="max-w-none"
           />
         </div>
         <div>
