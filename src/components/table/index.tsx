@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import EmptyComponent from "@/components/EmptyComponent";
 import Loader from "@/components/Loader";
@@ -30,8 +31,8 @@ interface DataTableProps {
   filterTitle?: string;
   filterOptions?: FilterOption[];
   placeholder?: string;
-  onSearch: (value: string) => void;
-  onFilter: (value: string) => void;
+  onSearch?: (value: string) => void;
+  onFilter?: (value: string) => void;
   onDateChange?: (date: any) => void; // Adjust the type as necessary
 }
 
@@ -63,7 +64,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   useEffect(() => {
     if (filter) {
-      onFilter(filter);
+        onFilter && onFilter(filter);
     }
   }, [filter, onFilter]);
 
@@ -75,21 +76,21 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    onSearch(e.target.value);
+    onSearch && onSearch(e.target.value);
   };
 
   return (
-    <div className="border border-[#EAECF0] rounded-lg w-full bg-white">
+    <div className="border border-[#EAECF0]  rounded-lg w-full bg-white dark:bg-gray-700 dark:border-gray-600">
       {(hasSearch || hasFilter) && (
-        <div className="pb-8 pt-8 border-b border-[#EAECF0] px-8">
+        <div className="pb-8 pt-8 border-b border-[#EAECF0] dark:border-gray-600 px-8">
           <div className="flex gap-x-4 flex-col lg:flex-row gap-y-4 justify-between">
             {hasSearch && (
               <div className="relative flex items-center">
-                <span className="absolute left-4 pointer-events-none text-[#667085]">
+                <span className="absolute left-4 pointer-events-none text-[#667085] dark:text-white/90">
                   <i className="uil uil-search"></i>
                 </span>
                 <input
-                  className="border border-[#DFE5EC] text-sm focus:pr-3 pl-10 rounded-lg w-full lg:w-[280px] h-11 focus:outline-none py-[10px] transition ease-in-out duration-300"
+                  className="border border-[#DFE5EC] dark:border-gray-600 text-sm focus:pr-3 pl-10 rounded-lg w-full lg:w-[280px] h-11 focus:outline-none py-[10px] transition ease-in-out duration-300"
                   type="search"
                   placeholder={placeholder}
                   value={searchValue}
@@ -126,10 +127,10 @@ const DataTable: React.FC<DataTableProps> = ({
       >
         <table className="table-auto w-full">
           <thead>
-            <tr className="border-b border-[#EAECF0]">
+            <tr className="border-b border-[#EAECF0] dark:border-gray-600">
               {columns.map((column) => (
                 <th
-                  className="bg-[#F9FAFB] py-3 px-6 text-xs font-medium text-[#475467] capitalize text-left"
+                  className="bg-[#F9FAFB] py-4 px-6 text-xs font-medium text-[#475467] dark:text-white/90 dark:bg-gray-700 capitalize text-left whitespace-nowrap"
                   key={column.key}
                 >
                   {column.header}
@@ -138,14 +139,14 @@ const DataTable: React.FC<DataTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {rows.length > 0 ? (
+            {rows.length > 0 &&
               rows.map((row, index) => (
                 <tr
-                  className="border-b last:border-none border-[#EAECF0] even:bg-[#F9FAFB]"
+                  className="border-b last:border-none border-[#EAECF0] even:bg-[#F9FAFB] dark:even:bg-gray-600 dark:border-gray-600"
                   key={index}
                 >
                   {columns.map((column) => (
-                    <td className="text-sm text-[#454745] p-6" key={column.key}>
+                    <td className="text-sm text-[#454745] dark:text-white p-6" key={column.key}>
                       {column.isHtml ? (
                         <span
                           dangerouslySetInnerHTML={{ __html: row[column.key] }}
@@ -156,14 +157,8 @@ const DataTable: React.FC<DataTableProps> = ({
                     </td>
                   ))}
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length} className="text-center p-6">
-                  {emptyTitle}
-                </td>
-              </tr>
-            )}
+              ))}
+           
           </tbody>
         </table>
       </div>

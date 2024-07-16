@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Assets() {
   return (
-    <div>Assets</div>
+    <div className='template'>Assets</div>
   )
 }

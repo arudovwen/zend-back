@@ -10,6 +10,12 @@ export const toLightMode = () => {
   updateTheme();
 };
 
+export const currentTheme = () => {
+  if (typeof window === "undefined") return;
+ return  localStorage.theme;
+
+};
+
 export const toSystemMode = () => {
   if (typeof window === "undefined") return null;
   localStorage.theme = "system";

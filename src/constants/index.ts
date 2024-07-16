@@ -68,10 +68,45 @@ export const bottomNavigations = [
     asSub: false,
     url: "/dashboard/settings",
   },
-  // {
-  //   label: "Logout",
-  //   icon: "solar:logout-2-broken",
-  //   asSub: false,
-  //   url: "/dashboard",
-  // },
+];
+
+export const OverviewTabs = [
+  {
+    label: "Total customers",
+    icon: "flowbite:users-group-outline",
+    key: "total",
+  },
+  {
+    label: "Active customers",
+    icon: "grommet-icons:user-expert",
+    key: "active",
+  },
+  {
+    label: "Banned customers",
+    icon: "hugeicons:user-block-01",
+    key: "banned",
+  },
+  {
+    label: "Closed customers",
+    icon: "icons8:remove-user",
+    key: "closed",
+  },
+];
+
+export const AnalysisTab = [
+  {
+    label: "Total deposits",
+    icon: "ph:hand-deposit-bold",
+    key: "",
+  },
+  {
+    label: "Total withdrawal",
+    icon: "ph:hand-withdraw-bold",
+    key: "",
+  },
+  {
+    label: "Total swap",
+    icon: "ph:swap-bold",
+    key: "",
+  },
 ];

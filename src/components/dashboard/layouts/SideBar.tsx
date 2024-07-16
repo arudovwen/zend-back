@@ -28,7 +28,7 @@ export default function SideBar({ handleLogout }: any) {
     }
   }, [enabled]);
   return (
-    <div className="w-[280px] flex flex-col gap-y-2 h-screen bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-400">
+    <div className="w-[280px] flex flex-col gap-y-2 h-full bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-400">
       <div className="pt-6 px-[25px] mb-10">
         <AppLogo w={100} />
       </div>
@@ -54,7 +54,7 @@ export default function SideBar({ handleLogout }: any) {
           <li
             className={`cursor-pointer px-[10px] py-[10px] rounded text-sm  flex gap-x-2 items-center justify-between  font-normal text-[#475467] dark:text-white`}
           >
-            <span className="flex gap-x-2 items-center">
+            <span className="flex gap-x-2 items-center text-[#475467] dark:text-white">
               <AppIcon
                 icon="material-symbols:dark-mode"
                 iconClass="inline dark:hidden text-lg"
@@ -106,16 +106,16 @@ export default function SideBar({ handleLogout }: any) {
             <div className="flex items-center gap-x-3">
             <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-700 rounded-lg items-center justify-center text-sm">
               {" "}
-              <AppIcon icon="solar:user-bold-duotone" iconClass="text-xl" />
+              <AppIcon icon="solar:user-bold-duotone" iconClass="text-xl text-[#475467] dark:text-white" />
             </span>
             <div>
-              <p className="test-sm block font-medium">John Snow</p>
-              <p className="text-xs font-light">Administrator</p>
+              <p className="test-sm block font-medium text-[#475467] dark:text-white">John Snow</p>
+              <p className="text-xs font-light text-[#475467] dark:text-white">Administrator</p>
             </div>
             </div>
             <AppIcon
               icon="humbleicons:chevron-down"
-              iconClass="size-4 fill-white/60"
+              iconClass="size-4 fill-white/60 text-[#475467] dark:text-white"
             />
           </MenuButton>
 

@@ -35,20 +35,20 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <section className="flex">
-          <aside className="hidden lg:inline-block">
-            <SideBar />
-          </aside>
-          <main className="flex-1 flex flex-col bg-[#fafbfe] dark:bg-gray-600 h-screen overflow-y-auto">
-            <TopBar />
-            <div className="px-5 pt-5 pb-5 flex-1  ">
-              <div className="bg-white dark:bg-gray-700 rounded-lg border border-[#EDEFEB] dark:border-gray-600">
-                {children}
+        <Suspense fallback={<Loading />}>
+          {" "}
+          <section className="flex">
+            <aside className="hidden lg:inline-block">
+              <SideBar />
+            </aside>
+            <main className="flex-1 flex flex-col bg-[#fafbfe] dark:bg-gray-600 h-screen overflow-y-auto overflow-x-hidden">
+              <TopBar />
+              <div className="px-5 pt-5 pb-5 flex-1  ">
+                <div className=" rounded-lg">{children}</div>
               </div>
-            </div>
-          </main>
-        </section>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+            </main>
+          </section>
+        </Suspense>
       </body>
     </html>
   );

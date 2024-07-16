@@ -46,10 +46,10 @@ export default function TopBar() {
           className="
         lg:hidden"
         />
-        {/* <span className="font-semibold text-sm lg:text-base">
+        <span className="font-semibold text-sm lg:text-base lg:hidden">
           {navigations.find((i: any) => i.url === pathname)?.label}
-        </span> */}
-        <span className="text-sm font-medium flex gap-x-2 items-center"><span className="">BTC - $61,000</span> <AppIcon icon="heroicons:slash-20-solid" /> <span className="">ETH - $61,000</span> <span className="text-[11px] font-light ">as at June 1, 2024</span></span>
+        </span>
+        <span className="text-sm font-medium hidden lg:flex gap-x-2 items-center"><span className="">BTC - $61,000</span> <AppIcon icon="heroicons:slash-20-solid" /> <span className="">ETH - $61,000</span> <span className="text-[11px] font-light ">as at June 1, 2024</span></span>
       </span>
       <span className="flex gap-x-4 lg:gap-x-6 dark:gap-x-6 dark:lg:gap-x-8 items-center">
        
@@ -59,6 +59,9 @@ export default function TopBar() {
         <span className="text-[#475467] dark:text-white hidden lg:inline-block">
           {" "}
         </span>
+        <span className="hidden lg:inline"><Search /></span>
+        <span><Announcement /></span>
+        <span className="hidden lg:inline"><TypeSwitch /></span>
         <span className="lg:hidden" onClick={() => setSideOpen(true)}>
           <AppIcon
             icon={
@@ -69,9 +72,7 @@ export default function TopBar() {
             iconClass="text-xl"
           />
         </span>
-        <span><Search /></span>
-        <span><Announcement /></span>
-        <span><TypeSwitch /></span>
+  
       </span>
       <CenterModal setOpen={() => {}} open={isOpen}>
         <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white p-6 rounded-lg">

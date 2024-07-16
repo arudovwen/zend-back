@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react';
-import clsx from 'clsx';
+import React, { useState, FC } from "react";
+import clsx from "clsx";
 
 interface Tab {
   key: string;
@@ -10,13 +10,24 @@ interface TabsComponentProps {
   tabs: Tab[];
   className?: string;
   count?: { [key: string]: number };
+  setActiveTab: (e: any) => void;
+  activeTab: string;
 }
 
-const TabsComponent: FC<TabsComponentProps> = ({ tabs, className = '', count = {} }) => {
-  const [activeTab, setActiveTab] = useState(tabs[0].key);
-
+const TabsComponent: FC<TabsComponentProps> = ({
+  tabs,
+  className = "",
+  count = {},
+  setActiveTab,
+  activeTab,
+}) => {
   return (
-    <div className={clsx("flex gap-x-4 mb-8 w-full overflow-x-auto border-b border-[#EAECF0]", className)}>
+    <div
+      className={clsx(
+        "flex gap-x-4 mb-8 w-full overflow-x-auto border-b border-[#EAECF0] dark:border-gray-500",
+        className
+      )}
+    >
       {tabs.map((tab) => (
         <button
           key={tab.title}
@@ -24,14 +35,16 @@ const TabsComponent: FC<TabsComponentProps> = ({ tabs, className = '', count = {
           className={clsx(
             "capitalize text-xs md:text-sm font-semibold pb-3 border-b-2 px-1 flex items-center gap-x-1",
             {
-              'border-primary-500 text-primary-500': activeTab === tab.key,
-              'border-transparent text-[#667085]': activeTab !== tab.key,
+              "border-primary dark:border-white !text-primary dark:!text-white":
+                activeTab === tab.key,
+              "border-transparent text-[#667085] dark:!text-white/60":
+                activeTab !== tab.key,
             }
           )}
         >
-          <span>{tab.title}</span>
+          {tab.title}
           {count[tab.key] && (
-            <span className="text-xs h-6 min-w-[24px] rounded-full flex justify-center items-center border border-[#EAECF0] bg-[#F9FAFB] text-[#454745]">
+            <span className="text-xs h-6 min-w-[24px] rounded-full flex justify-center items-center border border-[#EAECF0] dark:border-gray-500 bg-[#F9FAFB] dark:bg-gray-700 text-[#454745] dark:text-white/80">
               {count[tab.key]}
             </span>
           )}

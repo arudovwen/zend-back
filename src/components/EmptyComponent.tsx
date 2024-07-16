@@ -1,18 +1,18 @@
 import Image from "next/image";
 import React from "react";
 
-export default function EmptyComponent({ heading, text }: any) {
+export default function EmptyComponent({ title, text }: any) {
   return (
-    <div className="p-6 flex flex-col justify-center mt-20 mb-20 text-center">
+    <div className="p-6 flex flex-col justify-center mt-10 lg:mt-14 mb-10 lg:mb-14 text-center">
       <Image
-        width={160}
-        height={160}
-        src="/images/empty.png"
+        width={120}
+        height={120}
+        src="/type=search.svg"
         alt="empty"
         className="mx-auto mb-4"
       />
-      <p className="text-[#1D1D35] dark:text-white/80 font-bold mb-1">{heading}</p>
-      <p className="text-sm text-[#3A434B] dark:text-white/60">{text}</p>
+      <p className="text-[#1D1D35] dark:text-white/80 font-semibold mb-1 text-sm lg:text-base">{title}</p>
+      <p className="text-xs lg:text-sm text-[#3A434B] dark:text-white/60">{text}</p>
     </div>
   );
 }

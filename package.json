@@ -11,14 +11,18 @@
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@hookform/resolvers": "^3.9.0",
+    "apexcharts": "^3.50.0",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "next": "14.2.4",
     "react": "^18",
+    "react-apexcharts": "^1.4.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-hook-form": "^7.45.4",
     "react-icons": "^5.2.1",
     "react-otp-input": "^3.1.1",
+    "react-tailwindcss-datepicker": "^1.6.6",
     "react-toastify": "^10.0.5",
     "yup": "^1.4.0"
   },
