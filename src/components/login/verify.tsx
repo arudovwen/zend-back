@@ -48,7 +48,7 @@ export default function VerifyLogin() {
         <h1 className="font-semibold text-xl text-center mb-1 text-secondary dark:text-white">
           Verify Login
         </h1>
-        <p className="text-sm text-light text-secondary dark:text-white/80">
+        <p className="text-sm text-light text-secondary  dark:text-white/80">
           Kindly enter the OTP code sent to your email
           <span> succyy**** </span>
         </p>

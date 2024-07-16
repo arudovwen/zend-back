@@ -32,7 +32,7 @@ export default function Login() {
       <h1 className="font-semibold text-xl text-center mb-1 text-secondary dark:text-white">
        Welcome Back
       </h1>
-      <p className="text-sm text-secondary text-center mb-6">Access your account to manage the platform</p>
+      <p className="text-sm text-secondary dark:text-white/80 text-center mb-6">Access your account to manage the platform</p>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="mb-6">
           <FormField

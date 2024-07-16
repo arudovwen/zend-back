@@ -34,10 +34,10 @@ export default function Chart() {
     endDate: null,
   });
 
-  const [series] = useState([
+  const [series, setSeries] = useState<any>([
     {
       name: "Signups",
-      data: [40, 70, 45, 100, 75, 40, 49, 88, 120, 98, 40, 78],
+      data: [],
     },
   ]);
   const theme = useRef<any>(themeOp);
@@ -46,11 +46,11 @@ export default function Chart() {
     theme: {
       mode: theme.current && theme.current,
     },
-    chart: {
-      toolbar: {
-        show: false,
-      },
-    },
+    // chart: {
+    //   toolbar: {
+    //     show: false,
+    //   },
+    // },
     dataLabels: {
       enabled: false,
     },
@@ -119,8 +119,15 @@ export default function Chart() {
     //     },
     //   }));
     }
+   
   }, [theme.current]); // Update when the theme changes
 
+  useEffect(()=>{
+    setSeries([{
+        name: "Signups",
+        data:[40, 70, 45, 100, 75, 40, 49, 88, 120, 98, 40, 78]
+    }])
+  },[])
   return (
     <div className="w-full">
       <div className="flex flex-col md:flex-row gap-y-4 text-left lg:items-center lg:justify-between mb-4">
