@@ -2,44 +2,58 @@ import React, { useState } from "react";
 import AppIcon from "@/components/AppIcon";
 import clsx from "clsx";
 
-export default function InputField({
+interface InputFieldProps {
+  label?: string;
+  name: string;
+  placeholder?: string;
+  icon?: React.ReactNode;
+  type?: "text" | "email" | "password" | "checkbox" | "radio" | "search";
+  className?: string;
+  isCheckbox?: boolean;
+  isRadio?: boolean;
+  maxW?: string;
+}
+
+const InputField: React.FC<InputFieldProps> = ({
   label,
   name,
   placeholder,
   icon,
-  type,
+  type = "text",
   className = "",
-
-  isCheckbox = false, // Add this prop to indicate if it's a checkbox
+  isCheckbox = false,
   isRadio = false,
-  maxW = "max-w-[374px]",
-}) {
+  maxW = "",
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const merged = clsx("input", className);
+  const merged = clsx("input", className, type === "search" ? "!pl-8" : "");
 
   return (
-    <div className={`w-full ${maxW}`}>
+    <div className={`w-full flex items-center relative ${maxW} `}>
+      {type === "search" && (
+        <span className="absolute z-10 left-3">
+          <AppIcon icon="ri:search-line" className="text-xl text-gray-400" />
+        </span>
+      )}
       {label && !isCheckbox && !isRadio && (
         <label className="block text-sm text-[#686878] mb-2">{label}</label>
       )}
       <div className="flex items-center relative">
-        {isCheckbox ? ( // Check if it's a checkbox
+        {isCheckbox ? (
           <div>
             <label className="text-sm text-[#686878] flex gap-x-2 items-center whitespace-nowrap">
-              {" "}
               <input className={merged} type="checkbox" value={name} /> {label}
             </label>
           </div>
         ) : isRadio ? (
           <div>
             <label className="text-sm text-[#686878] flex gap-x-2 items-center whitespace-nowrap">
-              {" "}
-              <input className={merged} type="checkbox" /> {label}
+              <input className={merged} type="radio" name={name} /> {label}
             </label>
           </div>
         ) : (
@@ -57,7 +71,11 @@ export default function InputField({
           >
             {type === "password" ? (
               <button type="button" onClick={togglePasswordVisibility}>
-                {isPasswordVisible ? <AppIcon icon="jam:padlock-alt-open" /> : <AppIcon icon="jam:padlock-alt-close" /> }
+                {isPasswordVisible ? (
+                  <AppIcon icon="jam:padlock-alt-open" />
+                ) : (
+                  <AppIcon icon="jam:padlock-alt-close" />
+                )}
               </button>
             ) : (
               icon
@@ -65,7 +83,8 @@ export default function InputField({
           </span>
         )}
       </div>
-   
     </div>
   );
-}
+};
+
+export default InputField;

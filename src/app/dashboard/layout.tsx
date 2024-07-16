@@ -2,6 +2,8 @@ import SideBar from "@/components/dashboard/layouts/SideBar";
 import TopBar from "@/components/dashboard/layouts/TopBar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +48,7 @@ export default function RootLayout({
             </div>
           </main>
         </section>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   );

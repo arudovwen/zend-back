@@ -1,6 +1,6 @@
 export const navigations = [
   {
-    label: "Dashboard",
+    label: "Overview",
     icon: "akar-icons:grid",
     asSub: false,
     url: "/dashboard",
@@ -36,6 +36,18 @@ export const navigations = [
     url: "/dashboard/administrators",
   },
   {
+    label: "Verification",
+    icon: "hugeicons:user-id-verification",
+    asSub: false,
+    url: "/dashboard/administrators",
+  },
+  {
+    label: "Referral Monitor",
+    icon: "heroicons:trophy",
+    asSub: false,
+    url: "/dashboard/administrators",
+  },
+  {
     label: "Quick sell",
     icon: "carbon:sales-ops",
     asSub: false,
@@ -47,10 +59,19 @@ export const navigations = [
     asSub: false,
     url: "/dashboard/zend-usd",
   },
+];
+
+export const bottomNavigations = [
   {
     label: "Settings",
     icon: "uil:cog",
     asSub: false,
     url: "/dashboard/settings",
   },
+  // {
+  //   label: "Logout",
+  //   icon: "solar:logout-2-broken",
+  //   asSub: false,
+  //   url: "/dashboard",
+  // },
 ];

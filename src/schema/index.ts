@@ -11,6 +11,7 @@ export const LoginSchema = yup.object().shape({
     .required("Password is required"),
 });
 
+
 export const VerifyLoginSchema = yup.object().shape({
   otp: yup.string().min(6, "OTP must be 6 characters").required("OTP is required"),
 });
@@ -23,4 +24,8 @@ export const CreateAdminSchema = yup.object().shape({
     .string()
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required("Password is required"),
+    confirmpassword: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required("Confirm password is required"),
 });

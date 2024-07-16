@@ -12,7 +12,7 @@ interface ButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 // Use forwardRef to forward the ref to the button element
 const ButtonComponent = forwardRef<HTMLButtonElement, ButtonComponentProps>(
   ({ type = "submit", className = "", isLoading, children, disabled, onClick, ...rest }, ref) => {
-    const merged = clsx("btn disabled:opacity-60", className);
+    const merged = clsx("btn", className);
 
     return (
       <button
