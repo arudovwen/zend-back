@@ -9,8 +9,10 @@ import { navigations, bottomNavigations } from "@/constants";
 import AppIcon from "@/components/AppIcon";
 import AppLogo from "@/components/AppLogo";
 import { toLightMode, toDarkMode } from "@/plugins/Theme";
+import CenterModal from "@/components/modals/CenterModal";
 
 export default function SideBar({ handleLogout }: any) {
+  const [isOpen, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const [enabled, setEnabled] = useState<boolean | null>(null);
@@ -132,6 +134,27 @@ export default function SideBar({ handleLogout }: any) {
           </MenuItems>
         </Menu>
       </div>
+      <CenterModal setOpen={() => {}} open={isOpen}>
+        <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white p-6 rounded-lg">
+          <h2 className="font-semibold mb-6">
+            Are you sure you want to logout?
+          </h2>
+          <div className="flex gap-x-4 items-center justify-center text-sm font-medium">
+            <button
+              className="border border-gray-200 rounded px-5 py-1"
+              onClick={() => setOpen(false)}
+            >
+              No
+            </button>
+            <button
+              onClick={() => router.push("/")}
+              className="border border-gray-200 rounded px-5 py-1"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </CenterModal>
     </div>
   );
 }
