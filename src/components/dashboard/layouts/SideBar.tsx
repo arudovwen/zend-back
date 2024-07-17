@@ -28,7 +28,7 @@ export default function SideBar({ handleLogout }: any) {
     }
   }, [enabled]);
   return (
-    <div className="w-[280px] flex flex-col gap-y-2 h-full bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-400">
+    <div className="w-[280px] flex flex-col gap-y-2 h-full bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500">
       <div className="pt-6 px-[25px] mb-10">
         <AppLogo w={100} />
       </div>
@@ -102,7 +102,7 @@ export default function SideBar({ handleLogout }: any) {
         </ul>
 
         <Menu>
-          <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-800 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
+          <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-800 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
             <div className="flex items-center gap-x-3">
             <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-700 rounded-lg items-center justify-center text-sm">
               {" "}

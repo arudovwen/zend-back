@@ -37,7 +37,7 @@ export default function Analysis() {
             onChange={handleValueChange}
             placeholder="Filter dates"
             inputClassName="border w-full px-3 py-2 rounded bg-white dark:bg-gray-700 text-secondary dark:text-white/80 border-gray-100 dark:border-gray-500"
-            containerClassName="rounded-lg relative text-sm lg:w-[260px] min-w-[250px] text-secondary"
+            containerClassName="rounded-lg relative text-sm lg:w-[260px] min-w-[250px] text-secondary z-[99]"
           />
         </div>
       </div>
