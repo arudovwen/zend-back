@@ -78,7 +78,7 @@ export const OverviewTabs = [
   },
   {
     label: "Active customers",
-    icon: "grommet-icons:user-expert",
+    icon: "solar:user-check-linear",
     key: "active",
   },
   {
