@@ -10,11 +10,21 @@ export const navigations = [
     icon: "grommet-icons:group",
     asSub: true,
     url: "/dashboard/customers",
+    submenus: [
+      {
+        label: "List",
+        url: "/dashboard/customers/list",
+      },
+      {
+        label: "Activities",
+        url: "/dashboard/customers/activities",
+      },
+    ],
   },
   {
     label: "Transactions",
     icon: "uil:transaction",
-    asSub: true,
+    asSub: false,
     url: "/dashboard/transactions",
   },
   {
@@ -108,5 +118,30 @@ export const AnalysisTab = [
     label: "Total swap",
     icon: "ph:swap-bold",
     key: "",
+  },
+];
+
+export const GenderOptions = [
+  {
+    label: "Male",
+    value: "male",
+  },
+  {
+    label: "Female",
+    value: "female",
+  },
+];
+export const StatusOptions = [
+  {
+    label: "Active",
+    value: "active",
+  },
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  {
+    label: "Disabled",
+    value: "disabled",
   },
 ];

@@ -110,3 +110,59 @@ export const OverviewTokenHeader = [
     },
   ];
   
+
+  export const CustomerListHeader = [
+    {
+      header: "Customer",
+      key: "admin",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "activity",
+      isHtml: false,
+    },
+    {
+      header: "Phone number",
+      key: "activity",
+      isHtml: false,
+    },
+    {
+      header: "Country",
+      key: "time",
+      isHtml: false,
+    },
+    {
+      header: "Gender",
+      key: "time",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "time",
+      isHtml: false,
+    },
+  ];
+  export const ActivitiesHeader = [
+    {
+      header: "Customer",
+      key: "admin",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "activity",
+      isHtml: false,
+    },
+    {
+      header: "Activity",
+      key: "time",
+      isHtml: false,
+    },
+    {
+      header: "Date & Time",
+      key: "time",
+      isHtml: false,
+    },
+  
+  ];

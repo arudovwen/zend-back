@@ -27,7 +27,7 @@ export default function Transactions() {
         <AppTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
       </div>
       <div>
-        <div className=" w-full shadow-sm">
+        <div className=" w-full ">
           <TableCard
             columns={
               activeTab === "swap" ? OverviewSwapHeader : OverviewTokenHeader

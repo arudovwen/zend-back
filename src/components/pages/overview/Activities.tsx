@@ -20,7 +20,7 @@ export default function Activities() {
             </button>
           </div>
         </div>
-        <div className=" w-full shadow-sm">
+        <div className=" w-full ">
           <TableCard columns={CustomerActivitiesHeader} rows={[]} />
         </div>
       </div>
@@ -35,7 +35,7 @@ export default function Activities() {
             </button>
           </div>
         </div>
-        <div className=" w-full shadow-sm">
+        <div className=" w-full ">
           <TableCard columns={AdminActivitiesHeader} rows={[]} />
         </div>
       </div>

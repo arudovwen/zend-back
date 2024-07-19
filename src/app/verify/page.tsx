@@ -25,7 +25,7 @@ export default function Verify() {
             />
           </Link>
         </div>
-        <div className="w-[450px] p-6 rounded-xl bg-white dark:bg-gray-700 mt-2">
+        <div className="w-full md:w-[450px] max-w-[450px] p-6 rounded-xl bg-white dark:bg-gray-800 mt-2">
           <VerifyLogin />
         </div>
       </div>

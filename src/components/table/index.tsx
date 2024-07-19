@@ -80,7 +80,7 @@ const DataTable: React.FC<DataTableProps> = ({
   };
 
   return (
-    <div className="border border-[#EAECF0]  rounded-lg w-full bg-white dark:bg-gray-700 dark:border-gray-600">
+    <div className="border border-[#EAECF0]  rounded-lg w-full bg-white dark:bg-gray-800 dark:border-gray-600">
       {(hasSearch || hasFilter) && (
         <div className="pb-8 pt-8 border-b border-[#EAECF0] dark:border-gray-600 px-8">
           <div className="flex gap-x-4 flex-col lg:flex-row gap-y-4 justify-between">
@@ -130,7 +130,7 @@ const DataTable: React.FC<DataTableProps> = ({
             <tr className="border-b border-[#EAECF0] dark:border-gray-600">
               {columns.map((column) => (
                 <th
-                  className="bg-[#F9FAFB] py-4 px-6 text-xs font-medium text-[#475467] dark:text-white/90 dark:bg-gray-700 capitalize text-left whitespace-nowrap"
+                  className="bg-[#F9FAFB] py-4 px-6 text-xs font-medium text-[#475467] dark:text-white/90 dark:bg-gray-800 capitalize text-left whitespace-nowrap"
                   key={column.key}
                 >
                   {column.header}

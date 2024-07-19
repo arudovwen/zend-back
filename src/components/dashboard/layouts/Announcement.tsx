@@ -15,7 +15,7 @@ export default function Announcement() {
         >
           <span className="flex gap-x-2 items-center">
             <AppIcon icon="grommet-icons:announce" />{" "}
-            <span className="hidden lg:inline">Announcement</span>
+            <span className="hidden lg:inline">Broadcast</span>
           </span>{" "}
         </ButtonComponent>
       </div>

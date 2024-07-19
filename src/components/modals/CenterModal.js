@@ -8,7 +8,7 @@ export default function CenterModal({ children, open, setOpen, modalClass="" }) 
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className="relative z-[999]"
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
@@ -24,7 +24,7 @@ export default function CenterModal({ children, open, setOpen, modalClass="" }) 
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className="fixed inset-0 z-[999] overflow-y-auto">
           <div className="flex min-h-full  justify-center p-4 text-center items-center sm:p-0">
             <Transition.Child
               as={Fragment}

@@ -25,7 +25,7 @@ export default function Invite() {
             />
           </Link>
         </div>
-        <div className="w-[500px] p-6 rounded-xl bg-white dark:bg-gray-700 mt-2">
+        <div className="w-full md:w-[500px] max-w-[500px] p-6 rounded-xl bg-white dark:bg-gray-800 mt-2">
           <AdminInvite />
         </div>
       </div>

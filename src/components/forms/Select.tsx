@@ -1,19 +1,33 @@
-import { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { FaChevronDown } from "react-icons/fa";
+import AppIcon from "@/components/AppIcon";
 import clsx from "clsx";
 
-export default function CustomSelect({
+interface Option {
+  label: string;
+  value: any; // Adjust type as per your option value type
+}
+
+interface CustomSelectProps {
+  className?: string;
+  options: Option[];
+  placeholder?: string;
+  name?: string;
+  label?: string;
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({
   className = "",
   options,
   placeholder = "Filter",
-  name,
   label,
-}) {
-  const [selected, setSelected] = useState(options[0]);
+}) => {
+  const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
 
-  useEffect(() => {}, [selected]);
+  useEffect(() => {
+    // Add any side effects based on selected option
+  }, [selected]);
 
   return (
     <div>
@@ -24,14 +38,13 @@ export default function CustomSelect({
         <div className="relative">
           <Listbox.Button className={merged}>
             <span className="block truncate text-sm text-left">
-              {selected.label || (
+              {selected?.label || (
                 <span className="opacity-60">{placeholder}</span>
               )}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <FaChevronDown
-                className="h-4 w-4 text-gray-400"
-                aria-hidden="true"
+              <AppIcon
+                icon="lucide:chevron-down"
               />
             </span>
           </Listbox.Button>
@@ -59,7 +72,7 @@ export default function CustomSelect({
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {option.label}
+                        {option?.label}
                       </span>
                     </>
                   )}
@@ -71,4 +84,6 @@ export default function CustomSelect({
       </Listbox>
     </div>
   );
-}
+};
+
+export default CustomSelect;

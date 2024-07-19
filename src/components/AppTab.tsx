@@ -44,7 +44,7 @@ const TabsComponent: FC<TabsComponentProps> = ({
         >
           {tab.title}
           {count[tab.key] && (
-            <span className="text-xs h-6 min-w-[24px] rounded-full flex justify-center items-center border border-[#EAECF0] dark:border-gray-500 bg-[#F9FAFB] dark:bg-gray-700 text-[#454745] dark:text-white/80">
+            <span className="text-xs h-6 min-w-[24px] rounded-full flex justify-center items-center border border-[#EAECF0] dark:border-gray-500 bg-[#F9FAFB] dark:bg-gray-800 text-[#454745] dark:text-white/80">
               {count[tab.key]}
             </span>
           )}
