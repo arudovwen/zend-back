@@ -22,7 +22,7 @@ const CustomNav: React.FC<CustomNavProps> = ({
         {links.map((link, idx) => (
           <li
             key={idx}
-            className={`text-[#475467] ${className} ${link.title && `after:content-['>']`}  font-normal last:font-medium text-[10px] sm:text-xs lg:text-xs capitalize  last:after:content-[''] flex gap-x-2 items-center `}
+            className={`text-[#475467] ${className} ${link.title && `after:content-['>']`}  font-normal last:font-medium text-[11px] sm:text-xs lg:text-[13px] capitalize  last:after:content-[''] flex gap-x-[6px] items-center `}
           >
             <Link href={link.url}>
               <span className={`text-secondary/60 dark:text-white/50 last:text-secondary/80 last:dark:text-white/70`}>{link.title}</span>

@@ -166,3 +166,74 @@ export const OverviewTokenHeader = [
     },
   
   ];
+  export const SanctionHeader = [
+    {
+      header: "Customer",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "Date of birth",
+      key: "date",
+      isHtml: false,
+    },
+    {
+      header: "Citenzenship",
+      key: "citezenship",
+      isHtml: false,
+    },
+    {
+      header: "Gender",
+      key: "gender",
+      isHtml: false,
+    },
+    {
+      header: "Score",
+      key: "score",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
+  
+  ];
+
+  export const KycHeader = [
+    {
+      header: "Customer",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "Level",
+      key: "level",
+      isHtml: false,
+    },
+    {
+      header: "Type",
+      key: "type",
+      isHtml: false,
+    },
+    {
+      header: "Date & Time",
+      key: "time",
+      isHtml: false,
+    },
+    {
+      header: "Approved / Rejected By",
+      key: "approved_by",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
+    {
+      header: "Action",
+      key: "action",
+      isHtml: false,
+    },
+  ];

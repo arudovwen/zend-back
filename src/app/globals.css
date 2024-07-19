@@ -22,7 +22,6 @@ body {
 
 @layer utilities {
   p,
-  span,
   h1,
   h2,
   h3,
@@ -45,10 +44,10 @@ body {
     scrollbar-width: none; /* Firefox */
   }
   .btn {
-    @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[12px] bg-[#F2F2F2] border border-transparent font-normal text-base text-primary capitalize tracking-widest hover:opacity-90  disabled:opacity-60 rounded-lg;
+    @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[10px] bg-[#F2F2F2] dark:bg-transparent border border-transparent dark:border-gray-500 font-normal text-xs sm:text-sm text-primary capitalize tracking-widest hover:opacity-90  disabled:opacity-60 rounded-lg;
   }
   .input {
-    @apply text-[#475467] border border-[#D2D2D7] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60 dark:border-gray-600;
+    @apply text-[#475467] border border-[#D2D2D7] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60 dark:border-gray-600 text-sm;
   }
   .template {
     @apply bg-white dark:bg-gray-800 rounded-lg border border-[#EDEFEB] dark:border-gray-600;
@@ -57,4 +56,8 @@ body {
 
 .apexcharts-svg {
   background: transparent !important;
+}
+
+.ck-editor__editable_inline {
+  min-height: 300px;
 }

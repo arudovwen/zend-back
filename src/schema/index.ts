@@ -11,9 +11,11 @@ export const LoginSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-
 export const VerifyLoginSchema = yup.object().shape({
-  otp: yup.string().min(6, "OTP must be 6 characters").required("OTP is required"),
+  otp: yup
+    .string()
+    .min(6, "OTP must be 6 characters")
+    .required("OTP is required"),
 });
 
 export const CreateAdminSchema = yup.object().shape({
@@ -24,8 +26,32 @@ export const CreateAdminSchema = yup.object().shape({
     .string()
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required("Password is required"),
-    confirmpassword: yup
+  confirmpassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
+    .oneOf([yup.ref("password")], "Passwords must match")
     .required("Confirm password is required"),
+});
+
+export const KinSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Provide a valid email")
+    .required("Email is required"),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  address: yup.string().required("Address is required"),
+  phoneNumber: yup.string().required("Phone number is required"),
+  relationship: yup.string().required("Relationship is required"),
+  emailAddress: yup.string().email().required("Email is required"),
+});
+
+export const LockSchema = yup.object().shape({
+  reason: yup.string().required("Reason is required"),
+});
+export const BroadcastSchema = yup.object().shape({
+  type: yup.string().required("Type is required"),
+  subject: yup.string().required("Subject is required"),
+  body: yup.string().required("Message is required"),
+  banner: yup.string(),
+  notifyType: yup.string().required("Type is required"),
 });

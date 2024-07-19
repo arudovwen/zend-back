@@ -1,9 +1,28 @@
-import { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { FaChevronDown } from "react-icons/fa";
+import AppIcon from "@/components/AppIcon";
 import clsx from "clsx";
+import { triggerAsyncId } from "async_hooks";
 
-export default function CustomSelect({
+interface Option {
+  label: string;
+  value: string | number;
+}
+
+interface CustomSelectProps {
+  className?: string;
+  options: Option[];
+  placeholder?: string;
+  errors?: any;
+  register: any; // Adjust type based on your useForm usage
+  setValue: any; // Adjust type based on your useForm usage
+  name: string;
+  label?: string;
+  value?: string | number | null;
+  trigger?: any
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({
   className = "",
   options,
   placeholder = "Filter",
@@ -12,20 +31,25 @@ export default function CustomSelect({
   setValue,
   name,
   label,
-}) {
-  const [selected, setSelected] = useState(options[0]);
+  value,
+  trigger
+}) => {
+  const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
 
   useEffect(() => {
     if (selected) {
-      setValue(name, selected.value);
+      setValue(name, selected?.value);
       register(name);
+      trigger(name)
     }
-
-    return () => {
-      setValue(name, "");
-    };
   }, [name, register, selected, setValue]);
+
+  useEffect(() => {
+    if (value) {
+      setSelected(options.find((option) => option.value === value) || null);
+    }
+  }, [value, options]);
 
   return (
     <div>
@@ -36,19 +60,16 @@ export default function CustomSelect({
         <div className="relative">
           <Listbox.Button className={merged}>
             <span className="block truncate text-sm text-left">
-              {selected.label || (
-                <span className="opacity-60">{placeholder}</span>
-              )}
+              {selected?.label || <span className="opacity-60">{placeholder}</span>}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <FaChevronDown
-                className="h-4 w-4 text-gray-400"
-                aria-hidden="true"
+            <AppIcon
+                icon="lucide:chevron-down"
               />
             </span>
           </Listbox.Button>
           <Transition
-            as={Fragment}
+            as={React.Fragment}
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
@@ -65,15 +86,9 @@ export default function CustomSelect({
                   value={option}
                 >
                   {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {option.label}
-                      </span>
-                    </>
+                    <div className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
+                      {option.label}
+                    </div>
                   )}
                 </Listbox.Option>
               ))}
@@ -81,9 +96,9 @@ export default function CustomSelect({
           </Transition>
         </div>
       </Listbox>
-      {errors && (
-        <span className="text-sm text-red-500">{errors.message}</span>
-      )}
+      {errors && <span className="text-sm text-red-500">{errors.message}</span>}
     </div>
   );
-}
+};
+
+export default CustomSelect;

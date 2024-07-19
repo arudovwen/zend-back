@@ -53,14 +53,14 @@ const FormField: React.FC<FormFieldProps> = ({
   return (
     <div className={`w-full ${maxW}`}>
       {label && !isCheckbox && !isRadio && (
-        <label className="block text-sm text-[#686878] dark:text-gray-300 mb-2">
+        <label className="block text-sm text-[#686878] dark:text-white/70  mb-2">
           {label}
         </label>
       )}
       <div className="flex items-center relative">
         {isCheckbox ? (
           <div>
-            <label className="text-sm text-[#686878] dark:text-gray-300  flex gap-x-2 items-start whitespace-nowrap">
+            <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
               <input
                 className={`${merged} w-auto mt-1`}
                 type="checkbox"

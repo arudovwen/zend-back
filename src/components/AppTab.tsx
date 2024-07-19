@@ -24,7 +24,7 @@ const TabsComponent: FC<TabsComponentProps> = ({
   return (
     <div
       className={clsx(
-        "flex gap-x-4 mb-8 w-full overflow-x-auto border-b border-[#EAECF0] dark:border-gray-500",
+        "flex gap-x-4 mb-8 w-full no-scrollbar  overflow-x-auto border-b border-[#EAECF0] dark:border-gray-500",
         className
       )}
     >
@@ -33,7 +33,7 @@ const TabsComponent: FC<TabsComponentProps> = ({
           key={tab.title}
           onClick={() => setActiveTab(tab.key)}
           className={clsx(
-            "capitalize text-xs md:text-sm font-semibold pb-3 border-b-2 px-1 flex items-center gap-x-1",
+            "capitalize text-xs whitespace-nowrap no-scrollbar md:text-sm font-semibold pb-3 border-b-2 px-1 flex items-center gap-x-1",
             {
               "border-primary dark:border-white !text-primary dark:!text-white":
                 activeTab === tab.key,

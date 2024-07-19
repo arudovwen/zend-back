@@ -13,7 +13,7 @@ export default function List() {
         <HeaderComponent title="Customers" sub="List of customers" />
       </div>
       <div>
-        <div className="mb-4 flex justify-between items-center">
+        <div className="mb-6 flex justify-between items-center">
           <input
             placeholder="Search name or email"
             className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded max-w-[280px] w-full"

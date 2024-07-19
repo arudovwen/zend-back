@@ -41,11 +41,11 @@ export default function SideBar() {
   }
 
   return (
-    <div className="w-[280px] flex flex-col gap-y-2 bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500 max-h-full h-screen overflow-y-auto">
+    <div className="w-[280px] no-scrollbar flex flex-col gap-y-2 bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500 max-h-full h-screen overflow-y-auto">
       <div className="pt-6 px-[25px] mb-6">
         <AppLogo w={100} />
       </div>
-      <div className="flex-1 pb-6">
+      <div className="flex-1 pb-10">
         <div className="hidden lg:block mb-4 px-[25px]">
           <TypeSwitch />
         </div>
@@ -66,6 +66,7 @@ export default function SideBar() {
                         ? "font-medium text-white"
                         : "font-normal text-[#475467] dark:text-white"
                     }`}
+                    onClick={() => nav.asSub && handleSub(nav.label)}
                   >
                     <AppIcon
                       icon={nav.icon}
@@ -92,17 +93,25 @@ export default function SideBar() {
                   )}
                 </span>
                 {nav.asSub && openMenus.includes(nav.label) && (
-                  <ul className="grid grid-cols-1 py-1">
+                  <ul className="grid grid-cols-1 py-2 gap-y-1 overflow-hidden">
                     {nav.submenus?.map((submenu: any) => (
-                      <li onClick={() => router.push(submenu.url)}
+                      <li
+                        onClick={() => router.push(submenu.url)}
                         key={submenu.label}
-                        className={`pl-10 py-[8px] text-sm cursor-pointer ${
-                          pathname === submenu.url
-                            ? "bg-primary font-medium rounded text-white"
-                            : "font-normal"
-                        }`}
+                        className="pl-10 relative"
                       >
-                        {submenu.label}
+                        {
+                          <div className="h-[42px] w-[14px] border-l border-b  rounded-bl-lg mb-[16px] absolute left-[18px] bottom-0 border-gray-300 dark:border-gray-500"></div>
+                        }
+                        <span
+                          className={`pl-4 py-[6px] block text-sm cursor-pointer relative ${
+                            pathname === submenu.url
+                              ? "bg-primary font-medium rounded text-white"
+                              : "font-normal"
+                          }`}
+                        >
+                          {submenu.label}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -165,7 +174,7 @@ export default function SideBar() {
         </ul>
 
         <Menu>
-          <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-800 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
+          <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-700 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
             <div className="flex items-center gap-x-3">
               <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-800 rounded-lg items-center justify-center text-sm">
                 {" "}
@@ -192,7 +201,7 @@ export default function SideBar() {
           <MenuItems
             transition
             anchor="bottom end"
-            className="w-44 origin-top-right shadow-black mt-1 rounded-lg border border-gray-100 dark:border-gray-600 bg-white dark:bg-gray-800 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
+            className="w-44 origin-top-right shadow-black mt-1 rounded-lg border border-gray-100 dark:border-gray-600 bg-white dark:bg-gray-700 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
           >
             <MenuItem>
               <span className="text-secondary dark:text-white cursor-pointer group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 text-">

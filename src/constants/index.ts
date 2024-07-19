@@ -7,7 +7,7 @@ export const navigations = [
   },
   {
     label: "Customers",
-    icon: "grommet-icons:group",
+    icon: "solar:users-group-two-rounded-linear",
     asSub: true,
     url: "/dashboard/customers",
     submenus: [
@@ -18,6 +18,10 @@ export const navigations = [
       {
         label: "Activities",
         url: "/dashboard/customers/activities",
+      },
+      {
+        label: "Sanctions",
+        url: "/dashboard/customers/sanctions",
       },
     ],
   },
@@ -143,5 +147,165 @@ export const StatusOptions = [
   {
     label: "Disabled",
     value: "disabled",
+  },
+];
+
+export const WalletBalanceOptions = [
+  {
+    label: "Wallet Balance",
+    key: "balance",
+    isCurrency: true,
+  },
+  {
+    label: "Total Assets",
+    key: "assets",
+    isCurrency: false,
+  },
+];
+
+export const PersonalInformationData = [
+  {
+    label: "Join date",
+    key: "joinDate",
+    value: "",
+  },
+  {
+    label: "Last Seen",
+    key: "lastSeen",
+    value: "",
+  },
+  {
+    label: "First name",
+    key: "firstName",
+    value: "",
+  },
+  {
+    label: "Last name",
+    key: "lastName",
+    value: "",
+  },
+  {
+    label: "Username",
+    key: "username",
+    value: "",
+  },
+  {
+    label: "Phone number",
+    key: "phoneNumber",
+    value: "",
+  },
+  {
+    label: "Gender",
+    key: "gender",
+    value: "",
+  },
+  {
+    label: "Address",
+    key: "address",
+    value: "",
+  },
+  {
+    label: "Country",
+    key: "country",
+    value: "",
+  },
+
+  {
+    label: "Device info",
+    key: "deviceInfo",
+    value: "",
+  },
+];
+
+export const KinData = [
+  {
+    label: "First name",
+    key: "firstName",
+    value: "",
+  },
+  {
+    label: "Last name",
+    key: "lastName",
+    value: "",
+  },
+  {
+    label: "Relationship",
+    key: "relationship",
+    value: "",
+  },
+  {
+    label: "Email address",
+    key: "emailAddress",
+    value: "",
+  },
+  {
+    label: "Phone number",
+    key: "phoneNumber",
+    value: "",
+  },
+  {
+    label: "Address",
+    key: "address",
+    value: "",
+  },
+];
+
+const DeviceInfoData = [
+  {
+    label: "name",
+    key: "",
+  },
+  {
+    label: "ip",
+    key: "",
+  },
+  {
+    label: "a",
+    key: "",
+  },
+  {
+    label: "name",
+    key: "",
+  },
+  {
+    label: "name",
+    key: "",
+  },
+];
+export const EmailTypes = [
+  {
+    label: "Announcement",
+    value: "announcement",
+  },
+  {
+    label: "Maintenance",
+    value: "maintenance",
+  },
+  {
+    label: "Swap update",
+    value: "swap_update",
+  },
+  {
+    label: "P2P update",
+    value: "p2p_update",
+  },
+  {
+    label: "ZendUsd update",
+    value: "zend_usd_update",
+  },
+  {
+    label: "Other",
+    value: "other",
+  },
+];
+
+export const NotifyTypes = [
+  {
+    label: "Email notification",
+    value: "email",
+  },
+  {
+    label: "Push notification",
+    value: "push",
   },
 ];
