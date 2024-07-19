@@ -41,7 +41,7 @@ const FileUpload = ({
         className="hidden"
       />
       {children}
-      <span className="text-sm text-gray-700 truncate" style={{ maxWidth: "200px" }}>
+      <span className="text-sm text-gray-700 dark:text-white/70 truncate" style={{ maxWidth: "200px" }}>
         {title || (
           <span className="text-lightdarkGrey50">No document chosen</span>
         )}
