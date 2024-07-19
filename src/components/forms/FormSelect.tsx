@@ -54,7 +54,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   return (
     <div>
       {label && (
-        <label className="block text-sm text-[#686878] mb-2">{label}</label>
+        <label className="block text-sm text-[#686878] dark:!text-white/70  mb-2">{label}</label>
       )}
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">

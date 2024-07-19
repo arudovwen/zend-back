@@ -64,7 +64,7 @@ const KinForm: React.FC<KinFormProps> = ({ setOpen, isOpen, type }) => {
             className="block mx-auto mb-6"
           />
         </div>
-        <h2 className="font-semibold text-lg mb-2 text-center capitalize">
+        <h2 className="font-semibold text-xl mb-2 text-center capitalize">
           {type === "ban" ? "Ban" : "Unlock"} User Account
         </h2>
         <p className="text-xs mb-10 text-[#555555] dark:text-white/70 max-w-[465px] text-center">
@@ -95,7 +95,7 @@ const KinForm: React.FC<KinFormProps> = ({ setOpen, isOpen, type }) => {
           <div className="flex gap-x-5 items-center">
             <ButtonComponent
               onClick={() => setOpen(false)}
-              className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary items-center"
+              className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary dark:!text-white/80  items-center"
               type="button" // Changed to "button" type for cancel button
               isLoading={loading}
             >

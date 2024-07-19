@@ -27,7 +27,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
   return (
     <CenterModal setOpen={() => {}} open={isOpen}>
       <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white py-8 px-8 rounded-lg">
-        <h2 className="font-semibold text-lg mb-10 text-center">
+        <h2 className="font-semibold text-xl mb-10 text-center">
           Update Personal information
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -92,7 +92,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
           <div className="flex gap-x-5 items-center">
             <ButtonComponent
               onClick={() => setOpen(false)}
-              className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary items-center"
+              className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary dark:!text-white/80  items-center"
               type="submit"
               isLoading={loading}
             >
