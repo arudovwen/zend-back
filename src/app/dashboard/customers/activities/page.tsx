@@ -32,12 +32,12 @@ export default function Activities() {
         />
       </div>
       <div>
-        <div className="mb-6 flex justify-between items-center">
+        <div className="mb-6 flex  flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
             placeholder="Search name or email"
-            className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded max-w-[280px] w-full"
+            className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
-          <div className="flex gap-x-4 items-center">
+          <div className="flex gap-x-4 items-center flex-col lg:flex-row gap-y-2 w-full lg:w-auto">
             <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800 text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={[]}
@@ -52,7 +52,7 @@ export default function Activities() {
               onChange={handleValueChange}
               placeholder="Filter dates"
               inputClassName="border w-full px-3 py-2 rounded bg-white dark:bg-gray-800 text-secondary dark:text-white/80 border-gray-100 dark:border-gray-500"
-              containerClassName="rounded-lg relative text-sm lg:w-[260px] min-w-[250px] text-secondary z-[99]"
+              containerClassName="rounded-lg relative text-sm w-full lg:w-[260px] min-w-[250px] text-secondary z-[99]"
             />
           </div>
         </div>

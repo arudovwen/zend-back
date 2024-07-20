@@ -11,7 +11,7 @@ export default function WalletBalance() {
           className="px-6 py-4 sm:py-5 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600 flex flex-col gap-y-[6px] sm:gap-y-2 items-center "
         >
           <span className="text-xs sm:text-sm text-gray-500  dark:text-white/50">{tab.label}</span>
-          <span className="text-xl sm:text-2xl font-semibold">
+          <span className="text-xl sm:text-2xl font-semibold text-secondary dark:text-white/90">
             {tab.isCurrency ? formatCurrency(100000) : 15}
           </span>
         </div>

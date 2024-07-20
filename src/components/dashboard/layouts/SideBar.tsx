@@ -107,7 +107,7 @@ export default function SideBar() {
                           className={`pl-4 py-[6px] block text-sm cursor-pointer relative ${
                             pathname === submenu.url
                               ? "bg-primary font-medium rounded text-white"
-                              : "font-normal"
+                              : "font-normal text-secondary dark:text-white/80"
                           }`}
                         >
                           {submenu.label}

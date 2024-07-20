@@ -23,18 +23,18 @@ export default function Activities() {
             placeholder="Search name or email"
             className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded md:max-w-[280px] w-full"
           />
-          <div className="flex gap-x-4 items-center">
+          <div className="flex  gap-x-4 items-center w-full lg:w-auto">
             <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800 text-sm px-[14px] py-[7px] rounded min-w-[180px]"
+              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800 text-sm px-[14px] py-[7px] rounded md:min-w-[180px]"
               options={[]}
               placeholder="All customers"
             />
             <AppButton
-              text="Check sanction list"
+              text="Sanction list"
               icon="solar:eye-linear"
               iconClass="text-sm"
               type="button"
-              btnClass="!bg-primary !border-primary !text-white"
+              btnClass="!bg-primary !border-primary !text-white flex-1 whitespace-nowrap"
               onClick={() => router.push("/customers/sanctions/list")}
             />
           </div>

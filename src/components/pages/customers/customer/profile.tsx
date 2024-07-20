@@ -21,7 +21,7 @@ export default function Profile() {
         </div>
         <div>
           <div className="mb-4">
-            <span className="block font-medium text-sm">John Snow</span>
+            <span className="block font-medium text-sm text-secondary dark:text-white/90">John Snow</span>
             <span className="block text-xs text-secondary/80 dark:text-gray-400">
               johnsnoe@email.com
             </span>
@@ -36,7 +36,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="flex gap-x-4 items-center">
+      <div className="flex gap-x-4 items-center justify-center md:justify-start">
         <AppButton
           text="Ban Account"
           icon="solar:forbidden-circle-linear"

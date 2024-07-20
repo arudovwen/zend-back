@@ -30,7 +30,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   }, [selected]);
 
   return (
-    <div>
+    <div className="w-full  lg:max-w-[180px]">
       {label && (
         <label className="block text-sm text-[#686878] mb-2">{label}</label>
       )}
