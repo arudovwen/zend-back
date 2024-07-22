@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
-import AppIcon from "@/components/AppIcon";
 import { AnalysisTab } from "@/constants";
-import formatCurrency from "@/utils/formatCurrency"
+import GridTab from "@/components/GridTab";
 
 export default function Analysis() {
   const [value, setValue] = useState<{
@@ -43,24 +42,8 @@ export default function Analysis() {
       </div>
       <div className="grid grid-cols-1 md:gric-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 w-full">
         {AnalysisTab.map((tab) => (
-          <div
-            key={tab.label}
-            className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600 flex gap-x-3 items-center "
-          >
-            <span className="h-14 w-14 rounded flex items-center justify-center border border-gray-100 dark:border-gray-600 ">
-              <AppIcon
-                icon={tab.icon}
-                iconClass="text-3xl text-[#475467] dark:text-white"
-              />
-            </span>
-            <span className="block">
-              <span className="block leading-tight text-[#475467] dark:text-white text-sm font-normal mb-1">
-                {tab.label}
-              </span>
-              <span className="block leading-tight text-[#475467] dark:text-white text-2xl font-semibold">
-                {formatCurrency(120000)}
-              </span>
-            </span>
+          <div key={tab.label}>
+            <GridTab tab={tab} />
           </div>
         ))}
       </div>{" "}

@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import QuickSellComponent from "@/components/pages/quicksell";
 
-export default function QucikSell() {
+export default function QuickSell() {
   return (
-    <div>Quick Sell</div>
-  )
+    <div>
+      <QuickSellComponent />
+    </div>
+  );
 }

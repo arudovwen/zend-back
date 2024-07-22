@@ -35,7 +35,7 @@ export default function Activities() {
               iconClass="text-sm"
               type="button"
               btnClass="!bg-primary !border-primary !text-white flex-1 whitespace-nowrap"
-              onClick={() => router.push("/customers/sanctions/list")}
+              onClick={() => router.push("/dashboard/customers/sanctions/list")}
             />
           </div>
         </div>

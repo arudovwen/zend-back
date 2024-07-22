@@ -30,7 +30,9 @@ export default function Transactions() {
         <div className=" w-full ">
           <TableCard
             columns={
-              activeTab === "swap" ? OverviewSwapHeader : OverviewTokenHeader
+              activeTab === "swap"
+                ? OverviewSwapHeader.filter((i) => i.key !== "action")
+                : OverviewTokenHeader.filter((i) => i.key !== "action")
             }
             rows={[]}
           />

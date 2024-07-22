@@ -1,7 +1,8 @@
 import React from 'react'
+import AssetsComponent from "@/components/pages/assets";
 
 export default function Assets() {
   return (
-    <div className='template'>Assets</div>
+    <div className=''><AssetsComponent/></div>
   )
 }

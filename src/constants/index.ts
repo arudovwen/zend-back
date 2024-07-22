@@ -40,17 +40,39 @@ export const navigations = [
   {
     label: "P2P Management",
     icon: "ri:p2p-line",
-    asSub: false,
+    asSub: true,
     url: "/dashboard/p2p-management",
+    submenus: [
+      {
+        label: "Recent Orders",
+        url: "/dashboard/p2p-management/orders",
+      },
+      {
+        label: "Recent Ads",
+        url: "/dashboard/p2p-management/ads",
+      },
+      
+    ],
   },
   {
     label: "Administrators",
     icon: "ic:outline-admin-panel-settings",
-    asSub: false,
+    asSub: true,
     url: "/dashboard/administrators",
+    submenus: [
+      {
+        label: "List",
+        url: "/dashboard/administrators/list",
+      },
+      {
+        label: "Activities",
+        url: "/dashboard/administrators/activities",
+      },
+      
+    ],
   },
   {
-    label: "Verification",
+    label: "Verifications",
     icon: "hugeicons:user-id-verification",
     asSub: false,
     url: "/dashboard/administrators",
@@ -102,6 +124,29 @@ export const OverviewTabs = [
   },
   {
     label: "Closed customers",
+    icon: "icons8:remove-user",
+    key: "closed",
+  },
+];
+
+export const AssetsTab = [
+  {
+    label: "Total assets",
+    icon: "flowbite:users-group-outline",
+    key: "total",
+  },
+  {
+    label: "Total withdrawals (USD)",
+    icon: "solar:user-check-linear",
+    key: "active",
+  },
+  {
+    label: "Total deposits (USD)",
+    icon: "hugeicons:user-block-01",
+    key: "banned",
+  },
+  {
+    label: "Total swapped",
     icon: "icons8:remove-user",
     key: "closed",
   },

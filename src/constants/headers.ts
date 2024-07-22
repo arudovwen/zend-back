@@ -70,6 +70,11 @@ export const OverviewSwapHeader = [
     key: "status",
     isHtml: false,
   },
+  {
+    header: "",
+    key: "action",
+    isHtml: false,
+  },
 ];
 
 export const OverviewTokenHeader = [
@@ -108,8 +113,223 @@ export const OverviewTokenHeader = [
       key: "status",
       isHtml: false,
     },
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+
+  export const AssetsHeader = [
+   
+    {
+      header: "Customer",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Coins",
+      key: "token",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "amount",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
   ];
   
+  export const AdministratorHeader = [
+   
+    {
+      header: "Name",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Role",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+
+  export const VarificationsHeader = [
+   
+    {
+      header: "Date submitted",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Type",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+
+  export const QuickSellHeader = [
+   
+    {
+      header: "Customer",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Email address",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Account information",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Coin",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "Amount in USD",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "Transaction ID",
+      key: "status",
+      isHtml: false,
+    },
+    {
+      header: "Country",
+      key: "country",
+      isHtml: false,
+    },
+    {
+      header: "Rate",
+      key: "rate",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+  
+  export const ReferralHeader = [
+   
+    {
+      header: "User ID",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Referrer name ",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Total referrals",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Total earnings",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Commissions earned",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+  export const ReferralRankingsHeader = [
+   
+    {
+      header: "Rank",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Username",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Referrer name ",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Total referrals",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Total earnings",
+      key: "role",
+      isHtml: false,
+    },
+
+  ];
 
   export const CustomerListHeader = [
     {

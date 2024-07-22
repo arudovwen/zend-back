@@ -4,13 +4,17 @@ import HeaderComponent from "@/components/HeaderComponent";
 import Select from "@/components/forms/Select";
 import TableCard from "@/components/table";
 import { CustomerListHeader } from "@/constants/headers";
-import {StatusOptions,GenderOptions} from "@/constants"
+import { StatusOptions, GenderOptions } from "@/constants";
+import { useParams } from "next/navigation";
 
 export default function List() {
+  const params = useParams();
+  const { user } = params
+
   return (
     <section>
       <div className="mb-8">
-        <HeaderComponent title="Customers" sub="List of customers" />
+        <HeaderComponent title={user} sub={`List of ${user}`} />
       </div>
       <div>
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
@@ -22,14 +26,14 @@ export default function List() {
             <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px] w-full"
               options={[]}
-              placeholder="Select Country"
+              placeholder="Select token"
             />
-              <Select
+            <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={StatusOptions}
               placeholder="Select Status"
             />
-              <Select
+            <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={GenderOptions}
               placeholder="Select Gender"

@@ -3,7 +3,7 @@ import React from "react";
 export default function HeaderComponent({ title, sub }: any) {
   return (
     <div>
-      <h1 className="text-base font-semibold text-secondary dark:text-white">
+      <h1 className="text-base font-semibold text-secondary dark:text-white capitalize">
         {title}
       </h1>
       {sub && (

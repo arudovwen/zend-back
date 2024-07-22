@@ -1,7 +1,11 @@
-import React from 'react'
+"use client"
+import React from "react";
+import TransactionsComponent from "@/components/pages/transactions";
 
 export default function Transactions() {
   return (
-    <div>Transactions</div>
-  )
+    <div>
+      <TransactionsComponent />
+    </div>
+  );
 }

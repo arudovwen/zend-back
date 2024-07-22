@@ -76,3 +76,18 @@ body {
     color: #ffffff90 !important;
   }
 }
+@media (prefers-color-scheme: light) {
+  .ck.ck-button:not(.ck-disabled):hover, .ck-dropdown__panel, .ck-editor__editable_inline, .ck-list {
+     background: white !important;
+     color: #333 !important;
+   }
+   .ck-toolbar {
+     background: #fff !important;
+     color: #333 !important;
+   }
+   .ck,
+   .ck-button__label,
+   .ck-icon {
+     color: #333 !important;
+   }
+ }
