@@ -29,14 +29,14 @@ export default function Activities() {
               options={[]}
               placeholder="All customers"
             />
-            <AppButton
+            {/* <AppButton
               text="Sanction list"
               icon="solar:eye-linear"
               iconClass="text-sm"
               type="button"
               btnClass="!bg-primary !border-primary !text-white flex-1 whitespace-nowrap"
               onClick={() => router.push("/dashboard/customers/sanctions/list")}
-            />
+            /> */}
           </div>
         </div>
         <div className=" w-full ">

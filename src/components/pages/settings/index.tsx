@@ -28,7 +28,7 @@ export default function SettingsComponent() {
       <div>
         <AppTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
       </div>
-      <div>{tabs.find((i) => i.key === activeTab)?.component}</div>
+      <div className="max-w-[968px]">{tabs.find((i) => i.key === activeTab)?.component}</div>
     </section>
   );
 }

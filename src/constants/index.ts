@@ -149,6 +149,33 @@ export const AssetsTab = [
     key: "closed",
   },
 ];
+export const VerificationTab = [
+  {
+    label: "Business",
+    icon: "flowbite:users-group-outline",
+    key: "total",
+  },
+  {
+    label: "Email Address",
+    icon: "icons8:remove-user",
+    key: "closed",
+  },
+  {
+    label: "BVN",
+    icon: "solar:user-check-linear",
+    key: "active",
+  },
+  {
+    label: "Government ID",
+    icon: "hugeicons:user-block-01",
+    key: "banned",
+  },
+  {
+    label: "Phone number",
+    icon: "icons8:remove-user",
+    key: "closed",
+  },
+];
 
 export const QuickSellOrdersTab = [
   {

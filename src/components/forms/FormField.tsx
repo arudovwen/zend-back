@@ -22,6 +22,7 @@ interface FormFieldProps {
   isOtp?: boolean;
   setValue?: any;
   trigger?: any;
+  suffix?: any;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -41,6 +42,7 @@ const FormField: React.FC<FormFieldProps> = ({
   numInputs = 6,
   setValue,
   trigger,
+  suffix
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [otp, setOtp] = useState("");
@@ -122,7 +124,7 @@ const FormField: React.FC<FormFieldProps> = ({
                  {isPasswordVisible ? <AppIcon icon="jam:padlock-alt-open" /> : <AppIcon icon="jam:padlock-alt" /> }
               </button>
             ) : (
-              icon
+              <span className="text-sm">{icon}</span>
             )}
           </span>
         )}

@@ -3,10 +3,15 @@ import TableCard from "@/components/table";
 import { RoleHeader } from "@/constants/headers";
 import Select from "@/components/forms/Select";
 import AppButton from "@/components/AppButton";
+import HeaderComponent from "@/components/HeaderComponent";
+
 
 export default function Roles() {
   return (
-    <div className='max-w-[946px] mx-auto'>
+    <div className='max-w-[946px]'>
+         <div className="mb-10">
+     <HeaderComponent title="Roles & Permissions" sub="Manage list of roles and permissions" />
+     </div>
         <div className="mb-6 flex justify-between flex-col lg:flex-row gap-y-4 items-center">
           <input
             placeholder="Search role"
