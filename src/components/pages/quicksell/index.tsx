@@ -26,7 +26,7 @@ export default function QuickSellComponent() {
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-10">
         <HeaderComponent
           title="Quick sell"
           sub="View list of recent ads"

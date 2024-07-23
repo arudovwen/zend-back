@@ -25,7 +25,7 @@ export default function Activities() {
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-10">
         <HeaderComponent
           title="Activities"
           sub="History of customer activities"

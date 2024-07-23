@@ -51,7 +51,6 @@ export const navigations = [
         label: "Recent Ads",
         url: "/dashboard/p2p-management/ads",
       },
-      
     ],
   },
   {
@@ -68,20 +67,19 @@ export const navigations = [
         label: "Activities",
         url: "/dashboard/administrators/activities",
       },
-      
     ],
   },
   {
     label: "Verifications",
     icon: "hugeicons:user-id-verification",
     asSub: false,
-    url: "/dashboard/administrators",
+    url: "/dashboard/verifications",
   },
   {
     label: "Referral Monitor",
     icon: "heroicons:trophy",
     asSub: false,
-    url: "/dashboard/administrators",
+    url: "/dashboard/referrals",
   },
   {
     label: "Quick sell",
@@ -147,6 +145,34 @@ export const AssetsTab = [
   },
   {
     label: "Total swapped",
+    icon: "icons8:remove-user",
+    key: "closed",
+  },
+];
+
+export const QuickSellOrdersTab = [
+  {
+    label: "Approved orders",
+    icon: "flowbite:users-group-outline",
+    key: "total",
+  },
+  {
+    label: "Rejected orders",
+    icon: "flowbite:users-group-outline",
+    key: "total",
+  },
+  {
+    label: "Pending orders",
+    icon: "solar:user-check-linear",
+    key: "active",
+  },
+  {
+    label: "Total amount (BTC)",
+    icon: "hugeicons:user-block-01",
+    key: "banned",
+  },
+  {
+    label: "Total amount (USDC)",
     icon: "icons8:remove-user",
     key: "closed",
   },
@@ -295,26 +321,83 @@ export const KinData = [
   },
 ];
 
-const DeviceInfoData = [
+const BankDetailData = [
   {
-    label: "name",
+    label: "Account name",
     key: "",
   },
   {
-    label: "ip",
+    label: "Account number",
     key: "",
   },
   {
-    label: "a",
+    label: "Bank name",
+    key: "",
+  },
+];
+const OrderDetailData = [
+  {
+    label: "Token type",
     key: "",
   },
   {
-    label: "name",
+    label: "amount",
     key: "",
   },
   {
-    label: "name",
+    label: "Value in USD",
     key: "",
+  },
+  {
+    label: "Transaction ID",
+    key: "",
+  },
+];
+const RateDetailData = [
+  {
+    label: "Base currency",
+    key: "",
+  },
+  {
+    label: "Token type",
+    key: "",
+  },
+  {
+    label: "Rate",
+    key: "",
+  },
+];
+const MoreDetailData = [
+  {
+    label: "Status",
+    key: "status",
+  },
+  {
+    label: "Date & time",
+    key: "",
+  },
+  {
+    label: "Reason",
+    key: "reason",
+  },
+];
+
+export const OrderInformationData = [
+  {
+    label: "Details of Order",
+    data: OrderDetailData,
+  },
+  {
+    label: "Details of Rate",
+    data: RateDetailData,
+  },
+  {
+    label: "Bank details",
+    data: BankDetailData,
+  },
+  {
+    label: "More details",
+    data: MoreDetailData,
   },
 ];
 export const EmailTypes = [

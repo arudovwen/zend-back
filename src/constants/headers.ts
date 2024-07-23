@@ -149,6 +149,25 @@ export const OverviewTokenHeader = [
       isHtml: false,
     },
   ];
+  export const AssetHeader = [
+   
+    {
+      header: "Token",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Funding balance",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Trading balance",
+      key: "token",
+      isHtml: false,
+    },
+ 
+  ];
   
   export const AdministratorHeader = [
    
@@ -251,6 +270,41 @@ export const OverviewTokenHeader = [
     },
     {
       header: "Rate",
+      key: "rate",
+      isHtml: false,
+    },
+  
+    {
+      header: "",
+      key: "action",
+      isHtml: false,
+    },
+  ];
+  export const QuickSellOrderHeader = [
+   
+    {
+      header: "Date & Time",
+      key: "name",
+      isHtml: false,
+    },
+    {
+      header: "Token type",
+      key: "transactionId",
+      isHtml: false,
+    },
+    {
+      header: "Rate",
+      key: "role",
+      isHtml: false,
+    },
+    {
+      header: "Amount",
+      key: "status",
+      isHtml: false,
+    },
+  
+    {
+      header: "Status",
       key: "rate",
       isHtml: false,
     },

@@ -13,7 +13,7 @@ export default function List() {
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-10">
         <HeaderComponent title={user} sub={`List of ${user}`} />
       </div>
       <div>

@@ -31,7 +31,7 @@ export default function Transactions () {
       const [activeTab, setActiveTab] = useState(tabs[0].key);
   return (
     <section>
-       <div className="mb-8">
+       <div className="mb-10">
         <HeaderComponent
           title="Transactions"
           sub="History of customer swaps and deposit transaction"

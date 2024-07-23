@@ -11,7 +11,7 @@ export default function Activities() {
   const router = useRouter();
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-10">
         <HeaderComponent
           title="Sanction Verification"
           sub="History of customer sanctions and verification"

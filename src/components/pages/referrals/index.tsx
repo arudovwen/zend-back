@@ -31,7 +31,7 @@ export default function ReferralComponent () {
       const [activeTab, setActiveTab] = useState(tabs[0].key);
   return (
     <section>
-       <div className="mb-8">
+       <div className="mb-10">
         <HeaderComponent
           title="Referral monitoring"
           sub="Track & Manage Users Referrals"

@@ -4,24 +4,19 @@ import AppTab from "@/components/AppTab";
 import HeaderComponent from "@/components/HeaderComponent";
 import TableCard from "@/components/table";
 import AppIcon from "@/components/AppIcon";
-import { AssetsTab } from "@/constants";
+import { QuickSellOrdersTab } from "@/constants";
 import Select from "@/components/forms/Select";
-import { AssetsHeader } from "@/constants/headers";
+import { QuickSellOrderHeader } from "@/constants/headers";
 import GridTab from "@/components/GridTab";
 
-export default function AssetsComponent() {
-  const tabs = [
-    { title: "swap transactions", key: "swap" },
-    { title: "token transactions", key: "token" },
-  ];
-  const [activeTab, setActiveTab] = useState(tabs[0].key);
+export default function OrdersComponent() {
   return (
     <section>
       <div className="mb-10">
-        <HeaderComponent title="Assets" sub="List of customers assets" />
+        <HeaderComponent title="Orders" sub="List of quicksell orders" />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6  w-full mb-10">
-        {AssetsTab.map((tab) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-4  w-full mb-10">
+        {QuickSellOrdersTab.map((tab) => (
           <div key={tab.label}>
             <GridTab
               tab={tab}
@@ -42,14 +37,10 @@ export default function AssetsComponent() {
               options={[]}
               placeholder="Select status"
             />
-            <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-              options={[]}
-              placeholder="Select customer"
-            />
+       
           </div>
         </div>
-        <TableCard columns={AssetsHeader} rows={[]} />
+        <TableCard columns={QuickSellOrderHeader} rows={[]} />
       </div>
     </section>
   );

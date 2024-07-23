@@ -26,10 +26,10 @@ export default function VerficationComponent() {
 
   return (
     <section>
-      <div className="mb-8">
+      <div className="mb-10">
         <HeaderComponent
-          title="Referral monitoring"
-          sub="Track & Manage Users Referrals"
+          title="Verifications"
+          sub="Track & Manage Users verification history on the system"
         />
       </div>
 
