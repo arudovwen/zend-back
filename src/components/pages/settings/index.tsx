@@ -6,11 +6,13 @@ import Account from "./account";
 import Rates from "./rate";
 import Roles from "./roles";
 import Security from "./security";
+import Team from "./team";
 
 export default function SettingsComponent() {
   const tabs = [
     { title: "Account information", key: "account", component: <Account /> },
     { title: "Roles & Permissions", key: "roles", component: <Roles /> },
+    { title: "Team", key: "tean", component: <Team /> },
     { title: "Security settings", key: "security", component: <Security /> },
     { title: "Rate settings", key: "rate", component: <Rates /> },
   ];

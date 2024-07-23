@@ -9,7 +9,7 @@ export default function Kin() {
   return (
     <div>
       <div className="flex justify-between w-full items-center mb-4">
-        <h2 className="font-semibold text-sm">Next of kin information</h2>
+        <h2 className="font-semibold text-sm text-secondary dark:text-white/80">Next of kin information</h2>
         <div>
           {" "}
           <AppButton
