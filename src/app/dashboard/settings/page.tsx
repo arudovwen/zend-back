@@ -1,7 +1,9 @@
-import React from 'react'
-
+import React from "react";
+import SettingsComponent from "@/components/pages/settings";
 export default function Settings() {
   return (
-    <div>Settings</div>
-  )
+    <section>
+      <SettingsComponent />
+    </section>
+  );
 }
