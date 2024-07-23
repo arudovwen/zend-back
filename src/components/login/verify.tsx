@@ -70,7 +70,7 @@ export default function VerifyLogin() {
 
         <div className="mb-6 text-secondary dark:text-white/80">
           {counter === 0 ? (
-            <p className="text-xs" onClick={handleSendOtp}>
+            <p className="text-xs cursor-pointer text-primary" onClick={handleSendOtp}>
               <span onClick={() => setCounter(50)}> Resend Code </span>
             </p>
           ) : (

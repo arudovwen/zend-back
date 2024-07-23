@@ -37,7 +37,7 @@ export default function Team() {
             />
           </div>
         </div>
-        <div className="flex-1 py-8 px-6 sm:px-10 bg-white dark:bg-gray-700 rounded-lg border border-gray-100    dark:border-gray-600">
+        <div className="flex-1">
           <div className="max-w-[1024px] pb-10">
             {selected === "pending" && <Pending />}
             {selected === "active" && <Active />}

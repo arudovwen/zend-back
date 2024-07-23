@@ -473,6 +473,20 @@ export const OverviewTokenHeader = [
     },
   
   ];
+  export const RoleHeader = [
+    {
+      header: "name",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "description",
+      key: "date",
+      isHtml: false,
+    },
+
+  
+  ];
 
   export const KycHeader = [
     {
@@ -510,4 +524,59 @@ export const OverviewTokenHeader = [
       key: "action",
       isHtml: false,
     },
+  ];
+  export const ActiveTeamHeader = [
+    {
+      header: "name",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "Date",
+      key: "date",
+      isHtml: false,
+    },
+    {
+      header: "Last active",
+      key: "date",
+      isHtml: false,
+    },
+
+    {
+      header: "role",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "action",
+      key: "date",
+      isHtml: false,
+    },
+
+  
+  ];
+  export const PendingTeamHeader = [
+    {
+      header: "name",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "Date",
+      key: "date",
+      isHtml: false,
+    },
+
+    {
+      header: "role",
+      key: "customer",
+      isHtml: false,
+    },
+    {
+      header: "action",
+      key: "date",
+      isHtml: false,
+    },
+
+  
   ];
