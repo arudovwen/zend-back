@@ -1,23 +1,34 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getItem } from "@/utils/localStorageControl";
+import { getCookie } from "cookies-next";
 
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_ENDPOINT = process.env.NEXT_PUBLIC_USER_ENDPOINT;
+// Retrieve the token from cookies
+const getToken = () => {
+  return getCookie("token"); // This works client-side
+};
 
 const authHeader = () => ({
-  Authorization: `Bearer ${getItem("accessToken")}`,
+  Authorization: `Bearer ${getToken()}`,
 });
 
-const client = axios.create({
-  baseURL: API_ENDPOINT,
-  headers: {
-    Authorization: `Bearer ${getItem("accessToken")}`,
-    "Content-Type": "application/json",
-  },
-});
+const createClient = (baseURL = process.env.NEXT_PUBLIC_USER_ENDPOINT) => {
+  const token = getToken();
+
+  return axios.create({
+    baseURL,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "", // Include Bearer token if it exists
+      "Content-Type": "application/json",
+    },
+  });
+};
 
 class DataService {
-  static get(path = "") {
+  static client = createClient();
+
+  static get(path = "", baseURL) {
+    const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "GET",
       url: path,
@@ -25,7 +36,8 @@ class DataService {
     });
   }
 
-  static post(path = "", data = {}, optionalHeader = {}) {
+  static post(path = "", data = {}, optionalHeader = {}, baseURL) {
+    const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "POST",
       url: path,
@@ -34,7 +46,8 @@ class DataService {
     });
   }
 
-  static patch(path = "", data = {}) {
+  static patch(path = "", data = {}, baseURL) {
+    const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "PATCH",
       url: path,
@@ -43,7 +56,8 @@ class DataService {
     });
   }
 
-  static delete(path = "", data = {}) {
+  static delete(path = "", data = {}, baseURL) {
+    const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "DELETE",
       url: path,
@@ -52,7 +66,8 @@ class DataService {
     });
   }
 
-  static put(path = "", data = {}) {
+  static put(path = "", data = {}, baseURL) {
+    const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "PUT",
       url: path,
@@ -66,9 +81,8 @@ class DataService {
  * axios interceptors runs before and after a request, letting the developer modify req,req more
  * For more details on axios interceptor see https://github.com/axios/axios#interceptors
  */
-client.interceptors.request.use((config) => {
+DataService.client.interceptors.request.use((config) => {
   // do something before executing the request
-  // For example tag along the bearer access token to request header or set a cookie
   const requestConfig = config;
   const { headers } = config;
   requestConfig.headers = {
@@ -79,7 +93,7 @@ client.interceptors.request.use((config) => {
   return requestConfig;
 });
 
-client.interceptors.response.use(
+DataService.client.interceptors.response.use(
   (response) => response,
   (error) => {
     const { response } = error;
@@ -89,18 +103,15 @@ client.interceptors.response.use(
       if (response.status === 500) {
         toast.error(response.data.message);
       } else if (response.status === 401) {
-        Notification.error({
-          message: "Error",
-          description: "Token expired",
-        });
-
+        toast.error("Token expired");
         localStorage.clear();
         window.location.href = `/auth/login?redirect_from=${window.location.href}`;
       } else {
-        return Promise.reject(error);;
+        return Promise.reject(error);
       }
     }
     return Promise.reject(error);
   }
 );
+
 export { DataService };

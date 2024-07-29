@@ -61,22 +61,7 @@ body {
 .ck-editor__editable_inline {
   min-height: 260px;
 }
-@media (prefers-color-scheme: dark) {
- .ck.ck-button:not(.ck-disabled):hover, .ck-dropdown__panel, .ck-editor__editable_inline, .ck-list {
-    background: #1f2937 !important;
-    color: #ffffff90 !important;
-  }
-  .ck-toolbar {
-    background: #1f2937 !important;
-    color: #ffffff90 !important;
-  }
-  .ck,
-  .ck-button__label,
-  .ck-icon {
-    color: #ffffff90 !important;
-  }
-}
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   .ck.ck-button:not(.ck-disabled):hover, .ck-dropdown__panel, .ck-editor__editable_inline, .ck-list {
      background: white !important;
      color: #333 !important;
@@ -90,4 +75,19 @@ body {
    .ck-icon {
      color: #333 !important;
    }
- }
+ } */
+/* @media (prefers-color-scheme: dark) { */
+  .dark_editor .ck.ck-button:not(.ck-disabled):hover,   .dark_editor .ck-dropdown__panel,  .dark_editor .ck-editor__editable_inline,  .dark_editor .ck-list {
+    background: #1f2937 !important;
+    color: #ffffff90 !important;
+  }
+  .dark_editor .ck-toolbar {
+    background: #1f2937 !important;
+    color: #ffffff90 !important;
+  }
+  .dark_editor .ck,
+  .dark_editor .ck-button__label,
+  .dark_editor .ck-icon {
+    color: #ffffff90 !important;
+  }
+/* } */

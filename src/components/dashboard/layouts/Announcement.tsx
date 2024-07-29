@@ -60,7 +60,7 @@ export default function Announcement() {
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
-    console.log("Form data:", data);
+
     toast.success(`Form submitted successfully!`);
     setLoading(false);
     setOpen(false);
@@ -169,10 +169,20 @@ export default function Announcement() {
 
             <div>
               {getValues().notifyType === "email" ? (
-                <Editor
+              <>
+               <div className="block dark:hidden">
+                 <Editor
                   body={getValues().body}
                   setBody={(data: any) => setValue("body", data)}
                 />
+               </div>
+               <div className="hidden dark:block dark_editor">
+                 <Editor
+                  body={getValues().body}
+                  setBody={(data: any) => setValue("body", data)}
+                />
+               </div>
+              </>
               ) : (
                 <TextField
                   label={`Message`}

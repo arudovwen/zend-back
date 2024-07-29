@@ -1,4 +1,5 @@
 "use client";
+import { setCookie } from 'cookies-next';
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,10 +9,11 @@ import { useRouter } from "next/navigation";
 import { VerifyLoginSchema } from "@/schema";
 import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
+import { verifyOtp, resendOtp } from "@/services/authservice";
+import { getItem, setItem } from "@/utils/localStorageControl";
 
 export default function VerifyLogin() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [verifying, setVerifying] = useState(true);
   const [counter, setCounter] = useState(50);
   const router = useRouter();
   const {
@@ -26,10 +28,26 @@ export default function VerifyLogin() {
     resolver: yupResolver(VerifyLoginSchema),
   });
   const values = getValues();
-  const onSubmit = (data: any) => {
+  const onSubmit = ({ otp }: any) => {
     setLoading(true);
-    console.log("🚀 ~ onSubmit ~ data:", data.otp);
-    router.push("/dashboard");
+    const { emailAddress, id } = getItem("userData");
+
+    verifyOtp({ otp, administrator: id, platform: "web", email: emailAddress })
+      .then((res: any) => {
+        const { data } = res.data;
+        if (res.status === 200 && data?.isAuthorized) {
+          setItem("token", data?.accessToken);
+          setCookie("token", data?.accessToken);
+          router.push("/dashboard");
+          setLoading(false);
+        }
+      })
+      .catch((err: any) => {
+        toast.error(
+          err?.response?.data?.message || err?.response?.data?.Message
+        );
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -40,7 +58,11 @@ export default function VerifyLogin() {
     }
   }, [counter]);
 
-  function handleSendOtp() {}
+  function handleSendOtp() {
+    setCounter(50);
+    const { emailAddress } = getItem("userData");
+    resendOtp({ emailAddress });
+  }
   return (
     <div className="py-4">
       {" "}
@@ -70,7 +92,10 @@ export default function VerifyLogin() {
 
         <div className="mb-6 text-secondary dark:text-white/80">
           {counter === 0 ? (
-            <p className="text-xs cursor-pointer text-primary" onClick={handleSendOtp}>
+            <p
+              className="text-xs cursor-pointer text-primary"
+              onClick={handleSendOtp}
+            >
               <span onClick={() => setCounter(50)}> Resend Code </span>
             </p>
           ) : (

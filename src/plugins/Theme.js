@@ -23,7 +23,6 @@ export const toSystemMode = () => {
   return null;
 };
 export function updateTheme() {
-  console.log(localStorage.theme);
   if (!("theme" in localStorage)) {
     localStorage.theme = "light";
   }

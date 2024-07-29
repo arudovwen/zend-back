@@ -1,19 +1,23 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import { deleteCookie } from "cookies-next";
 import { Switch } from "@headlessui/react";
+import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { navigations, bottomNavigations } from "@/constants";
 import AppIcon from "@/components/AppIcon";
 import AppLogo from "@/components/AppLogo";
+import AppButton from '@/components/AppButton'
 import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import CenterModal from "@/components/modals/CenterModal";
 import TypeSwitch from "./TypeSwitch";
+import { logOut } from "@/services/authservice";
 
 export default function SideBar() {
   const [isOpen, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [openMenus, setopenMenus] = useState<any>([]);
   const router = useRouter();
   const pathname = usePathname();
@@ -38,6 +42,24 @@ export default function SideBar() {
         ? prev.filter((menu: any) => menu !== value)
         : [...prev, value]
     );
+  }
+
+  function handleLogout() {
+    setLoading(true);
+    logOut()
+      .then((res: any) => {
+        if (res.status === 200) {
+          localStorage.clear();
+          sessionStorage.clear();
+          deleteCookie("token");
+          router.push("/");
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err?.response?.data?.message);
+      });
   }
 
   return (
@@ -219,17 +241,20 @@ export default function SideBar() {
           </p>
           <div className="flex gap-x-4 items-center justify-center text-sm font-medium">
             <button
-              className="border border-gray-200 rounded px-3 py-1 w-full"
+              className="border border-gray-200 dark:!border-gray-600  rounded px-3 py-1 w-full"
               onClick={() => setOpen(false)}
             >
               No
             </button>
-            <button
-              onClick={() => router.push("/")}
-              className="border border-gray-200 rounded px-3 py-1 w-full text-red-500"
-            >
-              Yes
-            </button>
+            <AppButton
+              onClick={() => handleLogout()}
+              isDisabled={loading}
+              isLoading={loading}
+              btnClass="!border !border-gray-200 dark:!border-gray-600 !rounded !px-3 !py-1 w-full !text-red-500 dark:!text-red-300 !bg-transparent"
+              text="Yes"
+            />
+              
+      
           </div>
         </div>
       </CenterModal>

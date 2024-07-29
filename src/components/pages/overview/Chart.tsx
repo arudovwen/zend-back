@@ -66,7 +66,7 @@ export default function Chart() {
           fontSize: "16px",
           fontWeight: "bold",
           fontFamily: undefined,
-          color: "text-secondary dark:text-white/90",
+          color: "!text-secondary dark:text-white/90",
         },
       },
     subtitle: {
