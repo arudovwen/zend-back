@@ -146,7 +146,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   key={index}
                 >
                   {columns.map((column) => (
-                    <td className="text-sm text-[#454745] dark:text-white p-6" key={column.key}>
+                    <td className="text-sm text-[#454745] dark:text-white px-6 py-4" key={column.key}>
                       {column.isHtml ? (
                         <span
                           dangerouslySetInnerHTML={{ __html: row[column.key] }}

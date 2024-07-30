@@ -108,22 +108,22 @@ export const OverviewTabs = [
   {
     label: "Total customers",
     icon: "flowbite:users-group-outline",
-    key: "total",
+    key: "totalNumberOfUsers",
   },
   {
     label: "Active customers",
     icon: "solar:user-check-linear",
-    key: "active",
+    key: "totalNumberOfActiveUsers",
   },
   {
     label: "Banned customers",
     icon: "hugeicons:user-block-01",
-    key: "banned",
+    key: "totalNumberOfBannedUsers",
   },
   {
     label: "Closed customers",
     icon: "icons8:remove-user",
-    key: "closed",
+    key: "totalNumberOfDeletedUsers",
   },
 ];
 
@@ -209,17 +209,17 @@ export const AnalysisTab = [
   {
     label: "Total deposits",
     icon: "ph:hand-deposit-bold",
-    key: "",
+    key: "totalDeposits",
   },
   {
     label: "Total withdrawal",
     icon: "ph:hand-withdraw-bold",
-    key: "",
+    key: "totalWithdrawals",
   },
   {
     label: "Total swap",
     icon: "ph:swap-bold",
-    key: "",
+    key: "totalSwaps",
   },
 ];
 
@@ -463,4 +463,14 @@ export const NotifyTypes = [
     label: "Push notification",
     value: "push",
   },
+];
+
+export const AdminActivitiesData = [
+  { label: "Sign in", value: "sign_in" },
+  { label: "Sign out", value: "sign_out" },
+  { label: "Create admin", value: "create_administrator" },
+  { label: "Ban admin", value: "ban_administrator" },
+  { label: "Unban admin", value: "unban_administrator" },
+  { label: "Ban user", value: "ban_user" },
+  { label: "Unban user", value: "unban_user" },
 ];

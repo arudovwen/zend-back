@@ -13,7 +13,7 @@ export const truncate = (info: string, num: number) => {
     return str2;
   };
   
-  export const ucFirst = (data: string) => {
+  export const ucFirst = (data: any) => {
     if (!data) return;
     return data?.charAt(0).toUpperCase() + data.slice(1);
   };

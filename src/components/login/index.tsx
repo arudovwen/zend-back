@@ -42,7 +42,7 @@ export default function Login() {
       });
   };
   return (
-    <div className="py-4">
+    <div className="py-4 md:px-4">
       {" "}
       <h1 className="font-semibold text-xl text-center mb-1 text-secondary dark:text-white">
         Welcome Back

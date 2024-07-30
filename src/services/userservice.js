@@ -194,7 +194,7 @@ export const getUserKycDetail = async () => {
   );
 };
 
-export const getDashboardMetrics = async () => {
+export const getDashboardMetrics = async (payload) => {
   return get(
     `${url.TRANSACTION}/metrics?${new URLSearchParams(cleanObject(payload))}`
   );

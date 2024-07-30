@@ -1,7 +1,7 @@
 export const CustomerActivitiesHeader = [
   {
     header: "Customer",
-    key: "customer",
+    key: "name",
     isHtml: false,
   },
   {
@@ -11,7 +11,7 @@ export const CustomerActivitiesHeader = [
   },
   {
     header: "Time",
-    key: "time",
+    key: "date",
     isHtml: false,
   },
 ];
@@ -19,7 +19,7 @@ export const CustomerActivitiesHeader = [
 export const AdminActivitiesHeader = [
   {
     header: "Admin",
-    key: "admin",
+    key: "name",
     isHtml: false,
   },
   {
@@ -29,7 +29,7 @@ export const AdminActivitiesHeader = [
   },
   {
     header: "Time",
-    key: "time",
+    key: "date",
     isHtml: false,
   },
 ];
@@ -424,23 +424,23 @@ export const OverviewTokenHeader = [
   ];
   export const ActivitiesHeader = [
     {
-      header: "Customer",
-      key: "admin",
+      header: "Name",
+      key: "name",
       isHtml: false,
     },
     {
       header: "Email address",
-      key: "activity",
+      key: "email",
       isHtml: false,
     },
     {
       header: "Activity",
-      key: "time",
+      key: "activity",
       isHtml: false,
     },
     {
       header: "Date & Time",
-      key: "time",
+      key: "date",
       isHtml: false,
     },
   

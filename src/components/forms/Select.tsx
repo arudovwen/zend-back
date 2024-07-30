@@ -10,10 +10,11 @@ interface Option {
 
 interface CustomSelectProps {
   className?: string;
-  options: Option[];
+  options: any;
   placeholder?: string;
   name?: string;
   label?: string;
+  onChange?: any;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -21,12 +22,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   options,
   placeholder = "Filter",
   label,
+  onChange,
 }) => {
   const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
 
   useEffect(() => {
     // Add any side effects based on selected option
+    onChange && onChange(selected);
   }, [selected]);
 
   return (
@@ -43,9 +46,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               )}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <AppIcon
-                icon="lucide:chevron-down"
-              />
+              <AppIcon icon="lucide:chevron-down" />
             </span>
           </Listbox.Button>
           <Transition
@@ -55,7 +56,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
             leaveTo="opacity-0"
           >
             <Listbox.Options className="z-[77] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {options.map((option, optionIdx) => (
+              {options.map((option: any, optionIdx: any) => (
                 <Listbox.Option
                   key={optionIdx}
                   className={({ active }) =>

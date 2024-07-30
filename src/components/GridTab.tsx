@@ -9,6 +9,7 @@ export default function GridTab({
   borderClass = "",
   labelClass = "",
   numClass = "",
+  value =0
 }: any) {
   return (
     <div className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600 flex gap-x-3 items-center ">
@@ -29,7 +30,7 @@ export default function GridTab({
         <span
           className={`${numClass} block leading-tight text-[#475467] dark:text-white text-2xl font-semibold`}
         >
-          120
+          {value}
         </span>
       </span>
     </div>
