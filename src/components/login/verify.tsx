@@ -73,7 +73,7 @@ export default function VerifyLogin() {
         </h1>
         <p className="text-sm text-light text-secondary  dark:text-white/80">
           Kindly enter the OTP code sent to your email
-          <span> {emailAddress.slice(0,4)}****{emailAddress.slice(emailAddress.length-4,emailAddress.length)}</span>
+          <span> {emailAddress?.slice(0,4)}****{emailAddress?.slice(emailAddress.length-4,emailAddress.length)}</span>
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
