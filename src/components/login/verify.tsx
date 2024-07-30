@@ -28,9 +28,9 @@ export default function VerifyLogin() {
     resolver: yupResolver(VerifyLoginSchema),
   });
   const values = getValues();
+  const { emailAddress, id } = getItem("userData");
   const onSubmit = ({ otp }: any) => {
     setLoading(true);
-    const { emailAddress, id } = getItem("userData");
 
     verifyOtp({ otp, administrator: id, platform: "web", email: emailAddress })
       .then((res: any) => {
@@ -40,6 +40,7 @@ export default function VerifyLogin() {
           setCookie("token", data?.accessToken);
           router.push("/dashboard");
           setLoading(false);
+          toast.success("Login successful")
         }
       })
       .catch((err: any) => {
@@ -64,7 +65,7 @@ export default function VerifyLogin() {
     resendOtp({ emailAddress });
   }
   return (
-    <div className="py-4">
+    <div className="py-4 max-w-[340px] mx-auto text-center">
       {" "}
       <div className="mb-7">
         <h1 className="font-semibold text-xl text-center mb-1 text-secondary dark:text-white">
@@ -72,7 +73,7 @@ export default function VerifyLogin() {
         </h1>
         <p className="text-sm text-light text-secondary  dark:text-white/80">
           Kindly enter the OTP code sent to your email
-          <span> succyy**** </span>
+          <span> {emailAddress.slice(0,4)}****{emailAddress.slice(emailAddress.length-4,emailAddress.length)}</span>
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

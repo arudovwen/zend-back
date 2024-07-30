@@ -4,7 +4,11 @@ type FileUploadProps = {
   accept?: string;
   multiple?: boolean;
   children?: ReactNode;
-  handleUpload: (e: React.ChangeEvent<HTMLInputElement>, id?: string, values?: any) => void;
+  handleUpload: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id?: string,
+    values?: any
+  ) => void;
   title?: string;
   id?: string;
   values?: any;
@@ -41,7 +45,10 @@ const FileUpload = ({
         className="hidden"
       />
       {children}
-      <span className="text-sm text-gray-700 dark:text-white/70 truncate" style={{ maxWidth: "200px" }}>
+      <span
+        className="text-sm text-gray-700 dark:text-white/70 truncate"
+        style={{ maxWidth: "200px" }}
+      >
         {title || (
           <span className="text-lightdarkGrey50">No document chosen</span>
         )}

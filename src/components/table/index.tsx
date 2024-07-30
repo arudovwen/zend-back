@@ -139,10 +139,10 @@ const DataTable: React.FC<DataTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {rows.length > 0 &&
+            {rows.length > 0 && !isLoading &&
               rows.map((row, index) => (
                 <tr
-                  className="border-b last:border-none border-[#EAECF0] even:bg-[#F9FAFB] dark:even:bg-gray-600 dark:border-gray-600"
+                  className="border-b last:border-none border-[#EAECF0]  dark:border-gray-600"
                   key={index}
                 >
                   {columns.map((column) => (

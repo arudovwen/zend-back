@@ -45,21 +45,21 @@ export default function SideBar() {
   }
 
   function handleLogout() {
-    setLoading(true);
-    logOut()
-      .then((res: any) => {
-        if (res.status === 200) {
+    // setLoading(true);
+    // logOut()
+    //   .then((res: any) => {
+    //     if (res.status === 200) {
           localStorage.clear();
           sessionStorage.clear();
           deleteCookie("token");
           router.push("/");
           setLoading(false);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err?.response?.data?.message);
-      });
+      //   }
+      // })
+      // .catch((err) => {
+      //   setLoading(false);
+      //   toast.error(err?.response?.data?.message);
+      // });
   }
 
   return (

@@ -52,12 +52,12 @@ export const OverviewSwapHeader = [
   },
   {
     header: "Total swapped",
-    key: "swapped",
+    key: "tokenSwapped",
     isHtml: false,
   },
   {
     header: "Amount",
-    key: "amount",
+    key: "swapamount",
     isHtml: false,
   },
   {
@@ -100,12 +100,17 @@ export const OverviewTokenHeader = [
     },
     {
       header: "Amount",
-      key: "amount",
+      key: "tokenamount",
       isHtml: false,
     },
     {
       header: "Type",
       key: "type",
+      isHtml: false,
+    },
+    {
+      header: "Transaction Type",
+      key: "transactionType",
       isHtml: false,
     },
     {

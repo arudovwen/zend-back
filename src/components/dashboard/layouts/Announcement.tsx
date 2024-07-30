@@ -11,9 +11,11 @@ import ButtonComponent from "@/components/ButtonComponent";
 import AppIcon from "@/components/AppIcon";
 import AppButton from "@/components/AppButton";
 import FileUpload from "@/components/forms/FileUpload";
+import { handleBroadcast } from "@/services/userservice";
 // import { CKEditor } from "@ckeditor/ckeditor5-react";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { EmailTypes, NotifyTypes } from "@/constants";
+import Image from "next/image";
 
 interface FormData {
   type: string;
@@ -26,6 +28,7 @@ interface FormData {
 export default function Announcement() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [imgBanner, setImgBanner] = useState<any>("");
   const [formData, setFormData] = useState<FormData>({
     type: "",
     subject: "",
@@ -60,10 +63,18 @@ export default function Announcement() {
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
-
-    toast.success(`Form submitted successfully!`);
-    setLoading(false);
-    setOpen(false);
+    handleBroadcast(data)
+      .then((res: any) => {
+        if (res.status === 200) {
+          toast.success(`Broadcast sent successfully!`);
+          setLoading(false);
+          setOpen(false);
+        }
+      })
+      .catch((err: any) => {
+        toast.error(err.response.data.message);
+        setLoading(false);
+      });
   };
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -86,6 +97,7 @@ export default function Announcement() {
       const base64 = await toBase64(FILE);
       // @ts-ignore
       setValue("banner", base64);
+      setImgBanner(base64);
     }
   }
 
@@ -118,7 +130,7 @@ export default function Announcement() {
         onClick={() => setOpen(true)}
       />
 
-      <CenterModal setOpen={() => setOpen(false)} open={isOpen}>
+      <CenterModal setOpen={() => {}} open={isOpen}>
         <div className="bg-white dark:bg-gray-700 text-secondary dark:text-white p-6 rounded-lg sm:min-w-[500px] max-w-[600px]">
           <h2 className="font-semibold text-xl mb-10 text-center capitalize">
             Send Broadcast
@@ -159,30 +171,42 @@ export default function Announcement() {
               />
             </div>
             <div className="mb-6">
-              <FileUpload
-                handleUpload={handleFile}
-                title="Upload Broadcast banner"
-              >
-                <AppIcon icon="solar:upload-linear" />
-              </FileUpload>
+              <div className="mb-1">
+                <FileUpload
+                  handleUpload={handleFile}
+                  title={imgBanner ? "Banner.png" : "Upload Broadcast banner"}
+                >
+                  <AppIcon icon="solar:upload-linear" />
+                </FileUpload>
+              </div>
+
+              {imgBanner && (
+                <Image
+                  src={imgBanner}
+                  alt="banner"
+                  width={500}
+                  height={10}
+                  className="object-contain w-full h-16"
+                />
+              )}
             </div>
 
             <div>
               {getValues().notifyType === "email" ? (
-              <>
-               <div className="block dark:hidden">
-                 <Editor
-                  body={getValues().body}
-                  setBody={(data: any) => setValue("body", data)}
-                />
-               </div>
-               <div className="hidden dark:block dark_editor">
-                 <Editor
-                  body={getValues().body}
-                  setBody={(data: any) => setValue("body", data)}
-                />
-               </div>
-              </>
+                <>
+                  <div className="block dark:hidden">
+                    <Editor
+                      body={getValues().body}
+                      setBody={(data: any) => setValue("body", data)}
+                    />
+                  </div>
+                  <div className="hidden dark:block dark_editor">
+                    <Editor
+                      body={getValues().body}
+                      setBody={(data: any) => setValue("body", data)}
+                    />
+                  </div>
+                </>
               ) : (
                 <TextField
                   label={`Message`}
@@ -199,7 +223,7 @@ export default function Announcement() {
                 onClick={() => setOpen(false)}
                 className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary dark:!text-white/80 items-center"
                 type="button"
-                isLoading={loading}
+                disabled={loading}
               >
                 Cancel
               </ButtonComponent>

@@ -56,7 +56,7 @@ class DataService {
     });
   }
 
-  static delete(path = "", data = {}, baseURL) {
+  static del(path = "", data = {}, baseURL) {
     const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "DELETE",
