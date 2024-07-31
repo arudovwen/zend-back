@@ -5,7 +5,7 @@ import Select from "@/components/forms/Select";
 import TableCard from "@/components/table";
 import { AdministratorHeader, CustomerListHeader } from "@/constants/headers";
 import { StatusOptions, GenderOptions } from "@/constants";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
 import { ucFirst } from "@/utils/methods";
 import { getAllUsers, getAllAdmin } from "@/services/userservice";
@@ -29,6 +29,7 @@ const Options = [
   },
 ];
 export default function List() {
+  const router = useRouter();
   const params = useParams();
   const { user } = params;
   const [loading, setLoading] = useState(true);
@@ -83,8 +84,12 @@ export default function List() {
           action: (
             <MenuSelect
               label={<AppIcon icon="uil:ellipsis-v" />}
-              options={Options}
-              handleSelected={handleSelected}
+              options={
+                user === "administrators"
+                  ? Options.filter((i) => i.value !== "view")
+                  : Options
+              }
+              handleSelected={(val: string) => handleSelected(val, {...i, name:` ${ucFirst(i?.firstName)} ${ucFirst(i?.lastName)}`})}
             />
           ),
         }));
@@ -98,9 +103,10 @@ export default function List() {
     }
   };
 
-  function handleSelected(value: string) {
+  function handleSelected(value: string, data: any) {
     switch (value) {
       case "view":
+        router.push(`/dashboard/customers/${data.id}?name=${encodeURIComponent(data?.name)}`);
         break;
       case "ban":
         break;

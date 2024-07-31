@@ -17,6 +17,7 @@
     "apexcharts": "^3.50.0",
     "axios": "^1.7.2",
     "bignumber.js": "^9.1.2",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
     "moment": "^2.30.1",

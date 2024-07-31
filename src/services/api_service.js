@@ -105,7 +105,7 @@ DataService.client.interceptors.response.use(
       } else if (response.status === 401) {
         toast.error("Token expired");
         localStorage.clear();
-        window.location.href = `/auth/login?redirect_from=${window.location.href}`;
+        window.location.href = `/?redirect_from=${window.location.href}`;
       } else {
         return Promise.reject(error);
       }
