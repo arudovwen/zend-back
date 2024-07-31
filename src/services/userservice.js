@@ -42,8 +42,8 @@ export const updateProfile = async (payload) => {
 };
 
 export const getAllAdmin = async (payload) => {
-  return get(
-    `${url.ADMIN}/find-all?${new URLSearchParams(cleanObject(payload))}`
+  return post(
+    `${url.ADMIN}/find?${new URLSearchParams(cleanObject(payload))}`,cleanObject(payload)
   );
 };
 
@@ -99,11 +99,11 @@ export const getAdminAnalytics = async () => {
 };
 
 export const getAllUsers = async (payload) => {
-  return get(`${url.USERS}/find?${new URLSearchParams(payload)}`);
+  return get(`${url.USERS}/find?${new URLSearchParams(cleanObject(payload))}`);
 };
 
 export const getAllUsersCount = async (payload) => {
-  return get(`${url.USERS}/count-all?${new URLSearchParams(payload)}`);
+  return get(`${url.USERS}/count-all?${new URLSearchParams(cleanObject(payload))}`);
 };
 
 export const getUserTransaction = async () => {
@@ -111,17 +111,17 @@ export const getUserTransaction = async () => {
 };
 
 export const getUserKyc = async (payload) => {
-  return get(`${url.USERS}/kyc/data?${new URLSearchParams(payload)}`);
+  return get(`${url.USERS}/kyc/data?${new URLSearchParams(cleanObject(payload))}`);
 };
 
 export const getUserKyb = async (payload) => {
   return get(
-    `${url.USERS}/businesses/find-all?${new URLSearchParams(payload)}`
+    `${url.USERS}/businesses/find-all?${new URLSearchParams(cleanObject(payload))}`
   );
 };
 
 export const modifyUserKyb = async (payload) => {
-  return get(`${url.USERS}/businesses/update?${new URLSearchParams(payload)}`);
+  return get(`${url.USERS}/businesses/update?${new URLSearchParams(cleanObject(payload))}`);
 };
 
 export const getUserMetrics = async (payload) => {
@@ -171,7 +171,7 @@ export const searchUser = async (payload) => {
 };
 
 export const getUsersVerifications = async (payload) => {
-  return get(`${url.USERS}/verifications/find?${new URLSearchParams(payload)}`);
+  return get(`${url.USERS}/verifications/find?${new URLSearchParams(cleanObject(payload))}`);
 };
 
 export const getUsersVerificationMetrics = async () => {

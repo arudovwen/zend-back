@@ -183,7 +183,7 @@ export const OverviewTokenHeader = [
     },
     {
       header: "Email address",
-      key: "transactionId",
+      key: "emailAddress",
       isHtml: false,
     },
     {
@@ -393,32 +393,37 @@ export const OverviewTokenHeader = [
   export const CustomerListHeader = [
     {
       header: "Customer",
-      key: "admin",
+      key: "name",
       isHtml: false,
     },
     {
-      header: "Email address",
-      key: "activity",
+      header: "Username",
+      key: "username",
       isHtml: false,
     },
     {
       header: "Phone number",
-      key: "activity",
+      key: "phoneNumber",
       isHtml: false,
     },
     {
       header: "Country",
-      key: "time",
+      key: "country",
       isHtml: false,
     },
     {
       header: "Gender",
-      key: "time",
+      key: "gender",
       isHtml: false,
     },
     {
       header: "Status",
-      key: "time",
+      key: "status",
+      isHtml: false,
+    },
+    {
+      header: "",
+      key: "action",
       isHtml: false,
     },
   ];

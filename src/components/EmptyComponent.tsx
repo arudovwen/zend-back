@@ -7,7 +7,7 @@ export default function EmptyComponent({ title, text }: any) {
       <Image
         width={120}
         height={120}
-        src="/type=search.svg"
+        src="/type=search.png"
         alt="empty"
         className="mx-auto mb-4"
       />

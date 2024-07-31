@@ -11,6 +11,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { getAllTransactions } from "@/services/walletservice";
 import formatCurrency from "@/utils/formatCurrency";
 import { capitalizeSentence, ucFirst } from "@/utils/methods";
+import AppStatusComponent from "@/components/AppStatusComponent";
 export default function Transactions() {
   const tabs = [
     { title: "swap transactions", key: "swap" },
@@ -61,6 +62,8 @@ export default function Transactions() {
               formatCurrency(parseFloat(i?.amount)) + " " + i?.currency,
             swapamount: `${formatCurrency(i?.toCurrencyAmt)} ${i?.toCurrency}`,
             tokenSwapped: `${i?.fromCurrency} > ${i?.toCurrency}`,
+            status: <AppStatusComponent status={i.status} />,
+            type: ucFirst(i.type)
           }));
           setRows(detail);
         }

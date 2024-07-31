@@ -9,6 +9,7 @@ import formatCurrency from "@/utils/formatCurrency";
 import { capitalizeSentence, ucFirst } from "@/utils/methods";
 import { OverviewSwapHeader, OverviewTokenHeader } from "@/constants/headers";
 import Link from "next/link";
+import AppStatusComponent from "@/components/AppStatusComponent";
 
 export default function Transactions() {
   const tabs = [
@@ -45,6 +46,8 @@ export default function Transactions() {
               formatCurrency(parseFloat(i?.amount)) + " " + i?.currency,
             swapamount: `${formatCurrency(i?.toCurrencyAmt)} ${i?.toCurrency}`,
             tokenSwapped: `${i?.fromCurrency} > ${i?.toCurrency}`,
+            status: <AppStatusComponent status={i.status} />,
+            type: ucFirst(i.type)
           }));
           setRows(detail);
         }
