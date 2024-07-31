@@ -8,8 +8,13 @@ import Kin from "@/components/pages/customers/customer/kin";
 import Activities from "@/components/pages/customers/customer/activity";
 import KYC from "@/components/pages/customers/customer/kyc";
 import Devices from "@/components/pages/customers/customer/devices";
+import { useParams, useSearchParams } from "next/navigation";
 
 export default function Customer() {
+  const searchParams = useSearchParams();
+
+  const name = searchParams.get("name");
+
   const Navigations = [
     {
       title: "Information",
@@ -52,16 +57,14 @@ export default function Customer() {
               url: "#",
             },
             {
-              title: "John snow",
+              title: name || "",
               url: "#",
             },
           ]}
         />
       </div>
 
-      <div
-        className="flex flex-col xl:flex-row gap-x-10 py-4"
-      >
+      <div className="flex flex-col xl:flex-row gap-x-10 py-4">
         <div className="w-auto lg:w-full sm:max-w-[300px] ">
           <div className="hidden xl:inline-block overflow-hidden bg-white dark:bg-gray-700 rounded-lg border border-gray-100    dark:border-gray-600 w-full">
             <AppSideTab
