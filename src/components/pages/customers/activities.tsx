@@ -24,10 +24,11 @@ const Activities = () => {
   const [queryParams, setQueryParams] = useState({
     user: "",
     page: 1,
-    count: 20,
+    count: 15,
     created_at_stop: null,
     created_at_start: null,
     type: "",
+    total:0
   });
   const [value, setValue] = useState({ startDate: null, endDate: null });
 
@@ -67,6 +68,10 @@ const Activities = () => {
         }));
 
         setRows(detail);
+        setQueryParams({
+          ...queryParams,
+          total: res.data?.data?.totalCount,
+        });
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -82,6 +87,7 @@ const Activities = () => {
         setOptions(
           res.data?.data?.types.map((i: any) => ({ ...i, key: i.label }))
         );
+      
       }
     } catch (error) {
       console.error("Error fetching activity options:", error);
@@ -144,6 +150,8 @@ const Activities = () => {
             columns={ActivitiesHeader}
             rows={rows}
             isLoading={loading}
+            queryParams={queryParams}
+            setQueryParams={(data:any)=>setQueryParams(data)}
           />
         </div>
       </div>

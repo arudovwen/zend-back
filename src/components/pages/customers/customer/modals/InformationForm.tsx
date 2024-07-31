@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import FormField from "@/components/forms/FormField";
-import { KinSchema } from "@/schema";
+import { PersonalSchema } from "@/schema";
 import ButtonComponent from "@/components/ButtonComponent";
 
-export default function KinForm({ setOpen, isOpen }: any) {
+export default function KinForm({ setOpen, isOpen, data }: any) {
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -17,7 +17,8 @@ export default function KinForm({ setOpen, isOpen }: any) {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(KinSchema),
+    resolver: yupResolver(PersonalSchema),
+    defaultValues: data,
   });
   const onSubmit = (data: any) => {
     setLoading(true);
@@ -51,14 +52,6 @@ export default function KinForm({ setOpen, isOpen }: any) {
           </div>
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">
             <FormField
-              label="Relationship"
-              name="relationship"
-              placeholder=""
-              register={register}
-              errors={errors.relationship}
-              maxW="max-w-none"
-            />
-            <FormField
               label="Phone number"
               name="phoneNumber"
               placeholder=""
@@ -66,15 +59,24 @@ export default function KinForm({ setOpen, isOpen }: any) {
               errors={errors.phoneNumber}
               maxW="max-w-none"
             />
+            <FormField
+              label="Date of birth"
+              name="dateOfBirth"
+              placeholder=""
+              register={register}
+              errors={errors.dateOfBirth}
+              maxW="max-w-none"
+              type="date"
+            />
           </div>
           <div className="mb-6">
             <FormField
               label="Email address"
-              name="email"
+              name="emailAddress"
               placeholder=""
               type="email"
               register={register}
-              errors={errors.email}
+              errors={errors.emailAddress}
               maxW="max-w-none"
             />
           </div>

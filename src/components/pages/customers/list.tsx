@@ -34,10 +34,11 @@ export default function List() {
   const { user } = params;
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
-  const [queryParams, setQueryParams] = useState({
+  const [queryParams, setQueryParams] = useState<any>({
     user: "",
     page: 1,
-    count: 20,
+    count: 15,
+    total: 0,
     type: "",
   });
   const fetchData = async () => {
@@ -89,12 +90,21 @@ export default function List() {
                   ? Options.filter((i) => i.value !== "view")
                   : Options
               }
-              handleSelected={(val: string) => handleSelected(val, {...i, name:` ${ucFirst(i?.firstName)} ${ucFirst(i?.lastName)}`})}
+              handleSelected={(val: string) =>
+                handleSelected(val, {
+                  ...i,
+                  name: ` ${ucFirst(i?.firstName)} ${ucFirst(i?.lastName)}`,
+                })
+              }
             />
           ),
         }));
 
         setRows(detail);
+        setQueryParams({
+          ...queryParams,
+          total: res.data?.data?.totalCount,
+        });
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -106,7 +116,11 @@ export default function List() {
   function handleSelected(value: string, data: any) {
     switch (value) {
       case "view":
-        router.push(`/dashboard/customers/${data.id}?name=${encodeURIComponent(data?.name)}`);
+        router.push(
+          `/dashboard/customers/${data.id}?name=${encodeURIComponent(
+            data?.name
+          )}`
+        );
         break;
       case "ban":
         break;
@@ -119,7 +133,7 @@ export default function List() {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams]);
+  }, [queryParams.page, queryParams.count]);
 
   return (
     <section>
@@ -159,6 +173,8 @@ export default function List() {
             }
             rows={rows}
             isLoading={loading}
+            queryParams={queryParams}
+            setQueryParams={(data:any)=>setQueryParams(data)}
           />
         </div>
       </div>

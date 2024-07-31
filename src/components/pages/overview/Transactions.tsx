@@ -19,9 +19,9 @@ export default function Transactions() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
-  const [query, setQuery] = useState({
+  const [queryParams, setQueryParams] = useState({
     page: 1,
-    limit: 10,
+    count: 10,
     status: "",
     customFromDate: null,
     customToDate: null,
@@ -58,10 +58,10 @@ export default function Transactions() {
   }
   useEffect(() => {
     getTransactions({
-      ...query,
+      ...queryParams,
       type: activeTab,
     });
-  }, [query, activeTab]);
+  }, [queryParams, activeTab]);
 
   return (
     <div className="w-full">

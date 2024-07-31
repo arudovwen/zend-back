@@ -288,6 +288,11 @@ export const PersonalInformationData = [
     value: "",
   },
   {
+    label: "Date of birth",
+    key: "dateOfBirth",
+    value: "",
+  },
+  {
     label: "Phone number",
     key: "phoneNumber",
     value: "",
@@ -311,6 +316,16 @@ export const PersonalInformationData = [
   {
     label: "Device info",
     key: "deviceInfo",
+    value: "",
+  },
+  {
+    label: "Banned by",
+    key: "isBanned",
+    value: "",
+  },
+  {
+    label: "Last reason for ban",
+    key: "ban",
     value: "",
   },
 ];

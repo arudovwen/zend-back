@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import EmptyComponent from "@/components/EmptyComponent";
 import Loader from "@/components/Loader";
 import FilterButton from "@/components/FilterButton"; // Adjust this import
+import Pagination from "../Pagination";
 
 interface Column {
   header: string;
@@ -31,9 +32,11 @@ interface DataTableProps {
   filterTitle?: string;
   filterOptions?: FilterOption[];
   placeholder?: string;
+  queryParams?: any;
   onSearch?: (value: string) => void;
   onFilter?: (value: string) => void;
   onDateChange?: (date: any) => void; // Adjust the type as necessary
+  setQueryParams?: any;
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -57,6 +60,11 @@ const DataTable: React.FC<DataTableProps> = ({
   onSearch,
   onFilter,
   onDateChange,
+  queryParams = {
+    page: 1,
+    count: 15,
+  },
+  setQueryParams,
 }) => {
   const [date, setDate] = useState<any>(null); // Adjust the type as necessary
   const [filter, setFilter] = useState<string>("");
@@ -64,7 +72,7 @@ const DataTable: React.FC<DataTableProps> = ({
 
   useEffect(() => {
     if (filter) {
-        onFilter && onFilter(filter);
+      onFilter && onFilter(filter);
     }
   }, [filter, onFilter]);
 
@@ -121,10 +129,8 @@ const DataTable: React.FC<DataTableProps> = ({
           </div>
         </div>
       )}
-      <div
-        className="overflow-x-auto rounded-lg"
-        style={{ display: isLoading ? "none" : "block" }}
-      >
+
+      <div className="overflow-x-auto rounded-lg ">
         <table className="table-auto w-full">
           <thead>
             <tr className="border-b border-[#EAECF0] dark:border-gray-600">
@@ -138,30 +144,61 @@ const DataTable: React.FC<DataTableProps> = ({
               ))}
             </tr>
           </thead>
-          <tbody>
-            {rows.length > 0 && !isLoading &&
-              rows.map((row, index) => (
-                <tr
-                  className="border-b last:border-none border-[#EAECF0]  dark:border-gray-600"
-                  key={index}
-                >
-                  {columns.map((column) => (
-                    <td className="text-sm text-[#454745] dark:text-white px-6 py-4 max-w-[160px] truncate" key={column.key}>
-                      {column.isHtml ? (
-                        <span
-                          dangerouslySetInnerHTML={{ __html: row[column.key] }}
-                        />
-                      ) : (
-                        <span>{row[column.key] || "-"}</span>
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-           
-          </tbody>
+          {!isLoading && (
+            <tbody>
+              {rows.length > 0 &&
+                !isLoading &&
+                rows.map((row, index) => (
+                  <tr
+                    className="border-b last:border-none border-[#EAECF0]  dark:border-gray-600"
+                    key={index}
+                  >
+                    {columns.map((column) => (
+                      <td
+                        className="text-sm text-[#454745] dark:text-white px-6 py-4 max-w-[160px] truncate"
+                        key={column.key}
+                      >
+                        {column.isHtml ? (
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: row[column.key],
+                            }}
+                          />
+                        ) : (
+                          <span>{row[column.key] || "-"}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+            </tbody>
+          )}
         </table>
+        {isLoading && (
+          <div className="min-h-[500px] flex items-center justify-center">
+            <Loader />
+          </div>
+        )}
       </div>
+      {queryParams?.total > queryParams?.count && (
+        <div className="mt-6 px-6 py-6">
+          <Pagination
+            className="pagination-bar"
+            currentPage={queryParams?.page}
+            totalCount={queryParams?.total}
+            pageSize={queryParams.count}
+            onPageSizeChange={(pagesize: any) => {
+              if (!pagesize) return;
+              setQueryParams &&
+                setQueryParams({ ...queryParams, count: pagesize });
+            }}
+            onPageChange={(page: any) => {
+              if (!page) return;
+              setQueryParams && setQueryParams({ ...queryParams, page });
+            }}
+          />
+        </div>
+      )}
       {!isLoading && rows.length === 0 && (
         <EmptyComponent
           title={emptyTitle}
@@ -171,7 +208,6 @@ const DataTable: React.FC<DataTableProps> = ({
           type={emptyType}
         />
       )}
-      {isLoading && <Loader />}
     </div>
   );
 };

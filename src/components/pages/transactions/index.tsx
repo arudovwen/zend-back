@@ -20,15 +20,16 @@ export default function Transactions() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
-  const [query, setQuery] = useState({
+  const [queryParams, setQueryParams] = useState({
     page: 1,
-    limit: 10,
+    count: 15,
     status: "",
     customFromDate: null,
     customToDate: null,
     transactionType: "",
     transactionId: "",
     currency: "",
+    total:0
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -66,6 +67,10 @@ export default function Transactions() {
             type: ucFirst(i.type)
           }));
           setRows(detail);
+          setQueryParams({
+            ...queryParams,
+            total: res.data?.data?.totalCount,
+          });
         }
       })
       .catch(() => {
@@ -74,10 +79,10 @@ export default function Transactions() {
   }
   useEffect(() => {
     getTransactions({
-      ...query,
+      ...queryParams,
       type: activeTab,
     });
-  }, [query, activeTab]);
+  }, [queryParams, activeTab]);
 
   return (
     <section>
@@ -131,6 +136,8 @@ export default function Transactions() {
           }
           rows={rows}
           isLoading={loading}
+          queryParams={queryParams}
+          setQueryParams={(data:any)=>setQueryParams(data)}
         />
       </div>
     </section>

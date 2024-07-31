@@ -1,14 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Profile from "@/components/pages/customers/customer/profile";
 import WalletBalance from "@/components/pages/customers/customer/walletbalance";
 import { PersonalInformationData } from "@/constants";
 import AppButton from "@/components/AppButton";
 import InfoDisplay from "@/components/InfoDisplay";
 import InformationForm from "./modals/InformationForm";
+import { UserContext } from "@/constants/context";
 
 export default function Personal() {
   const [isOpen, setOpen] = useState(false);
+  const { userData } = useContext(UserContext);
+
   return (
     <div className="max-w-[900px] mx-auto pb-10">
       <div className="mb-6">
@@ -35,12 +38,12 @@ export default function Personal() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {PersonalInformationData.map((i) => (
             <div key={i.label}>
-              <InfoDisplay info={i} />
+              <InfoDisplay info={i} data={userData} />
             </div>
           ))}
         </div>
       </div>
-      <InformationForm setOpen={setOpen} isOpen={isOpen} />
+      <InformationForm setOpen={setOpen} isOpen={isOpen} data={userData} />
     </div>
   );
 }

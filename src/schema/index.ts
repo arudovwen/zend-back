@@ -33,10 +33,6 @@ export const CreateAdminSchema = yup.object().shape({
 });
 
 export const KinSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Provide a valid email")
-    .required("Email is required"),
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
   address: yup.string().required("Address is required"),
@@ -45,7 +41,7 @@ export const KinSchema = yup.object().shape({
   emailAddress: yup.string().email().required("Email is required"),
 });
 export const PersonalSchema = yup.object().shape({
-  email: yup
+  emailAddress: yup
     .string()
     .email("Provide a valid email")
     .required("Email is required"),
@@ -53,7 +49,7 @@ export const PersonalSchema = yup.object().shape({
   lastName: yup.string().required("Last name is required"),
   phoneNumber: yup.string().required("Phone number is required"),
   username: yup.string().required("Username is required"),
-  emailAddress: yup.string().email().required("Email is required"),
+  dateOfBirth: yup.string().required(),
 });
 
 export const LockSchema = yup.object().shape({

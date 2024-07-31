@@ -10,6 +10,14 @@ import Datepicker from "react-tailwindcss-datepicker";
 
 
 export default function ReferralComponent () {
+  const [queryParams, setQueryParams] = useState({
+    user: "",
+    page: 1,
+    count: 15,
+    created_at_stop: null,
+    created_at_start: null,
+    type: "",
+  });
   const [value, setValue] = useState<{
     startDate: Date | null;
     endDate: Date | null;
@@ -80,6 +88,8 @@ export default function ReferralComponent () {
               activeTab === "history" ? ReferralHeader : ReferralRankingsHeader
             }
             rows={[]}
+            queryParams={queryParams}
+            setQueryParams={(data:any)=>setQueryParams(data)}
           />
         </div>
     </section>
