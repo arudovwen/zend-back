@@ -16,7 +16,7 @@ import { ucFirst } from "@/utils/methods";
 import { useParams } from "next/navigation";
 
 const Activities = () => {
-  const { user } = useParams();
+  const { user,id } = useParams();
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
@@ -28,6 +28,7 @@ const Activities = () => {
     created_at_start: null,
     type: "",
     total: 0,
+    id
   });
   const [value, setValue] = useState({ startDate: null, endDate: null });
 
@@ -137,7 +138,7 @@ const Activities = () => {
         <div className="w-full">
           <TableCard
             columns={CustomerActivitiesHeader.filter(
-              (i) => i.key !== "customer"
+              (i) => i.key !== "name"
             )}
             rows={rows}
             isLoading={loading}
