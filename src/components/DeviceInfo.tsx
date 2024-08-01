@@ -1,6 +1,6 @@
 import React from 'react'
 import AppIcon from "@/components/AppIcon";
-export default function DeviceInfo() {
+export default function DeviceInfo({tab}: any) {
   return (
     <div className="p-4 rounded-lg text-sm bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600">
     <div className="flex items-start gap-x-10 text-sm justify-between mb-4">

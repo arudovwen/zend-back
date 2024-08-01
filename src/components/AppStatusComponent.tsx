@@ -20,6 +20,10 @@ function StatusSpan({ status, type, stattype = "default" }: any) {
       text: "Active",
       className: StatusClass[1],
     },
+    approved: {
+      text: "Approved",
+      className: StatusClass[1],
+    },
     success: {
       text: "Success",
       className: StatusClass[1],
@@ -33,21 +37,26 @@ function StatusSpan({ status, type, stattype = "default" }: any) {
       className: StatusClass[4],
     },
     banned: {
-        text: "Banned",
-        className: StatusClass[4],
-      },
+      text: "Banned",
+      className: StatusClass[4],
+    },
+
+    disputed: {
+      text: "Disputed",
+      className: StatusClass[3],
+    },
     failed: {
       text: "Failed",
       className: StatusClass[4],
     },
     locked: {
-        text: "Locked",
-        className: StatusClass[3],
-      },
-      close: {
-        text: "Close",
-        className: StatusClass[4],
-      },
+      text: "Locked",
+      className: StatusClass[3],
+    },
+    close: {
+      text: "Close",
+      className: StatusClass[4],
+    },
   };
 
   const [stats, setStats] = useState<any>({});

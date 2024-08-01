@@ -129,51 +129,51 @@ export const OverviewTabs = [
 
 export const AssetsTab = [
   {
-    label: "Total assets",
+    label: "Total transactions (USD)",
     icon: "flowbite:users-group-outline",
-    key: "total",
+    key: "totalTokenTransactionsUsd",
   },
   {
     label: "Total withdrawals (USD)",
     icon: "solar:user-check-linear",
-    key: "active",
+    key: "totalWithdrawalsUsd",
   },
   {
     label: "Total deposits (USD)",
     icon: "hugeicons:user-block-01",
-    key: "banned",
+    key: "totalDepositUsd",
   },
   {
-    label: "Total swapped",
+    label: "Total swapped (USD)",
     icon: "icons8:remove-user",
-    key: "closed",
+    key: "totalSwapsUsd",
   },
 ];
-export const VerificationTab = [
+export const  VerificationTab = [
   {
-    label: "Business",
+    label: "Address",
     icon: "flowbite:users-group-outline",
-    key: "total",
+    key: "numberOfBusinessVerifications",
   },
   {
     label: "Email Address",
     icon: "icons8:remove-user",
-    key: "closed",
+    key: "numberOfEmailAddressVerifications",
   },
   {
     label: "BVN",
     icon: "solar:user-check-linear",
-    key: "active",
+    key: "numberOfBvnVerifications",
   },
   {
     label: "Government ID",
     icon: "hugeicons:user-block-01",
-    key: "banned",
+    key: "numberOfGovernmentIdVerifications",
   },
   {
     label: "Phone number",
     icon: "icons8:remove-user",
-    key: "closed",
+    key: "numberOfPhoneNumberVerifications",
   },
 ];
 
@@ -488,4 +488,22 @@ export const AdminActivitiesData = [
   { label: "Unban admin", value: "unban_administrator" },
   { label: "Ban user", value: "ban_user" },
   { label: "Unban user", value: "unban_user" },
+];
+
+export const cryptoTokens = [
+  { label: "Tether", value: "USDT" },
+  { label: "Bitcoins", value: "BTC" },
+  { label: "USDC", value: "USDC" },
+  { label: "Tron", value: "TRX" },
+  { label: "Ethereum", value: "ETH" },
+  { label: "Solana", value: "SOL" },
+  { label: "Ripple", value: "XRP" },
+  { label: "Algorand", value: "ALGO" },
+  { label: "Bitcoin Cash", value: "BCH" },
+  { label: "Polygon", value: "MATIC" },
+  { label: "Avalanche", value: "AVAX" },
+  { label: "Stellar", value: "XLM" },
+  { label: "Litecoin", value: "LTC" },
+  { label: "DogeCoin", value: "DOGE" },
+  { label: "Binance Coin", value: "BNB" },
 ];

@@ -94,7 +94,7 @@ const Activities = () => {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams]);
+  }, [queryParams.page, queryParams.count]);
 
   useEffect(() => {
     getOptions;

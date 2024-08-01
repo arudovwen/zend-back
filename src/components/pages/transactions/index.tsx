@@ -8,15 +8,27 @@ import AppIcon from "@/components/AppIcon";
 import { OverviewSwapHeader, OverviewTokenHeader } from "@/constants/headers";
 import Select from "@/components/forms/Select";
 import Datepicker from "react-tailwindcss-datepicker";
-import { getAllTransactions } from "@/services/walletservice";
+import {
+  getAllTransactions,
+  getDashboardMetrics,
+} from "@/services/walletservice";
 import formatCurrency from "@/utils/formatCurrency";
-import { capitalizeSentence, ucFirst } from "@/utils/methods";
+import {
+  capitalizeSentence,
+  formatCurrencyAmt,
+  ucFirst,
+} from "@/utils/methods";
 import AppStatusComponent from "@/components/AppStatusComponent";
+import GridTab from "@/components/GridTab";
+import { AssetsTab } from "@/constants";
+import OptionsList from "@/components/forms/OptionsList";
+import MenuSelect from "@/components/forms/MenuSelect";
 export default function Transactions() {
   const tabs = [
     { title: "swap transactions", key: "swap" },
     { title: "token transactions", key: "transaction" },
   ];
+  const [metrics, setMetrics] = useState<any>({});
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
@@ -29,7 +41,7 @@ export default function Transactions() {
     transactionType: "",
     transactionId: "",
     currency: "",
-    total:0
+    total: 0,
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -46,6 +58,14 @@ export default function Transactions() {
     setValue(newValue);
   };
 
+  function getMetrics() {
+    getDashboardMetrics({}).then((res) => {
+      if (res.status === 200) {
+        setMetrics(res.data.data);
+      }
+    });
+  }
+  function handleSelected(val: any, data: any) {}
   function getTransactions(params: any) {
     setLoading(true);
     getAllTransactions(params)
@@ -64,12 +84,26 @@ export default function Transactions() {
             swapamount: `${formatCurrency(i?.toCurrencyAmt)} ${i?.toCurrency}`,
             tokenSwapped: `${i?.fromCurrency} > ${i?.toCurrency}`,
             status: <AppStatusComponent status={i.status} />,
-            type: ucFirst(i.type)
+            type: ucFirst(i.type),
+            action: (
+              <MenuSelect
+                label={<AppIcon icon="uil:ellipsis-v" />}
+                options={[]}
+                handleSelected={(val: string) =>
+                  handleSelected(val, {
+                    ...i,
+                    name: `${ucFirst(i.user?.firstName)} ${ucFirst(
+                      i.user?.lastName
+                    )}`,
+                  })
+                }
+              />
+            ),
           }));
           setRows(detail);
           setQueryParams({
             ...queryParams,
-            total: res.data?.data?.totalCount,
+            total: res.data?.totalTransactions,
           });
         }
       })
@@ -81,8 +115,13 @@ export default function Transactions() {
     getTransactions({
       ...queryParams,
       type: activeTab,
+      limit: queryParams.count,
     });
-  }, [queryParams, activeTab]);
+  }, [queryParams.page, queryParams.count, activeTab]);
+
+  useEffect(() => {
+    getMetrics();
+  }, []);
 
   return (
     <section>
@@ -92,6 +131,20 @@ export default function Transactions() {
           sub="History of customer swaps and deposit transaction"
         />
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6  w-full mb-10">
+        {AssetsTab.map((tab) => (
+          <div key={tab.label}>
+            <GridTab
+              tab={tab}
+              iconClass="!text-2xl"
+              borderClass="!h-10  !w-10"
+              labelClass="!text-xs"
+              numClass="!text-xl"
+              value={formatCurrencyAmt(metrics?.[tab.key] || 0, "USD")}
+            />
+          </div>
+        ))}
+      </div>{" "}
       <div>
         <AppTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
       </div>
@@ -137,7 +190,7 @@ export default function Transactions() {
           rows={rows}
           isLoading={loading}
           queryParams={queryParams}
-          setQueryParams={(data:any)=>setQueryParams(data)}
+          setQueryParams={(data: any) => setQueryParams(data)}
         />
       </div>
     </section>

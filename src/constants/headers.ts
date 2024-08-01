@@ -134,17 +134,17 @@ export const OverviewTokenHeader = [
     },
     {
       header: "Email address",
-      key: "transactionId",
+      key: "email",
       isHtml: false,
     },
     {
       header: "Coins",
-      key: "token",
+      key: "coins",
       isHtml: false,
     },
     {
-      header: "Status",
-      key: "amount",
+      header: "Withdrawal Status",
+      key: "status",
       isHtml: false,
     },
   
@@ -158,17 +158,17 @@ export const OverviewTokenHeader = [
    
     {
       header: "Token",
-      key: "name",
+      key: "token",
       isHtml: false,
     },
     {
       header: "Funding balance",
-      key: "transactionId",
+      key: "fundingBal",
       isHtml: false,
     },
     {
       header: "Trading balance",
-      key: "token",
+      key: "tradingBal",
       isHtml: false,
     },
  
@@ -208,17 +208,22 @@ export const OverviewTokenHeader = [
    
     {
       header: "Date submitted",
+      key: "date",
+      isHtml: false,
+    },
+    {
+      header: "Customer",
       key: "name",
       isHtml: false,
     },
     {
       header: "Email address",
-      key: "transactionId",
+      key: "email",
       isHtml: false,
     },
     {
       header: "Type",
-      key: "role",
+      key: "type",
       isHtml: false,
     },
     {
@@ -241,31 +246,14 @@ export const OverviewTokenHeader = [
       key: "name",
       isHtml: false,
     },
-    {
-      header: "Email address",
-      key: "transactionId",
-      isHtml: false,
-    },
+    // {
+    //   header: "transaction Id",
+    //   key: "transactionId",
+    //   isHtml: false,
+    // },
     {
       header: "Account information",
-      key: "role",
-      isHtml: false,
-    },
-    {
-      header: "Coin",
-      key: "status",
-      isHtml: false,
-    },
-  
-    {
-      header: "Amount in USD",
-      key: "status",
-      isHtml: false,
-    },
-  
-    {
-      header: "Transaction ID",
-      key: "status",
+      key: "info",
       isHtml: false,
     },
     {
@@ -274,11 +262,26 @@ export const OverviewTokenHeader = [
       isHtml: false,
     },
     {
-      header: "Rate",
-      key: "rate",
+      header: "Coin & Rate",
+      key: "coin",
+      isHtml: false,
+    },
+    {
+      header: "Amount",
+      key: "amount",
+      isHtml: false,
+    },
+    {
+      header: "Amount in USD",
+      key: "amountInUsd",
       isHtml: false,
     },
   
+    {
+      header: "Status",
+      key: "status",
+      isHtml: false,
+    },
     {
       header: "",
       key: "action",
@@ -289,17 +292,17 @@ export const OverviewTokenHeader = [
    
     {
       header: "Date & Time",
-      key: "name",
+      key: "date",
       isHtml: false,
     },
     {
       header: "Token type",
-      key: "transactionId",
+      key: "token",
       isHtml: false,
     },
     {
       header: "Rate",
-      key: "role",
+      key: "rate",
       isHtml: false,
     },
     {
@@ -501,14 +504,19 @@ export const OverviewTokenHeader = [
   export const KycHeader = [
     {
       header: "Customer",
-      key: "customer",
+      key: "name",
       isHtml: false,
     },
     {
-      header: "Level",
-      key: "level",
+      header: "email",
+      key: "email",
       isHtml: false,
     },
+    // {
+    //   header: "Level",
+    //   key: "level",
+    //   isHtml: false,
+    // },
     {
       header: "Type",
       key: "type",
@@ -516,7 +524,7 @@ export const OverviewTokenHeader = [
     },
     {
       header: "Date & Time",
-      key: "time",
+      key: "date",
       isHtml: false,
     },
     {

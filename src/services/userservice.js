@@ -178,7 +178,7 @@ export const getUsersVerificationMetrics = async () => {
   return get(`${url.USERS}/verifications/metrics`);
 };
 
-export const getUserVerifications = async () => {
+export const getUserVerifications = async (payload) => {
   return get(
     `${url.USERS}/${payload.id}/verifications/find?${new URLSearchParams(
       cleanObject(payload)
@@ -186,9 +186,9 @@ export const getUserVerifications = async () => {
   );
 };
 
-export const getUserKycDetail = async () => {
+export const getUserKycDetail = async (payload) => {
   return get(
-    `${url.USERS}/${payload.id}/kyc-data?${new URLSearchParams(
+    `${url.USERS}/kyc-data?${new URLSearchParams(
       cleanObject(payload)
     )}`
   );

@@ -9,8 +9,10 @@ export default function GridTab({
   borderClass = "",
   labelClass = "",
   numClass = "",
-  value =0
+  value = 0,
+  isVerification = false,
 }: any) {
+
   return (
     <div className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600 flex gap-x-3 items-center ">
       <span
@@ -30,7 +32,7 @@ export default function GridTab({
         <span
           className={`${numClass} block leading-tight text-[#475467] dark:text-white text-2xl font-semibold`}
         >
-          {value}
+          {!isVerification ? value : value?.total}
         </span>
       </span>
     </div>

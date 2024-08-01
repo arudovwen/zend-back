@@ -9,7 +9,7 @@ interface LinkItem {
 
 interface CustomNavProps {
   className?: string;
-  links?: LinkItem[];
+  links?:any;
 }
 
 const CustomNav: React.FC<CustomNavProps> = ({
@@ -19,7 +19,7 @@ const CustomNav: React.FC<CustomNavProps> = ({
   return (
     <div>
       <ul className={`flex gap-x-2`}>
-        {links.map((link, idx) => (
+        {links.map((link:any, idx:any) => (
           <li
             key={idx}
             className={`text-[#475467] ${className} ${link.title && `after:content-['>']`}  font-normal last:font-medium text-[11px] sm:text-xs lg:text-[13px] capitalize  last:after:content-[''] flex gap-x-[6px] items-center `}
