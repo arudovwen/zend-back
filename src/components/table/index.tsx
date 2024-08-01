@@ -155,7 +155,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   >
                     {columns.map((column) => (
                       <td
-                        className="text-sm text-[#454745] dark:text-white px-6 py-4 max-w-[160px] truncate"
+                        className="text-sm text-[#454745] dark:text-white/90 px-6 py-4 max-w-[160px] truncate"
                         key={column.key}
                       >
                         {column.isHtml ? (

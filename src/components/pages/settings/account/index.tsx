@@ -27,7 +27,7 @@ export default function Account() {
     // router.push("/verify");
   };
   return (
-    <div className="max-w-[968px] px-7 py-10 rounded-lg bg-white border border-[#EAECF0]">
+    <div className="max-w-[968px] px-7 py-10 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-600 border border-[#EAECF0]">
       <div className="flex  flex-col md:flex-row gap-6 justify-start lg:justify-between lg:items-center mb-12 max-w-[800px]">
         <div className="flex  flex-col md:flex-row gap-4 items-center text-center sm:text-left">
           <div className="overflow-hidden h-20 lg:h-28 w-20 lg:w-28 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold">
@@ -89,11 +89,11 @@ export default function Account() {
           <div className="mb-6">
             <FormField
               label="Email address"
-              name="email"
+              name="emailAddress"
               placeholder=""
               type="email"
               register={register}
-              errors={errors.email}
+              errors={errors.emailAddress}
               maxW="max-w-none"
             />
           </div>

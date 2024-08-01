@@ -5,7 +5,7 @@ function StatusSpan({ status, type, stattype = "default" }: any) {
     0: "text-[#F79009] bg-[#FFFAEB] border-[#FEDF89]",
     1: "text-[#067647] bg-[#ECFDF3] border-[#ABEFC6]",
     2: "text-[#175CD3] bg-[#EFF8FF] border-[#B2DDFF]",
-    3: "text-[#363F72] bg-transparent border-[#3E4784]",
+    3: "text-[#363F72] bg-transparent dark:bg-[#3E4784] border-[#3E4784] dark:text-white/60",
     4: "text-[#B42318] bg-[#FEF3F2] border-[#FECDCA]",
     5: "text-[#5925DC] bg-[#F4F3FF] border-[#D9D6FE]",
   };

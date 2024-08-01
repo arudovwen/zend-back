@@ -25,7 +25,7 @@ export default function Security() {
     console.log("🚀 ~ onSubmit ~ data:", data);
   };
   return (
-    <div className=" px-7 py-10 rounded-lg bg-white border border-[#EAECF0]">
+    <div className=" px-7 py-10 rounded-lg bg-white  dark:bg-gray-800 dark:border-gray-600  border border-[#EAECF0]">
      <div className="mb-10">
      <HeaderComponent title="Password Management" sub="Update your account password here" />
      </div>

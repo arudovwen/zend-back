@@ -71,7 +71,7 @@ export default function QuickSellComponent() {
                   <span className="block">
                     {`${firstName} ${lastName}`.trim()}
                   </span>
-                  <span className="block text-xs text-gray-500">
+                  <span className="block text-xs text-gray-500  dark:text-white/90">
                     {data?.user?.emailAddress}
                   </span>
                 </span>
@@ -84,7 +84,7 @@ export default function QuickSellComponent() {
               coin: (
                 <span>
                   <span className="block">{data?.currency.toUpperCase()}</span>
-                  <span className="text-gray-500">
+                  <span className=" dark:text-white/90">
                     {`${formatCurrencyAmt(
                       1,
                       data?.rate.baseCurrency
@@ -98,12 +98,12 @@ export default function QuickSellComponent() {
               date: data?.createdAt ? moment(data.createdAt).format("lll") : "",
               info: (
                 <span>
-                  <span className="text-xs block text-gray-500">
+                  <span className="text-xs block dark:text-white/90">
                     {data?.beneficiary?.bankAccountNumber} -{" "}
                     {data?.beneficiary?.bankName}
                   </span>
 
-                  <span className="text-xs block text-gray-500 capitalize">
+                  <span className="text-xs block  dark:text-white/90 capitalize">
                     {data?.beneficiary?.bankAccountName.toLowerCase()}
                   </span>
                 </span>

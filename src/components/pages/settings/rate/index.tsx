@@ -25,7 +25,7 @@ export default function Rates() {
     console.log("🚀 ~ onSubmit ~ data:", data);
   };
   return (
-    <div className=" px-7 py-10 rounded-lg bg-white border border-[#EAECF0]">
+    <div className=" px-7 py-10 rounded-lg bg-white  dark:bg-gray-800 dark:border-gray-600  border border-[#EAECF0]">
       <div className="mb-10">
         <HeaderComponent
           title="Rates Management"
@@ -50,7 +50,7 @@ export default function Rates() {
                 maxW="max-w-none"
               />
             </div>
-            <span className="border flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
+            <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
               <AppIcon icon="solar:transfer-horizontal-linear" />
             </span>
             <div className="flex-1">
@@ -92,7 +92,7 @@ export default function Rates() {
                   maxW="max-w-none"
                 />
               </div>
-              <span className="border flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
+              <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
                 <AppIcon icon="solar:transfer-horizontal-linear" />
               </span>
               <div className="flex-1">
@@ -130,7 +130,7 @@ export default function Rates() {
                   maxW="max-w-none"
                 />
               </div>
-              <span className="border flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
+              <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
                 <AppIcon icon="solar:transfer-horizontal-linear" />
               </span>
               <div className="flex-1">
@@ -168,7 +168,7 @@ export default function Rates() {
                   maxW="max-w-none"
                 />
               </div>
-              <span className="border flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
+              <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
                 <AppIcon icon="solar:transfer-horizontal-linear" />
               </span>
               <div className="flex-1">

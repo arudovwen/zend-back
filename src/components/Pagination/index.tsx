@@ -67,12 +67,12 @@ const Pagination = (props: any) => {
 
   let lastPage = paginationRange?.[paginationRange?.length - 1];
   return (
-    <div className="flex items-center justify-between text-[#636363]">
+    <div className="flex items-center justify-between text-[#636363] dark:text-white/60">
       
       <div>
         <Select
           inputClass={
-            "border-blue-50 border-[0.5px] h-10 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)]"
+            "border-blue-50 border-[0.5px] h-10 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)] dark:text-white/60 dark:bg-gray-800"
           }
           containerClass="min-w-[50px]"
           optionClass="w-auto !rounded-t !rounded-b-[0px]"
@@ -107,7 +107,7 @@ const Pagination = (props: any) => {
         </button>
         <ul
           className={classnames(
-            "pagination-container border-[0.5px] rounded border-blue-50 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)]",
+            "pagination-container border-[0.5px] rounded border-blue-50 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)] ",
             {
               [className]: className,
             }
@@ -126,7 +126,7 @@ const Pagination = (props: any) => {
               <li
                 key={pageNumber}
                 className={classnames(
-                  "pagination-item  border-blue-50 border-l first:border-none",
+                  "pagination-item  border-blue-50 border-l first:border-none ",
                   {
                     selected: pageNumber === currentPage,
                   }
@@ -167,7 +167,7 @@ const Pagination = (props: any) => {
         <div className="flex gap-x-[2px] h-10 py-1 px-1 max-w-[100px] items-center rounded border-blue-50 border-[0.5px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.25)]">
           <input
             className={
-              "border-blue-50 flex px-[6px] outline-none w-full text-sm"
+              "border-blue-50 flex px-[6px] outline-none w-full text-sm dark:text-white/80 dark:bg-gray-800" 
             }
             value={rightSelected}
             onChange={(e) => setRightSelected(parseInt(e.target.value, 10))}
