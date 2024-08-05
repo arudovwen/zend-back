@@ -57,6 +57,10 @@ function StatusSpan({ status, type, stattype = "default" }: any) {
       text: "Close",
       className: StatusClass[4],
     },
+    default: {
+      text: "Close",
+      className: StatusClass[3],
+    },
   };
 
   const [stats, setStats] = useState<any>({});

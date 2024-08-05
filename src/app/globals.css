@@ -19,7 +19,9 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
-
+html{
+  padding:0 !important;
+}
 @layer utilities {
   p,
   h1,
@@ -44,7 +46,7 @@ body {
     scrollbar-width: none; /* Firefox */
   }
   .btn {
-    @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[10px] bg-[#F2F2F2] dark:bg-transparent border border-transparent dark:border-gray-500 font-normal text-xs sm:text-sm text-primary dark:text-white/90 capitalize tracking-widest hover:opacity-90  disabled:opacity-60 rounded-lg outline-none;
+    @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[10px] bg-[#F2F2F2] dark:bg-transparent border border-transparent dark:border-gray-400 font-normal text-xs sm:text-sm text-primary dark:text-white/90 capitalize tracking-widest hover:opacity-90  disabled:opacity-60 rounded-lg outline-none;
   }
   .input {
     @apply text-[#475467] border border-[#D2D2D7] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60 dark:border-gray-600 text-sm;

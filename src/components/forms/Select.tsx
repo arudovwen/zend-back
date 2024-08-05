@@ -29,8 +29,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
   useEffect(() => {
     // Add any side effects based on selected option
-    onChange && onChange(selected);
+    if(selected?.label){
+      onChange && onChange(selected);
+    }
   }, [selected]);
+  
 
   return (
     <div className="w-full  lg:max-w-[180px]">
@@ -55,13 +58,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="z-[77] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="z-[77] absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-800 dark:text-white/80 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {options.map((option: any, optionIdx: any) => (
                 <Listbox.Option
                   key={optionIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-4 pr-4 ${
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-900"
+                      active ? "bg-gray-100 dark:bg-gray-700 dark:text-gray-100 text-gray-900" : "text-gray-900 dark:text-gray-100"
                     }`
                   }
                   value={option}

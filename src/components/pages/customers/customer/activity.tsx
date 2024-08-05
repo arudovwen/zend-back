@@ -94,10 +94,10 @@ const Activities = () => {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count]);
+  }, [queryParams.page, queryParams.count, queryParams.type]);
 
   useEffect(() => {
-    getOptions;
+    getOptions();
   }, []);
   function handleChange(e: any) {
     setQueryParams({
@@ -113,13 +113,13 @@ const Activities = () => {
           <div></div>
           <div className="flex gap-x-4 items-center flex-col lg:flex-row gap-y-2 w-full lg:w-auto">
             <Select
-              className="border !border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800 text-sm px-[14px] py-[7px] rounded min-w-[180px]"
+              className="border !border-gray-100 dark:!border-gray-500 bg-transparent bg-white dark:bg-gray-800 text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={user === "customers" ? options : AdminActivitiesData}
               placeholder="Activity type"
               onChange={(e: any) =>
                 setQueryParams({
                   ...queryParams,
-                  type: e,
+                  type: e.value,
                 })
               }
             />

@@ -149,7 +149,7 @@ export const AssetsTab = [
     key: "totalSwapsUsd",
   },
 ];
-export const  VerificationTab = [
+export const VerificationTab = [
   {
     label: "Address",
     icon: "flowbite:users-group-outline",
@@ -225,6 +225,10 @@ export const AnalysisTab = [
 
 export const GenderOptions = [
   {
+    label: "Default",
+    value: "",
+  },
+  {
     label: "Male",
     value: "male",
   },
@@ -235,18 +239,27 @@ export const GenderOptions = [
 ];
 export const StatusOptions = [
   {
+    label: "Default",
+    value: "",
+  },
+  {
     label: "Active",
     value: "active",
   },
   {
-    label: "Pending",
-    value: "pending",
+    label: "Banned",
+    value: "banned",
   },
   {
-    label: "Disabled",
-    value: "disabled",
+    label: "Locked",
+    value: "locked",
+  },
+  {
+    label: "Deleted",
+    value: "deleted",
   },
 ];
+
 
 export const WalletBalanceOptions = [
   {
@@ -506,4 +519,217 @@ export const cryptoTokens = [
   { label: "Litecoin", value: "LTC" },
   { label: "DogeCoin", value: "DOGE" },
   { label: "Binance Coin", value: "BNB" },
+];
+
+export const CountryFilters = [
+  {
+    key: "ghana",
+    label: "Ghana",
+    value: "ghana",
+  },
+  {
+    key: "nigeria",
+    label: "Nigeria",
+    value: "nigeria",
+  },
+  {
+    key: "rwanda",
+    label: "Rwanda",
+    value: "rwanda",
+  },
+  {
+    key: "south_africa",
+    label: "South Africa",
+    value: "south_africa",
+  },
+  {
+    key: "kenya",
+    label: "Kenya",
+    value: "kenya",
+  },
+  {
+    key: "uganda",
+    label: "Uganda",
+    value: "uganda",
+  },
+  {
+    key: "cameroon",
+    label: "Cameroon",
+    value: "cameroon",
+  },
+];
+
+export const currencies = [
+  { label: "Default", value: "" },
+  {
+    value: "SOL",
+    label: "Solana",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "ETH",
+    label: "Ethereum",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "BTC",
+    label: "Bitcoin",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "TRX",
+    label: "Tron",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "ALGO",
+    label: "Algorand",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "XRP",
+    label: "XRP",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "BCH",
+    label: "Bitcoin cash",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "XLM",
+    label: "XLM",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "LTC",
+    label: "Litecoin",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "AVAX",
+    label: "AVAX",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "DOGE",
+    key: "DOGE",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "USDC",
+    label: "USDC",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "USDT",
+    label: "USDT",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "OKB",
+    label: "OKB",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "MATIC",
+    label: "Polygon Matic",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "BNB",
+    label: "Binance Coin",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "ADA",
+    label: "Cardano",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+  {
+    value: "DAI",
+    label: "DAI",
+    currentPrice: 0,
+    percentagePrice: 0,
+    percentageChange: 0,
+  },
+];
+
+export const TransactionOptions = [
+  {
+    label: "Default",
+    value: "",
+  },
+  {
+    label: "Success",
+    value: "success",
+  },
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  {
+    label: "Failed",
+    value: "failed",
+  },
+];
+
+export const TypeData = [
+  {
+    label: "Default",
+    value: "",
+  },
+  { label: "Withdraw", value: "withdraw" },
+  { label: "Deposit", value: "deposit" },
+];
+
+export const VerifyTypeData = [
+  {
+    label: "Default",
+    value: "",
+  },
+  { label: "BVN", value: "bvn" },
+  { label: "Government Id", value: "government_id" },
+  { label: "Phone number", value: "phone_number" },
+  { label: "Email address", value: "email_address" },
+  { label: "Address", value: "address" },
+];
+export const VerifyStatusData = [
+  { label: "Default", value: "" },
+  { label: "Pending", value: false },
+  { label: "Approved", value: true },
 ];

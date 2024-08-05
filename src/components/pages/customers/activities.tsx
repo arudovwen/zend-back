@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import moment from "moment";
 import HeaderComponent from "@/components/HeaderComponent";
 import TableCard from "@/components/table";
@@ -15,6 +15,7 @@ import {
 } from "@/services/userservice";
 import { ucFirst } from "@/utils/methods";
 import { useParams } from "next/navigation";
+import debounce from "debounce";
 
 const Activities = () => {
   const { user } = useParams();
@@ -28,7 +29,8 @@ const Activities = () => {
     created_at_stop: null,
     created_at_start: null,
     type: "",
-    total:0
+    total: 0,
+    search:""
   });
   const [value, setValue] = useState({ startDate: null, endDate: null });
 
@@ -84,10 +86,16 @@ const Activities = () => {
     try {
       const res = await getActivityOptions();
       if (res.status === 200) {
-        setOptions(
-          res.data?.data?.types.map((i: any) => ({ ...i, key: i.label }))
-        );
-      
+        setOptions([
+          // @ts-ignore
+          {
+            label: "Default",
+            key: "Default",
+            value: "",
+          },
+          // @ts-ignore
+          ...res.data?.data?.types.map((i: any) => ({ ...i, key: i.label })),
+        ]);
       }
     } catch (error) {
       console.error("Error fetching activity options:", error);
@@ -95,17 +103,31 @@ const Activities = () => {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams]);
+  }, [
+    queryParams.page,
+    queryParams.count,
+    queryParams.type,
+    queryParams.created_at_start,
+    queryParams.created_at_stop,
+    queryParams.search,
+    queryParams.user
+  ]);
 
   useEffect(() => {
-    getOptions;
+    getOptions();
   }, []);
-  function handleChange(e: any) {
+  function handleSearch(val: any) {
     setQueryParams({
       ...queryParams,
-      user: e.target.value,
+      search: val,
+      user:val
     });
   }
+  const debouncedSearch = useCallback(
+    debounce((value) => handleSearch(value), 800),
+    []
+  );
+
   return (
     <section>
       <div className="mb-10">
@@ -117,7 +139,7 @@ const Activities = () => {
       <div>
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
-            onChange={handleChange}
+             onChange={(e) => debouncedSearch(e.target.value)}
             placeholder="Search name or email"
             className="border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
@@ -129,7 +151,7 @@ const Activities = () => {
               onChange={(e: any) =>
                 setQueryParams({
                   ...queryParams,
-                  type: e,
+                  type: e.value,
                 })
               }
             />
@@ -151,7 +173,7 @@ const Activities = () => {
             rows={rows}
             isLoading={loading}
             queryParams={queryParams}
-            setQueryParams={(data:any)=>setQueryParams(data)}
+            setQueryParams={(data: any) => setQueryParams(data)}
           />
         </div>
       </div>

@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import debounce from "debounce";
+import SearchSelect from "@/components/forms/SearchSelect";
 import AppTab from "@/components/AppTab";
 import HeaderComponent from "@/components/HeaderComponent";
 import TableCard from "@/components/table";
-import { VerificationTab } from "@/constants";
+import { VerificationTab, VerifyStatusData, VerifyTypeData } from "@/constants";
 import GridTab from "@/components/GridTab";
 import { VarificationsHeader } from "@/constants/headers";
 import Select from "@/components/forms/Select";
@@ -14,6 +16,7 @@ import AppStatusComponent from "@/components/AppStatusComponent";
 import {
   getUsersVerifications,
   getUsersVerificationMetrics,
+  getAllUsers,
 } from "@/services/userservice";
 import moment from "moment";
 import { ucFirst } from "@/utils/methods";
@@ -47,6 +50,7 @@ export default function VerficationComponent() {
     type: "",
     total: 0,
     id: null,
+    is_approved: null
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -56,10 +60,12 @@ export default function VerficationComponent() {
     endDate: null,
   });
 
-  const handleValueChange = (newValue: {
-    startDate: Date | null;
-    endDate: Date | null;
-  }) => {
+  const handleValueChange = (newValue: any) => {
+    setQueryParams({
+      ...queryParams,
+      created_at_stop: newValue.endDate,
+      created_at_start: newValue.startDate,
+    });
     setValue(newValue);
   };
   function handleSelected(val: any, data: any) {}
@@ -132,21 +138,82 @@ export default function VerficationComponent() {
   function getMetrics() {
     getUsersVerificationMetrics().then((res) => {
       if (res.status === 200) {
-        const detail = res.data.data?.metrics
+        const detail = res.data.data?.metrics;
         setMetrics(detail);
-       
       }
-      
     });
   }
 
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count]);
+  }, [
+    queryParams.page,
+    queryParams.count,
+    queryParams.created_at_stop,
+    queryParams.created_at_start,
+    queryParams.user,
+    queryParams.type,
+    queryParams.is_approved,
+  ]);
+  const loadOptions = (inputValue: any, callback: any) => {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const searchDataT = await getAllUsers({
+          user: inputValue,
+          page: 1,
+          count: 1000,
+        });
+        const sdata = searchDataT.data?.data?.users.map((data: any) => ({
+          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)}}`,
+          value: data?.id,
+        }));
+
+        setTimeout(() => {
+          if (sdata?.length) {
+            callback([{ label: "Default", value: "" }, , ...sdata]);
+            resolve([{ label: "Default", value: "" }, , ...sdata]);
+          } else {
+            reject(new Error("No data available."));
+          }
+        }, 1000);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   useEffect(() => {
     getMetrics();
   }, []);
+  const handleSelectType = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      type: e.value,
+    });
+  };
+  const handleStatusType = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      is_approved: e.value,
+    });
+  };
+  function handleSearch(val: any) {
+    setQueryParams({
+      ...queryParams,
+      user: val,
+    });
+  }
+  const debouncedSearch = useCallback(
+    debounce((value) => handleSearch(value), 800),
+    []
+  );
+  const handleUsers = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      user: e.value,
+    });
+  };
 
   return (
     <section>
@@ -175,24 +242,23 @@ export default function VerficationComponent() {
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
             placeholder="Search email address"
+            onChange={(e) => debouncedSearch(e.target.value)}
             className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
-              options={[]}
-              placeholder="Select token"
+              options={VerifyTypeData}
+              placeholder="Select type"
+              onChange={handleSelectType}
             />
             <Select
               className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
-              options={[]}
+              options={VerifyStatusData}
               placeholder="Select status"
+              onChange={handleStatusType}
             />
-            <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-              options={[]}
-              placeholder="Select customer"
-            />
+             <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
             <Datepicker
               showShortcuts
               useRange={false}

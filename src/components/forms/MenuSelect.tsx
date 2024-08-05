@@ -28,7 +28,7 @@ export default function MenuSelect({ label, options, handleSelected }: any) {
                       onClick={() => handleSelected(option.value)}
                       className={`${
                         active ? "bg-gray-100" : ""
-                      } flex w-full items-center rounded-md px-[14px] hover:bg-gray-50 py-2 text-sm text-secondary dark:text-white/80`}
+                      } flex w-full items-center rounded-md px-[14px] hover:bg-gray-50 dark:hover:bg-gray-800 py-2 text-sm text-secondary dark:text-white/80`}
                     >
                       {option.label}
                     </button>

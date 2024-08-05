@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import moment from "moment";
+import debounce from "debounce";
 import AppTab from "@/components/AppTab";
 import HeaderComponent from "@/components/HeaderComponent";
 import TableCard from "@/components/table";
@@ -20,9 +21,17 @@ import {
 } from "@/utils/methods";
 import AppStatusComponent from "@/components/AppStatusComponent";
 import GridTab from "@/components/GridTab";
-import { AssetsTab } from "@/constants";
+import {
+  AssetsTab,
+  currencies,
+  TransactionOptions,
+  TypeData,
+} from "@/constants";
 import OptionsList from "@/components/forms/OptionsList";
 import MenuSelect from "@/components/forms/MenuSelect";
+import { getAllUsers } from "@/services/userservice";
+import SearchSelect from "@/components/forms/SearchSelect";
+
 export default function Transactions() {
   const tabs = [
     { title: "swap transactions", key: "swap" },
@@ -32,7 +41,7 @@ export default function Transactions() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
-  const [queryParams, setQueryParams] = useState({
+  const [queryParams, setQueryParams] = useState<any>({
     page: 1,
     count: 15,
     status: "",
@@ -42,6 +51,7 @@ export default function Transactions() {
     transactionId: "",
     currency: "",
     total: 0,
+    user: "",
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -51,15 +61,59 @@ export default function Transactions() {
     endDate: null,
   });
 
-  const handleValueChange = (newValue: {
-    startDate: Date | null;
-    endDate: Date | null;
-  }) => {
+  const handleValueChange = (newValue: any) => {
+    setQueryParams({
+      ...queryParams,
+      customToDate:
+        newValue.endDate && moment(newValue.endDate).isValid()
+          ? moment(newValue.endDate).format("DD-MM-YYYY")
+          : null,
+      customFromDate:
+        newValue.startDate && moment(newValue.startDate).isValid()
+          ? moment(newValue.startDate).format("DD-MM-YYYY")
+          : null,
+    });
     setValue(newValue);
   };
+  const handleSearch = (value: any) => {
+    setQueryParams({
+      ...queryParams,
+      transactionId: value,
+    });
+  };
+  const debouncedSearch = useCallback(
+    debounce((value) => handleSearch(value), 800),
+    []
+  );
 
+  const handleType = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      transactionType: e.value,
+    });
+  };
+
+  const handleUsers = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      user: e.value,
+    });
+  };
+
+  const handleStatus = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      status: e.value,
+    });
+  };
+  const handleCurrency = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      currency: e.value,
+    });
+  };
   function getMetrics() {
-    getDashboardMetrics({}).then((res) => {
+    getDashboardMetrics({ queryParams }).then((res) => {
       if (res.status === 200) {
         setMetrics(res.data.data);
       }
@@ -117,11 +171,52 @@ export default function Transactions() {
       type: activeTab,
       limit: queryParams.count,
     });
-  }, [queryParams.page, queryParams.count, activeTab]);
+    getMetrics();
+  }, [
+    queryParams.page,
+    queryParams.count,
+    activeTab,
+    queryParams.currency,
+    queryParams.type,
+    queryParams.transactionType,
+    queryParams.transactionId,
+    queryParams.user,
+    queryParams.status,
+    queryParams.customFromDate,
+    queryParams.customToDate
+  ]);
 
   useEffect(() => {
     getMetrics();
   }, []);
+
+  const loadOptions = (inputValue: any, callback: any) => {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const searchDataT = await getAllUsers({
+          user: inputValue,
+          page: 1,
+          count: 1000,
+        });
+        const sdata = searchDataT.data?.data?.users.map((data: any) => ({
+          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)}}`,
+          value: data?.id,
+        }));
+
+        setTimeout(() => {
+          if (sdata?.length) {
+            callback([{ label: "Default", value: "" }, , ...sdata]);
+            resolve([{ label: "Default", value: "" }, , ...sdata]);
+          } else {
+            reject(new Error("No data available."));
+          }
+        }, 1000);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   return (
     <section>
@@ -152,24 +247,30 @@ export default function Transactions() {
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
             placeholder="Search transaction id"
+            onChange={(e) => debouncedSearch(e.target.value)}
             className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
-              options={[]}
+              options={currencies}
               placeholder="Select token"
+              onChange={handleCurrency}
             />
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
-              options={[]}
+              options={TransactionOptions}
               placeholder="Select status"
+              onChange={handleStatus}
             />
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-              options={[]}
-              placeholder="Select customer"
+              options={TypeData}
+              placeholder="Select type"
+              onChange={handleType}
             />
+
+            <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
             <Datepicker
               showShortcuts
               useRange={false}

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { AssetsTab, StatusOptions } from "@/constants";
 import GridTab from "@/components/GridTab";
@@ -18,6 +18,7 @@ import { ucFirst } from "@/utils/methods";
 
 import { useRouter } from "next/navigation";
 import HeaderComponent from "@/components/HeaderComponent";
+import debounce from "debounce";
 
 const Options = [
   {
@@ -39,6 +40,7 @@ export default function AssetComponent() {
     page: 1,
     count: 15,
     total: 0,
+    status
   });
   const fetchData = async () => {
     setLoading(true);
@@ -101,7 +103,6 @@ export default function AssetComponent() {
   };
 
   function handleSelected(value: string, data: any) {
-    console.log("🚀 ~ handleSelected ~ data:", data);
     switch (value) {
       case "view":
         router.push(
@@ -117,8 +118,28 @@ export default function AssetComponent() {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count]);
-
+  }, [
+    queryParams.page,
+    queryParams.count,
+    queryParams.user,
+    queryParams.status,
+  ]);
+  function handleSearch(val: any) {
+    setQueryParams({
+      ...queryParams,
+      user: val,
+    });
+  }
+  const debouncedSearch = useCallback(
+    debounce((value) => handleSearch(value), 800),
+    []
+  );
+  function handleStatus(val: any) {
+    setQueryParams({
+      ...queryParams,
+      status: val.value,
+    });
+  }
   return (
     <section>
       <div className="mb-10">
@@ -133,14 +154,18 @@ export default function AssetComponent() {
             {" "}
             <input
               placeholder="Search name or email"
+              onChange={(e) => debouncedSearch(e.target.value)}
               className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded w-full lg:w-[280px] "
             />
           </div>
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-              options={StatusOptions}
+              options={StatusOptions.filter(
+                (i) => i.value !== "deleted" && i.value !== "locked"
+              )}
               placeholder="Select Status"
+              onChange={(val: any) => handleStatus(val)}
             />
             <AppButton text="Suspend wallets" />
           </div>

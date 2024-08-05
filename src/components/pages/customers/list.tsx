@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import debounce from "debounce";
 import HeaderComponent from "@/components/HeaderComponent";
 import Select from "@/components/forms/Select";
 import TableCard from "@/components/table";
 import { AdministratorHeader, CustomerListHeader } from "@/constants/headers";
-import { StatusOptions, GenderOptions } from "@/constants";
+import { StatusOptions, GenderOptions, CountryFilters } from "@/constants";
 import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
 import { ucFirst } from "@/utils/methods";
@@ -40,6 +41,12 @@ export default function List() {
     count: 15,
     total: 0,
     type: "",
+    search: "",
+    is_banned: false,
+    is_deleted: false,
+    is_locked: false,
+    country: null,
+    gender: null,
   });
   const fetchData = async () => {
     setLoading(true);
@@ -55,7 +62,7 @@ export default function List() {
           ...i,
           name: (
             <span className="flex gap-x-[10px] items-center">
-              <span>
+              <span className="w-8 h-8">
                 <Image
                   width={32}
                   height={32}
@@ -67,7 +74,7 @@ export default function List() {
                   className="w-8 h-8 rounded-lg"
                 />
               </span>
-              <span className="block">
+              <span className="block flex-1">
                 <span className="block font-medium text-sm">
                   {ucFirst(i?.firstName)} {ucFirst(i?.lastName)}
                 </span>
@@ -133,8 +140,65 @@ export default function List() {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count]);
+  }, [
+    queryParams.page,
+    queryParams.count,
+    queryParams.is_banned,
+    queryParams.is_locked,
+    queryParams.id_deleted,
+    queryParams.search,
+    queryParams.country,
+    queryParams.gender,
+  ]);
 
+  function handleSearch(val: any) {
+    setQueryParams({
+      ...queryParams,
+      search: val,
+    });
+  }
+  const debouncedSearch = useCallback(
+    debounce((value) => handleSearch(value), 800),
+    []
+  );
+
+  function handleStatus(option: any) {
+    switch (option?.value) {
+      case "banned":
+        setQueryParams({
+          ...queryParams,
+          is_banned: true,
+          is_deleted: false,
+          is_locked: false,
+        });
+        break;
+      case "locked":
+        setQueryParams({
+          ...queryParams,
+          is_banned: false,
+          is_deleted: false,
+          is_locked: true,
+        });
+        break;
+      case "deleted":
+        setQueryParams({
+          ...queryParams,
+          is_banned: false,
+          is_deleted: true,
+          is_locked: false,
+        });
+        break;
+
+      default:
+        setQueryParams({
+          ...queryParams,
+          is_banned: false,
+          is_deleted: false,
+          is_locked: false,
+        });
+        break;
+    }
+  }
   return (
     <section>
       <div className="mb-10">
@@ -144,25 +208,39 @@ export default function List() {
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
             placeholder="Search name or email"
+            onChange={(e) => debouncedSearch(e.target.value)}
             className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-4 items-center w-full lg:w-auto">
             {user === "customers" && (
               <Select
                 className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px] w-full"
-                options={[]}
+                options={CountryFilters}
                 placeholder="Select country"
+                onChange={(e: any) =>
+                  setQueryParams({
+                    ...queryParams,
+                    country: e.value,
+                  })
+                }
               />
             )}
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={StatusOptions}
               placeholder="Select Status"
+              onChange={(val: any) => handleStatus(val)}
             />
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
               options={GenderOptions}
               placeholder="Select Gender"
+              onChange={(e: any) =>
+                setQueryParams({
+                  ...queryParams,
+                  gender: e.value,
+                })
+              }
             />
           </div>
         </div>
@@ -174,7 +252,7 @@ export default function List() {
             rows={rows}
             isLoading={loading}
             queryParams={queryParams}
-            setQueryParams={(data:any)=>setQueryParams(data)}
+            setQueryParams={(data: any) => setQueryParams(data)}
           />
         </div>
       </div>
