@@ -4,7 +4,7 @@ import {cleanObject} from "@/utils/cleanObject";
 
 const { post, get, patch } = DataService;
 
-const walletBaseUrl = process.env.NEXT_PUBLIC_WALLET_ENDPOINT;
+const walletBaseUrl = process.env.NEXT_PUBLIC_PERSONAL_WALLET_ENDPOINT;
 const quickSellBaseUrl = process.env.NEXT_PUBLIC_QUICK_SELL_ENDPOINT;
 const transactionBaseUrl = process.env.NEXT_PUBLIC_TRANSACTION_ENDPOINT;
 

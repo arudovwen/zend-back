@@ -113,7 +113,7 @@ export default function Transactions() {
     });
   };
   function getMetrics() {
-    getDashboardMetrics({ queryParams }).then((res) => {
+    getDashboardMetrics(queryParams).then((res) => {
       if (res.status === 200) {
         setMetrics(res.data.data);
       }
@@ -183,7 +183,7 @@ export default function Transactions() {
     queryParams.user,
     queryParams.status,
     queryParams.customFromDate,
-    queryParams.customToDate
+    queryParams.customToDate,
   ]);
 
   useEffect(() => {
@@ -200,7 +200,7 @@ export default function Transactions() {
           count: 1000,
         });
         const sdata = searchDataT.data?.data?.users.map((data: any) => ({
-          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)}}`,
+          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)}`,
           value: data?.id,
         }));
 
@@ -263,12 +263,14 @@ export default function Transactions() {
               placeholder="Select status"
               onChange={handleStatus}
             />
-            <Select
-              className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-              options={TypeData}
-              placeholder="Select type"
-              onChange={handleType}
-            />
+            {activeTab === "transaction" && (
+              <Select
+                className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
+                options={TypeData}
+                placeholder="Select type"
+                onChange={handleType}
+              />
+            )}
 
             <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
             <Datepicker

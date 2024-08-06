@@ -4,7 +4,7 @@ import {cleanObject} from "@/utils/cleanObject";
 
 const { post, get } = DataService;
 
-const transactionBaseUrl = process.env.NEXT_PUBLIC_WALLET_ENDPOINT;
+const transactionBaseUrl = process.env.NEXT_PUBLIC_PERSONAL_WALLET_ENDPOINT;
 
 export const sendNotification = async (payload) => {
   return post(`${url.NOTIFICATION}/broadcast`, payload, transactionBaseUrl);
