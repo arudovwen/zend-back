@@ -11,7 +11,7 @@ import AppButton from "@/components/AppButton";
 import Image from "next/image";
 
 export default function Account() {
-    const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -65,9 +65,14 @@ export default function Account() {
       </div>
 
       <div>
-        <h2 className="font-semibold text-sm text-secondary dark:text-white/80 mb-6">Personal information</h2>
+        <h2 className="font-semibold text-sm text-secondary dark:text-white/80 mb-6">
+          Personal information
+        </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-[800px]">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-[800px]"
+        >
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">
             <FormField
               label="First name"
@@ -93,19 +98,10 @@ export default function Account() {
               placeholder=""
               type="email"
               register={register}
-              errors={errors.emailAddress}
               maxW="max-w-none"
             />
           </div>
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">
-            <FormField
-              label="Username"
-              name="username"
-              placeholder=""
-              register={register}
-              errors={errors.username}
-              maxW="max-w-none"
-            />
             <FormField
               label="Phone number"
               name="phoneNumber"
@@ -115,16 +111,14 @@ export default function Account() {
               maxW="max-w-none"
             />
           </div>
-         
-        
+
           <div className="flex gap-x-5 items-center">
-           
             <ButtonComponent
               className="text-center !bg-primary !text-white items-center !border-primary !text-sm"
               type="submit"
               isLoading={loading}
             >
-               Save information
+              Save information
             </ButtonComponent>
           </div>
         </form>

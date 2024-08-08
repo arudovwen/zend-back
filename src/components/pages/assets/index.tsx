@@ -40,7 +40,7 @@ export default function AssetComponent() {
     page: 1,
     count: 15,
     total: 0,
-    status
+    status: null,
   });
   const fetchData = async () => {
     setLoading(true);

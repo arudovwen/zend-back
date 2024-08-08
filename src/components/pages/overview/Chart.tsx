@@ -148,7 +148,7 @@ export default function Chart() {
           />
         </div>
       </div>
-      {/* <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-100 dark:border-gray-600 w-full  z-10">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-100 dark:border-gray-600 w-full  z-10">
         <div className="w-full">
           {show && (
             <ReactApexChart
@@ -159,7 +159,7 @@ export default function Chart() {
             />
           )}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
