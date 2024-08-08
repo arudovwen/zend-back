@@ -1,0 +1,30 @@
+import React from "react";
+
+export default function BanSvg() {
+  return (
+    <div>
+      <svg
+        width="120"
+        height="120"
+        viewBox="0 0 120 120"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="60" cy="60" r="60" fill="#F7931A" fill-opacity="0.1" />
+        <circle cx="60" cy="60" r="50" fill="#F7931A" fill-opacity="0.2" />
+        <circle cx="60" cy="60" r="40" fill="#F7931A" fill-opacity="0.4" />
+        <circle cx="60" cy="60" r="30" fill="#F7931A" fill-opacity="0.6" />
+        <path
+          d="M50.6654 50.6665L69.332 69.3332"
+          stroke="white"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M73.3327 59.9997C73.3327 52.6359 67.3631 46.6663 59.9993 46.6663C52.6356 46.6663 46.666 52.6359 46.666 59.9997C46.666 67.3635 52.6356 73.333 59.9993 73.333C67.3631 73.333 73.3327 67.3635 73.3327 59.9997Z"
+          stroke="white"
+        />
+      </svg>
+    </div>
+  );
+}

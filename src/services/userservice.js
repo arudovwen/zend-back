@@ -3,14 +3,20 @@ import { DataService } from "@/services/api_service";
 import { cleanObject } from "@/utils/cleanObject";
 const { post, get, del } = DataService;
 
-export const banUser = async (id) => {
+export const banUser = async (payload) => {
+  const {id,...rest}= payload
   return post(`${url.USERS}/${id}/ban`, payload);
 };
-
-export const unlockUser = async (id) => {
+export const lockUser = async (payload) => {
+  const {id,...rest}= payload
+  return post(`${url.USERS}/${id}/lock`, payload);
+};
+export const unlockUser = async (payload) => {
+  const {id,...rest}= payload
   return post(`${url.USERS}/${id}/unlock`, payload);
 };
-export const unbanUser = async (id) => {
+export const unbanUser = async (payload) => {
+  const {id,...rest}= payload
   return post(`${url.USERS}/${id}/unban`, payload);
 };
 
@@ -36,7 +42,7 @@ export const getNotifications = async (id) => {
 
 export const updateProfile = async (payload) => {
   return post(
-    `${url.ADMIN}/${payload.id}/update?operation=profile_update`,
+    `${payload.type}/${payload.id}/update?operation=profile_update`,
     payload
   );
 };
@@ -48,11 +54,11 @@ export const getAllAdmin = async (payload) => {
 };
 
 export const banAdmin = async (payload) => {
-  return post(`${url.ADMIN}/${payload}/ban`, payload);
+  return post(`${url.ADMIN}/${payload.id}/ban`, payload);
 };
 
 export const unbanAdmin = async (payload) => {
-  return post(`${url.ADMIN}/${payload}/unban`, payload);
+  return post(`${url.ADMIN}/${payload.id}/unban`, payload);
 };
 
 export const createAdmin = async (payload) => {

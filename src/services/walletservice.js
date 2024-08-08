@@ -23,7 +23,7 @@ export const getWallets = async (payload) => {
   );
 };
 
-export const resolveTansaction = async (payload) => {
+export const resolveTransaction = async (payload) => {
   const { type, ...rest } = payload;
   return patch(
     `${url.WALLET}/resolve-${type}?${new URLSearchParams(cleanObject(rest))}`,

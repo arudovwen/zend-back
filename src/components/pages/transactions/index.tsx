@@ -12,6 +12,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 import {
   getAllTransactions,
   getDashboardMetrics,
+  resolveTransaction,
 } from "@/services/walletservice";
 import formatCurrency from "@/utils/formatCurrency";
 import {
@@ -31,7 +32,20 @@ import OptionsList from "@/components/forms/OptionsList";
 import MenuSelect from "@/components/forms/MenuSelect";
 import { getAllUsers } from "@/services/userservice";
 import SearchSelect from "@/components/forms/SearchSelect";
+import SideModal from "@/components/modals/SideModal";
+import Transaction from "./detail";
+import { toast } from "react-toastify";
 
+const Options = [
+  {
+    label: "View",
+    value: "view",
+  },
+  {
+    label: "Resolve",
+    value: "resolve",
+  },
+];
 export default function Transactions() {
   const tabs = [
     { title: "swap transactions", key: "swap" },
@@ -40,6 +54,8 @@ export default function Transactions() {
   const [metrics, setMetrics] = useState<any>({});
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [detail, setDetail] = useState(null);
+  const [isSideOpen, setSideOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const [queryParams, setQueryParams] = useState<any>({
     page: 1,
@@ -119,7 +135,27 @@ export default function Transactions() {
       }
     });
   }
-  function handleSelected(val: any, data: any) {}
+  function handleSelected(val: any, data: any) {
+    setDetail(data);
+    if (val === "view") {
+      setSideOpen(true);
+    }
+    if (val === "resolve") {
+      resolveTransaction({
+        txId: data.transactionId || data.internalTransId,
+        type: data.type.toLowerCase(),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            getAllTransactions();
+            toast.success("Transaction resolved successfully");
+          }
+        })
+        .catch((err) => {
+          toast.error(err?.response?.data?.message || "Process failed");
+        });
+    }
+  }
   function getTransactions(params: any) {
     setLoading(true);
     getAllTransactions(params)
@@ -142,13 +178,29 @@ export default function Transactions() {
             action: (
               <MenuSelect
                 label={<AppIcon icon="uil:ellipsis-v" />}
-                options={[]}
+                options={
+                  i.status === "pending" && activeTab === "transaction"
+                    ? Options
+                    : Options.filter((j) => j.value !== "resolve")
+                }
                 handleSelected={(val: string) =>
                   handleSelected(val, {
                     ...i,
                     name: `${ucFirst(i.user?.firstName)} ${ucFirst(
                       i.user?.lastName
                     )}`,
+                    transactionId: i.txId || i.billId || i.ordId || i.wdId,
+                    date: moment(i.timeStamp).format("lll"),
+                    token: i.currency,
+                    transactionType: capitalizeSentence(i?.transactionType),
+                    tokenamount:
+                      formatCurrency(parseFloat(i?.amount)) + " " + i?.currency,
+                    swapamount: `${formatCurrency(i?.toCurrencyAmt)} ${
+                      i?.toCurrency
+                    }`,
+                    tokenSwapped: `${i?.fromCurrency} > ${i?.toCurrency}`,
+                    status: <AppStatusComponent status={i.status} />,
+                    type: ucFirst(i.type),
                   })
                 }
               />
@@ -185,10 +237,6 @@ export default function Transactions() {
     queryParams.customFromDate,
     queryParams.customToDate,
   ]);
-
-  useEffect(() => {
-    getMetrics();
-  }, []);
 
   const loadOptions = (inputValue: any, callback: any) => {
     // eslint-disable-next-line no-async-promise-executor
@@ -248,7 +296,7 @@ export default function Transactions() {
           <input
             placeholder="Search transaction id"
             onChange={(e) => debouncedSearch(e.target.value)}
-            className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
+            className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-secondary dark:text-white/80 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
@@ -256,12 +304,14 @@ export default function Transactions() {
               options={currencies}
               placeholder="Select token"
               onChange={handleCurrency}
+              value={queryParams.currency}
             />
             <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
               options={TransactionOptions}
               placeholder="Select status"
               onChange={handleStatus}
+              value={queryParams.status}
             />
             {activeTab === "transaction" && (
               <Select
@@ -269,6 +319,7 @@ export default function Transactions() {
                 options={TypeData}
                 placeholder="Select type"
                 onChange={handleType}
+                value={queryParams.transactionType}
               />
             )}
 
@@ -296,6 +347,9 @@ export default function Transactions() {
           setQueryParams={(data: any) => setQueryParams(data)}
         />
       </div>
+      <SideModal setOpen={setSideOpen} open={isSideOpen}>
+        <Transaction detail={detail} />
+      </SideModal>
     </section>
   );
 }

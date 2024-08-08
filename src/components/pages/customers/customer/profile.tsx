@@ -2,14 +2,38 @@
 import React, { useContext, useState } from "react";
 import LockForm from "./modals/LockForm";
 import AppButton from "@/components/AppButton";
+import AppStatusComponent from "@/components/AppStatusComponent";
 import Image from "next/image";
 import { UserContext } from "@/constants/context";
 
 export default function Profile() {
   const [isOpen, setOpen] = useState(false);
   const [type, setType] = useState<"ban" | "unlock" | "lock" | "unban">("lock");
-
   const { userData, loading } = useContext(UserContext);
+
+  function getLevel() {
+    if (
+      userData.hasVerifiedPhoneNumber &&
+      userData.hasVerifiedEmailAddress &&
+      userData.hasVerifiedGovernmentId
+    ) {
+      if (userData.country.toLowerCase() === "nigeria") {
+        if (userData.hasVerifiedBvn) {
+          if (userData.hasVerifiedAddress) {
+            return 3;
+          }
+        } else {
+          return 1;
+        }
+      } else {
+        if (userData.hasVerifiedAddress) {
+          return 3;
+        }
+      }
+    } else {
+      return 0;
+    }
+  }
 
   return (
     <div className="flex  flex-col md:flex-row gap-6 justify-start lg:justify-between lg:items-center">
@@ -34,12 +58,18 @@ export default function Profile() {
               </span>
             </div>
             <div className="flex gap-x-3 items-center">
-              <span className="px-[14px] py-[5px] rounded-full border border-blue-300 dark:bg-transparent bg-blue-50 text-xs text-blue-700 dark:text-blue-300">
-                Level 2
+              <span className="px-2 py-[2px] text-xs rounded-full border border-blue-300 dark:bg-transparent bg-blue-50  text-blue-700 dark:text-blue-300">
+                Level {getLevel()}
               </span>
-              <span className="px-[14px] py-[5px] rounded-full border border-green-300 bg-green-50 dark:bg-transparent text-xs text-green-700 dark:text-green-300">
-                Active
-              </span>
+              <AppStatusComponent
+                status={
+                  userData.isBanned
+                    ? "banned"
+                    : userData.isLocked
+                    ? "locked"
+                    : "active"
+                }
+              />
             </div>
           </div>
         )}
@@ -51,7 +81,7 @@ export default function Profile() {
           iconClass="text-red-500"
           type="button"
           onClick={() => {
-            setType("ban");
+            setType(userData?.isBanned ? "unban" : "ban");
             setOpen(true);
           }}
         />
@@ -60,12 +90,23 @@ export default function Profile() {
           icon="solar:lock-keyhole-minimalistic-linear"
           type="button"
           onClick={() => {
-            setType("lock");
+            setType(userData?.isLocked ? "unlock" : "lock");
             setOpen(true);
           }}
         />
       </div>
-      <LockForm setOpen={setOpen} isOpen={isOpen} type={type} />
+      {isOpen && (
+        <LockForm
+          setOpen={setOpen}
+          isOpen={isOpen}
+          type={type}
+          detail={{
+            name: `${userData.firstName} ${userData.lastName}`,
+            email: userData.emailAddress,
+            id: userData.id,
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -15,6 +15,7 @@ interface CustomSelectProps {
   name?: string;
   label?: string;
   onChange?: any;
+  value?: any;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -23,17 +24,23 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   placeholder = "Filter",
   label,
   onChange,
+  value,
 }) => {
   const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
 
   useEffect(() => {
     // Add any side effects based on selected option
-    if(selected?.label){
+    if (selected?.label) {
       onChange && onChange(selected);
     }
   }, [selected]);
-  
+
+  useEffect(() => {
+    if (value) {
+      setSelected(options.find((i:any) => i.value === value));
+    }
+  }, [value]);
 
   return (
     <div className="w-full  lg:max-w-[180px]">
@@ -64,7 +71,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                   key={optionIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-4 pr-4 ${
-                      active ? "bg-gray-100 dark:bg-gray-700 dark:text-gray-100 text-gray-900" : "text-gray-900 dark:text-gray-100"
+                      active
+                        ? "bg-gray-100 dark:bg-gray-700 dark:text-gray-100 text-gray-900"
+                        : "text-gray-900 dark:text-gray-100"
                     }`
                   }
                   value={option}

@@ -1,14 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CenterModal from "@/components/modals/CenterModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import FormField from "@/components/forms/FormField";
+import FormSelect from "@/components/forms/FormSelect";
 import { PersonalSchema } from "@/schema";
 import ButtonComponent from "@/components/ButtonComponent";
+import { UserContext } from "@/constants/context";
+import { updateProfile } from "@/services/userservice";
+import { GenderOptions } from "@/constants";
 
 export default function KinForm({ setOpen, isOpen, data }: any) {
+  const { getUserData } = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -16,14 +21,36 @@ export default function KinForm({ setOpen, isOpen, data }: any) {
     watch,
     setValue,
     formState: { errors },
+    trigger,
+    getValues
   } = useForm({
     resolver: yupResolver(PersonalSchema),
-    defaultValues: data,
+    defaultValues: {
+      id:data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
+      dateOfBirth: data.dateOfBirth,
+      homeAddress: data.homeAddress,
+      gender: data.gender,
+    },
   });
   const onSubmit = (data: any) => {
     setLoading(true);
-    console.log("🚀 ~ onSubmit ~ data:", data);
-    // router.push("/verify");
+
+    updateProfile({ ...data, type: "users" })
+      .then((res) => {
+        if (res.status === 200) {
+          getUserData();
+          toast.success("Profile updated");
+          setLoading(false);
+          setOpen(false);
+        }
+      })
+      .catch((err: any) => {
+        setLoading(false);
+        toast.error(err?.response?.data?.message || "Process failed");
+      });
   };
   return (
     <CenterModal setOpen={() => {}} open={isOpen}>
@@ -67,26 +94,31 @@ export default function KinForm({ setOpen, isOpen, data }: any) {
               errors={errors.dateOfBirth}
               maxW="max-w-none"
               type="date"
-            />
-          </div>
-          <div className="mb-6">
-            <FormField
-              label="Email address"
-              name="emailAddress"
-              placeholder=""
-              type="email"
-              register={register}
-              errors={errors.emailAddress}
-              maxW="max-w-none"
+              value={getValues().dateOfBirth}
+              className=" !pr-[14px] w-full"
             />
           </div>
           <div className="mb-10">
+            <FormSelect
+              label={`Gender`}
+              name="gender"
+              placeholder="Select gender"
+              register={register}
+              errors={errors?.gender}
+              options={GenderOptions} // Replace with actual options
+              setValue={setValue}
+              trigger={trigger}
+              value={getValues().gender}
+            />
+          </div>
+
+          <div className="mb-10">
             <FormField
               label="Home address"
-              name="address"
+              name="homeAddress"
               placeholder=""
               register={register}
-              errors={errors.address}
+              errors={errors.homeAddress}
               maxW="max-w-none"
             />
           </div>
@@ -95,8 +127,8 @@ export default function KinForm({ setOpen, isOpen, data }: any) {
             <ButtonComponent
               onClick={() => setOpen(false)}
               className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary dark:!text-white/80  items-center"
-              type="submit"
-              isLoading={loading}
+              type="button"
+              disabled={loading}
             >
               Cancel
             </ButtonComponent>

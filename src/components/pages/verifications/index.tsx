@@ -243,7 +243,7 @@ export default function VerficationComponent() {
           <input
             placeholder="Search email address"
             onChange={(e) => debouncedSearch(e.target.value)}
-            className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
+            className="text-secondary dark:text-white/80 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select

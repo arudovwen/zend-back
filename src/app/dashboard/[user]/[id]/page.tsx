@@ -82,8 +82,9 @@ export default function Customer() {
     return {
       userData,
       loading,
+      getUserData: getData,
     };
-  }, [userData, loading]);
+  }, [userData, loading, getData]);
 
   return (
     <UserContext.Provider value={value}>

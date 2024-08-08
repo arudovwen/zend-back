@@ -34,6 +34,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   value,
   trigger
 }) => {
+
   const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
 
@@ -47,7 +48,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
   useEffect(() => {
     if (value) {
-      setSelected(options.find((option) => option.value === value) || null);
+      const tempData = options.find((option) => {
+        if (typeof option.value === "string" && typeof value === "string") {
+          return option.value.toLowerCase() === value.toLowerCase();
+        }
+        return option.value === value;
+      });
+      setSelected(tempData || null);
     }
   }, [value, options]);
 

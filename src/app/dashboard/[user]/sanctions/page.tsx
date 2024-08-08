@@ -91,7 +91,7 @@ export default function Activities() {
           <input
             placeholder="Search name or email"
             onChange={(e) => debouncedSearch(e.target.value)}
-            className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded md:max-w-[280px] w-full"
+            className="text-secondary dark:text-white/80 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded md:max-w-[280px] w-full"
           />
         </div>
         <div className=" w-full ">

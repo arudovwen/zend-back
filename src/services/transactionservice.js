@@ -27,12 +27,3 @@ export const getAllTransaction = async (payload) => {
     transactionBaseUrl
   );
 };
-
-export const resolveTansaction = async (payload) => {
-  const { type, ...rest } = payload;
-  return post(
-    `${url.WALLET}/resolve-${type}?${new URLSearchParams(cleanObject(rest))}`,
-    payload,
-    transactionBaseUrl
-  );
-};

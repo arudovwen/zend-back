@@ -41,19 +41,26 @@ export const KinSchema = yup.object().shape({
   emailAddress: yup.string().email().required("Email is required"),
 });
 export const PersonalSchema = yup.object().shape({
-  emailAddress: yup
-    .string()
-    .email("Provide a valid email")
-    .required("Email is required"),
+  id: yup.string().required(),
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
-  phoneNumber: yup.string().required("Phone number is required"),
-  username: yup.string().required("Username is required"),
-  dateOfBirth: yup.string().required(),
+  phoneNumber: yup.string(),
+  homeAddress: yup.string(),
+  dateOfBirth: yup.string(),
+  gender: yup.string(),
+});
+export const AdminSchema = yup.object().shape({
+  id: yup.string().required(),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  phoneNumber: yup.string(),
+  gender: yup.string(),
+  role: yup.string(),
 });
 
 export const LockSchema = yup.object().shape({
   reason: yup.string().required("Reason is required"),
+  id: yup.string().required(),
 });
 export const BroadcastSchema = yup.object().shape({
   type: yup.string().required("Type is required"),

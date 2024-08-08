@@ -14,6 +14,7 @@ import AppStatusComponent from "@/components/AppStatusComponent";
 import Image from "next/image";
 import MenuSelect from "@/components/forms/MenuSelect";
 import AppIcon from "@/components/AppIcon";
+import LockForm from "./customer/modals/LockForm";
 
 const Options = [
   {
@@ -28,11 +29,24 @@ const Options = [
     label: "Unban",
     value: "unban",
   },
+  {
+    label: "Lock",
+    value: "lock",
+  },
+  {
+    label: "Unlock",
+    value: "unlock",
+  },
 ];
 export default function List() {
   const router = useRouter();
   const params = useParams();
+  const [isOpen, setOpen] = useState(false);
+  const [type, setType] = useState<
+    "view" | "ban" | "unlock" | "lock" | "unban"
+  >("lock");
   const { user } = params;
+  const [customer, setCustomer] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
   const [queryParams, setQueryParams] = useState<any>({
@@ -62,7 +76,7 @@ export default function List() {
           ...i,
           name: (
             <span className="flex gap-x-[10px] items-center">
-              <span className="w-8 h-8">
+              <span className="w-8 h-8 hidden xl:inline-block">
                 <Image
                   width={32}
                   height={32}
@@ -95,9 +109,9 @@ export default function List() {
               options={
                 user === "administrators"
                   ? Options.filter((i) => i.value !== "view")
-                  : Options
+                  : handleOptions(i)
               }
-              handleSelected={(val: string) =>
+              handleSelected={(val: any) =>
                 handleSelected(val, {
                   ...i,
                   name: ` ${ucFirst(i?.firstName)} ${ucFirst(i?.lastName)}`,
@@ -120,7 +134,12 @@ export default function List() {
     }
   };
 
-  function handleSelected(value: string, data: any) {
+  function handleSelected(
+    value: "view" | "ban" | "unlock" | "lock" | "unban",
+    data: any
+  ) {
+    setCustomer(data);
+    setType(value);
     switch (value) {
       case "view":
         router.push(
@@ -130,14 +149,44 @@ export default function List() {
         );
         break;
       case "ban":
+        setOpen(true);
         break;
       case "unban":
+        setOpen(true);
+        break;
+
+      case "lock":
+        setOpen(true);
+        break;
+      case "unlock":
+        setOpen(true);
         break;
 
       default:
         break;
     }
   }
+  function handleOptions(user: any) {
+
+    const tempData = Options.filter((i) => {
+      if (user.isBanned && i.value === "ban") {
+        return false;
+      }
+      if (user.isLocked && i.value === "lock") {
+        return false;
+      }
+      if (!user.isBanned && i.value === "unban") {
+        return false;
+      }
+      if (!user.isLocked && i.value === "unlock") {
+        return false;
+      }
+      return true;
+    });
+  
+    return tempData;
+  }
+  
   useEffect(() => {
     fetchData();
   }, [
@@ -209,7 +258,7 @@ export default function List() {
           <input
             placeholder="Search name or email"
             onChange={(e) => debouncedSearch(e.target.value)}
-            className=" border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
+            className="text-secondary dark:text-white/80 border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-4 items-center w-full lg:w-auto">
             {user === "customers" && (
@@ -256,6 +305,19 @@ export default function List() {
           />
         </div>
       </div>
+      {isOpen && (
+        <LockForm
+          setOpen={setOpen}
+          isOpen={isOpen}
+          type={type}
+          detail={{
+            name: `${customer?.firstName} ${customer?.lastName}`,
+            email: customer?.emailAddress,
+            id: customer?.id,
+          }}
+          userType={user}
+        />
+      )}
     </section>
   );
 }

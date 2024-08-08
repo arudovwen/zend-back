@@ -83,7 +83,7 @@ export default function SideBar() {
                   }`}
                 >
                   <span
-                    className={`flex gap-x-2 items-center ${
+                    className={`flex flex-col xl:flex-row gap-y-2 gap-x-2 items-center ${
                       pathname === nav.url && !nav.asSub
                         ? "font-medium text-white"
                         : "font-normal text-[#475467] dark:text-white"
@@ -148,7 +148,7 @@ export default function SideBar() {
           <li
             className={`cursor-pointer px-[10px] py-[10px] rounded text-sm  flex gap-x-2 items-center justify-between  font-normal text-[#475467] dark:text-white`}
           >
-            <span className="flex gap-x-2 items-center text-[#475467] dark:text-white">
+            <span className="flex flex-col xl:flex-row gap-y-2  gap-x-2 items-center text-[#475467] dark:text-white">
               <AppIcon
                 icon="material-symbols:dark-mode"
                 iconClass="inline dark:hidden text-lg"

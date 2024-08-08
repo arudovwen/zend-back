@@ -317,7 +317,7 @@ export const PersonalInformationData = [
   },
   {
     label: "Address",
-    key: "address",
+    key: "homeAddress",
     value: "",
   },
   {
@@ -338,7 +338,7 @@ export const PersonalInformationData = [
   },
   {
     label: "Last reason for ban",
-    key: "ban",
+    key: "bannedFor",
     value: "",
   },
 ];

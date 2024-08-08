@@ -22,7 +22,9 @@ export default function Personal() {
       </div>
       <div className="w-full">
         <div className="flex justify-between w-full items-center mb-4">
-          <h2 className="font-semibold text-sm text-secondary dark:text-white/80">Personal information</h2>
+          <h2 className="font-semibold text-sm text-secondary dark:text-white/80">
+            Personal information
+          </h2>
           <div>
             {" "}
             <AppButton
@@ -43,7 +45,9 @@ export default function Personal() {
           ))}
         </div>
       </div>
-      <InformationForm setOpen={setOpen} isOpen={isOpen} data={userData} />
+      {isOpen && (
+        <InformationForm setOpen={setOpen} isOpen={isOpen} data={userData} />
+      )}
     </div>
   );
 }

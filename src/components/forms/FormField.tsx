@@ -13,7 +13,7 @@ interface FormFieldProps {
   type?: string;
   className?: string;
   register?: any;
-  value?: string;
+  value?: any;
   errors?: any;
   isCheckbox?: boolean;
   isRadio?: boolean;
@@ -105,6 +105,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 placeholder={placeholder}
                 {...(register ? register(name) : {})}
                 type={type === "password" && isPasswordVisible ? "text" : type}
+                
               />
             )}
           </>
@@ -121,7 +122,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 type="button"
                 onClick={togglePasswordVisibility}
               >
-                 {isPasswordVisible ? <AppIcon icon="jam:padlock-alt-open" /> : <AppIcon icon="jam:padlock-alt" /> }
+                 {isPasswordVisible ? <AppIcon icon="game-icons:padlock-open" /> : <AppIcon icon="game-icons:padlock" /> }
               </button>
             ) : (
               <span className="text-sm">{icon}</span>

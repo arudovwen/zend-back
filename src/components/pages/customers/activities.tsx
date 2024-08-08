@@ -141,7 +141,7 @@ const Activities = () => {
           <input
              onChange={(e) => debouncedSearch(e.target.value)}
             placeholder="Search name or email"
-            className="border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
+            className="text-secondary dark:text-white/80 border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex gap-x-4 items-center flex-col lg:flex-row gap-y-2 w-full lg:w-auto">
             <Select
