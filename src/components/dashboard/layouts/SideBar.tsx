@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { deleteCookie } from "cookies-next";
 import { Switch } from "@headlessui/react";
 import { toast } from "react-toastify";
@@ -9,13 +9,14 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { navigations, bottomNavigations } from "@/constants";
 import AppIcon from "@/components/AppIcon";
 import AppLogo from "@/components/AppLogo";
-import AppButton from '@/components/AppButton'
+import AppButton from "@/components/AppButton";
 import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import CenterModal from "@/components/modals/CenterModal";
 import TypeSwitch from "./TypeSwitch";
-import { logOut } from "@/services/authservice";
+import { PageContext } from "@/constants/context";
 
 export default function SideBar() {
+  const { setColormode } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openMenus, setopenMenus] = useState<any>([]);
@@ -25,14 +26,18 @@ export default function SideBar() {
 
   useEffect(() => {
     setEnabled(localStorage.theme === "light" ? false : true);
+    setColormode(localStorage.theme);
   }, []);
 
   useEffect(() => {
     if (enabled === false) {
       toLightMode();
+      setColormode("light");
     }
+
     if (enabled === true) {
       toDarkMode();
+      setColormode("dark");
     }
   }, [enabled]);
 
@@ -49,17 +54,17 @@ export default function SideBar() {
     // logOut()
     //   .then((res: any) => {
     //     if (res.status === 200) {
-          localStorage.clear();
-          sessionStorage.clear();
-          deleteCookie("token");
-          router.push("/");
-          setLoading(false);
-      //   }
-      // })
-      // .catch((err) => {
-      //   setLoading(false);
-      //   toast.error(err?.response?.data?.message);
-      // });
+    localStorage.clear();
+    sessionStorage.clear();
+    deleteCookie("token");
+    router.push("/");
+    setLoading(false);
+    //   }
+    // })
+    // .catch((err) => {
+    //   setLoading(false);
+    //   toast.error(err?.response?.data?.message);
+    // });
   }
 
   return (
@@ -253,8 +258,6 @@ export default function SideBar() {
               btnClass="!border !border-gray-200 dark:!border-gray-600 !rounded !px-3 !py-1 w-full !text-red-500 dark:!text-red-300 !bg-transparent"
               text="Yes"
             />
-              
-      
           </div>
         </div>
       </CenterModal>

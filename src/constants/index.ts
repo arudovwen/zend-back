@@ -109,21 +109,25 @@ export const OverviewTabs = [
     label: "Total customers",
     icon: "flowbite:users-group-outline",
     key: "totalNumberOfUsers",
+    className: "text-purple-800 bg-purple-100",
   },
   {
     label: "Active customers",
     icon: "solar:user-check-linear",
     key: "totalNumberOfActiveUsers",
+    className: "text-green-800 bg-greenn-100",
   },
   {
     label: "Banned customers",
     icon: "hugeicons:user-block-01",
     key: "totalNumberOfBannedUsers",
+    className: "text-red-800 bg-red-100",
   },
   {
     label: "Closed customers",
     icon: "icons8:remove-user",
     key: "totalNumberOfDeletedUsers",
+    className: "text-yellow-800 bg-yellow-100",
   },
 ];
 
@@ -259,7 +263,6 @@ export const StatusOptions = [
     value: "deleted",
   },
 ];
-
 
 export const WalletBalanceOptions = [
   {
@@ -733,3 +736,108 @@ export const VerifyStatusData = [
   { label: "Pending", value: false },
   { label: "Approved", value: true },
 ];
+
+export const DefaultCurrency = [
+  {
+      "currency": "XRP",
+      "currentPrice": 0.6214,
+      "percentagePrice": 0.010599999999999943,
+      "percentageChange": 1.7354289456
+  },
+  {
+      "currency": "USDT",
+      "currentPrice": 1.00047,
+      "percentagePrice": -0.00008000000000008001,
+      "percentageChange": -0.0079956024
+  },
+  {
+      "currency": "ETH",
+      "currentPrice": 2669.7,
+      "percentagePrice": 209.62999999999965,
+      "percentageChange": 8.5213022394
+  },
+  {
+      "currency": "USDC",
+      "currentPrice": 0.9997,
+      "percentagePrice": -0.00009999999999998899,
+      "percentageChange": -0.0100020004
+  },
+  {
+      "currency": "TRX",
+      "currentPrice": 0.12679,
+      "percentagePrice": 0.0014100000000000223,
+      "percentageChange": 1.1245812729
+  },
+  {
+      "currency": "SOL",
+      "currentPrice": 159.87,
+      "percentagePrice": 5.509999999999991,
+      "percentageChange": 3.5695776108
+  },
+  {
+      "currency": "BTC",
+      "currentPrice": 61352,
+      "percentagePrice": 3802,
+      "percentageChange": 6.606429192
+  },
+  {
+      "currency": "ALGO",
+      "currentPrice": 0.1205,
+      "percentagePrice": 0.005599999999999994,
+      "percentageChange": 4.8738033072
+  },
+  {
+      "currency": "BCH",
+      "currentPrice": 356.8,
+      "percentagePrice": 28,
+      "percentageChange": 8.5158150852
+  },
+  {
+      "currency": "MATIC",
+      "currentPrice": 0.4273,
+      "percentagePrice": 0.016900000000000026,
+      "percentageChange": 4.1179337232
+  },
+  {
+      "currency": "AVAX",
+      "currentPrice": 22.38,
+      "percentagePrice": 1.5,
+      "percentageChange": 7.183908046
+  },
+  {
+      "currency": "XLM",
+      "currentPrice": 0.10241,
+      "percentagePrice": 0.000060000000000004494,
+      "percentageChange": 0.0586223742
+  },
+  {
+      "currency": "LTC",
+      "currentPrice": 60.84,
+      "percentagePrice": 2.770000000000003,
+      "percentageChange": 4.7701050456
+  },
+  {
+      "currency": "DOGE",
+      "currentPrice": 0.10574,
+      "percentagePrice": 0.005320000000000005,
+      "percentageChange": 5.2977494523
+  },
+  {
+      "currency": "ADA",
+      "currentPrice": 0.3526,
+      "percentagePrice": 0.014800000000000035,
+      "percentageChange": 4.3812907046
+  },
+  {
+      "currency": "DAI",
+      "currentPrice": 0.9998,
+      "percentagePrice": -0.0005999999999999339,
+      "percentageChange": -0.0599760096
+  },
+  {
+      "currency": "BNB",
+      "currentPrice": 514.5,
+      "percentagePrice": 23.100000000000023,
+      "percentageChange": 4.7008547009
+  }
+]

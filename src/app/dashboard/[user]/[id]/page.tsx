@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import moment from "moment";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AppSideTab from "@/components/AppSideTab";
@@ -49,7 +49,7 @@ export default function Customer() {
   ];
   const [selected, setSelected] = useState("personal");
 
-  function getData() {
+  const getData = useCallback(() => {
     setLoading(true);
     getUserInfo(id)
       .then((res: any) => {
@@ -72,7 +72,7 @@ export default function Customer() {
       .catch(() => {
         setLoading(false);
       });
-  }
+  }, [id]);
 
   useEffect(() => {
     getData();
@@ -83,6 +83,7 @@ export default function Customer() {
       userData,
       loading,
       getUserData: getData,
+     
     };
   }, [userData, loading, getData]);
 

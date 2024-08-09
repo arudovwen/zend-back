@@ -1,31 +1,31 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import dynamic from "next/dynamic";
 import Datepicker from "react-tailwindcss-datepicker";
 import { ApexOptions } from "apexcharts";
-import {currentTheme} from "@/plugins/Theme"
+// import ReactApexChart from "react-apexcharts";
+import { PageContext } from "@/constants/context";
+import { getSignUpMetrics } from "@/services/userservice";
 
+const months = [
+  "January",
+  "Febuary",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
-
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const themeOp = currentTheme()
 export default function Chart() {
-  const [show, setShow] = useState(false);
+  const { colormode } = useContext(PageContext);
   const [value, setValue] = useState<{
     startDate: Date | null;
     endDate: Date | null;
@@ -40,17 +40,17 @@ export default function Chart() {
       data: [],
     },
   ]);
-  const theme = useRef<any>(themeOp);
 
   const [options, setOptions] = useState<ApexOptions>({
     theme: {
-      mode: theme.current && theme.current,
+      mode: colormode,
     },
-    // chart: {
-    //   toolbar: {
-    //     show: false,
-    //   },
-    // },
+    chart: {
+      height: 320,
+      toolbar: {
+        show: false,
+      },
+    },
     dataLabels: {
       enabled: false,
     },
@@ -59,27 +59,14 @@ export default function Chart() {
       width: 3,
     },
     colors: ["#485fe6"],
-    title: {
-        text: "",
-        align: "left",
-        style: {
-          fontSize: "16px",
-          fontWeight: "bold",
-          fontFamily: undefined,
-          color: "!text-secondary dark:text-white/90",
-        },
-      },
-    subtitle: {
-      text: "",
-      align: "left",
-    },
+
     grid: {
       show: false,
     },
     xaxis: {
       categories: months,
       axisTicks: {
-        show: false,
+        show: true,
       },
     },
     responsive: [
@@ -103,31 +90,59 @@ export default function Chart() {
   }) => {
     setValue(newValue);
   };
+  function getMonthString(monthNumber: number) {
+    const months = [
+      "January",
+      "Febuary",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (monthNumber >= 1 && monthNumber <= 12) {
+      return months[monthNumber - 1];
+    }
+    return "Invalid month number";
+  }
+  useEffect(() => {
+    // @ts-ignore
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      theme: {
+        mode: colormode,
+      },
+    }));
+  }, [colormode]); // Update when the theme changes
 
   useEffect(() => {
-    setTimeout(() => {
-      setShow(true);
-    }, 2000);
 
-    if (theme.current) {
-      console.log("🚀 ~ useEffect ~ theme:", theme.current);
-      // @ts-ignore
-    //   setOptions((prevOptions) => ({
-    //     ...prevOptions,
-    //     theme: {
-    //       mode: theme,
-    //     },
-    //   }));
-    }
-   
-  }, [theme.current]); // Update when the theme changes
-
-  useEffect(()=>{
-    setSeries([{
-        name: "Signups",
-        data:[40, 70, 45, 100, 75, 40, 49, 88, 120, 98, 40, 78]
-    }])
-  },[])
+    getSignUpMetrics({}).then((res) => {
+      const customMonths = res?.data?.data?.chartData?.map(
+        (i: any) => `${getMonthString(i?._id.month)} ${i?._id.year}`
+      );
+      const customCounts = res?.data?.data?.chartData?.map((i: any) => i?.count);
+      setSeries([
+        {
+          name: "Signups",
+          data: customCounts,
+        },
+      ]);
+      setOptions({
+        ...options,
+        xaxis: {
+          ...options.xaxis,
+          categories: customMonths,
+        },
+      });
+    });
+  }, []);
   return (
     <div className="w-full">
       <div className="flex flex-col md:flex-row gap-y-4 text-left lg:items-center lg:justify-between mb-4">
@@ -150,14 +165,12 @@ export default function Chart() {
       </div>
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-100 dark:border-gray-600 w-full  z-10">
         <div className="w-full">
-          {show && (
-            <ReactApexChart
-              options={options}
-              series={series}
-              type="area"
-              height={350}
-            />
-          )}
+          <ReactApexChart
+            options={options}
+            series={series}
+            type="area"
+            height={350}
+          />
         </div>
       </div>
     </div>

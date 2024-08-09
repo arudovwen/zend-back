@@ -42,9 +42,9 @@ export default function AssetComponent() {
     total: 0,
     status: null,
   });
+  
   const fetchData = async () => {
     setLoading(true);
-
     try {
       const res = await getWallets({
         ...queryParams,

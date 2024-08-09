@@ -4,19 +4,20 @@ import AppIcon from "@/components/AppIcon";
 import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { navigations } from "@/constants";
+import { useState, useEffect, useRef } from "react";
+import { DefaultCurrency, navigations } from "@/constants";
 import SideModal from "@/components/modals/SideModal";
 import SideBar from "./SideBar";
 import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import Search from "./Search";
 import Announcement from "./Announcement";
+import { socket } from "@/constants/socket";
 
 export default function TopBar() {
   const pathname = usePathname();
   const [enabled, setEnabled] = useState<boolean | null>(null);
   const [isSideOpen, setSideOpen] = useState(false);
-
+  const formattedData = useRef<any>(DefaultCurrency);
   useEffect(() => {
     setEnabled(localStorage.theme === "light" ? false : true);
   }, []);
@@ -32,6 +33,29 @@ export default function TopBar() {
   useEffect(() => {
     setSideOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleRates = (data: string) => {
+      const res = JSON.parse(data);
+      const tempData = res.reduce((acc: any, item: any) => {
+        acc[item.currency] = {
+          currency: item.currency,
+          currentPrice: item.currentPrice,
+          percentagePrice: item.percentagePrice,
+          percentageChange: item.percentageChange,
+        };
+        return acc;
+      }, {});
+      formattedData.current = Object.values(tempData);
+    };
+
+    socket.emit("rates");
+    socket.on("rates", handleRates);
+
+    return () => {
+      socket.off("rates", handleRates);
+    };
+  }, []);
   return (
     <nav className="bg-white dark:bg-gray-800 border-b border-[#EDEFEB] dark:border-gray-600 text-[#475467] dark:text-white px-6 py-4 lg:py-3 flex justify-between items-center">
       <span className="flex items-center gap-x-2">
@@ -48,14 +72,16 @@ export default function TopBar() {
           {navigations.find((i: any) => i.url === pathname)?.label}
         </span>
         <span className="text-sm font-medium hidden lg:flex gap-x-10 items-center max-w-[300px]">
-          <Marquee pauseOnHover speed={30 }>
+          <Marquee pauseOnHover speed={30}>
             <span className="flex gap-x-3 items-center">
-              <span className="">BTC - $61,000</span>{" "}
-              <AppIcon icon="pepicons-pencil:line-y" />
-              <span className="">ETH - $3,500</span>{" "}
-              <AppIcon icon="pepicons-pencil:line-y" />
-              <span className="">BNB - $610</span>{" "}
-              <AppIcon icon="pepicons-pencil:line-y" />
+              {formattedData.current?.map((i: any) => (
+                <span key={i?.currency} className="flex gap-x-3 items-center">
+                  <span className="uppercase">
+                    {i?.currency} - ${i?.currentPrice}
+                  </span>{" "}
+                  <AppIcon icon="pepicons-pencil:line-y" />
+                </span>
+              ))}
             </span>
           </Marquee>
         </span>
