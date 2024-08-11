@@ -30,7 +30,7 @@ const Activities = () => {
     created_at_start: null,
     type: "",
     total: 0,
-    search:""
+    search: "",
   });
   const [value, setValue] = useState({ startDate: null, endDate: null });
 
@@ -103,16 +103,24 @@ const Activities = () => {
   }
   useEffect(() => {
     fetchData();
+  }, [queryParams.page]);
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
   }, [
-    queryParams.page,
     queryParams.count,
     queryParams.type,
     queryParams.created_at_start,
     queryParams.created_at_stop,
     queryParams.search,
-    queryParams.user
+    queryParams.user,
   ]);
-
   useEffect(() => {
     getOptions();
   }, []);
@@ -120,7 +128,7 @@ const Activities = () => {
     setQueryParams({
       ...queryParams,
       search: val,
-      user:val
+      user: val,
     });
   }
   const debouncedSearch = useCallback(
@@ -139,7 +147,7 @@ const Activities = () => {
       <div>
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <input
-             onChange={(e) => debouncedSearch(e.target.value)}
+            onChange={(e) => debouncedSearch(e.target.value)}
             placeholder="Search name or email"
             className="text-secondary dark:text-white/80 border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />

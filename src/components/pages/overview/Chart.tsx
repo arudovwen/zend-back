@@ -24,6 +24,7 @@ const months = [
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
+
 export default function Chart() {
   const { colormode } = useContext(PageContext);
   const [value, setValue] = useState<{

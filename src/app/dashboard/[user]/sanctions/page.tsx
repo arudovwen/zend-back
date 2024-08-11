@@ -65,7 +65,18 @@ export default function Activities() {
   };
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count, queryParams.user]);
+  }, [queryParams.page]);
+
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
+  }, [queryParams.count, queryParams.user]);
 
   function handleSearch(val: any) {
     setQueryParams({

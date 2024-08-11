@@ -19,22 +19,25 @@ import { ucFirst } from "@/utils/methods";
 import { useRouter } from "next/navigation";
 import HeaderComponent from "@/components/HeaderComponent";
 import debounce from "debounce";
+import LockForm from "../customers/customer/modals/LockForm";
 
 const Options = [
   {
     label: "View",
     value: "view",
   },
-  {
-    label: "Suspend wallet",
-    value: "suspend",
-  },
+  // {
+  //   label: "Suspend wallet",
+  //   value: "suspend",
+  // },
 ];
 
 export default function AssetComponent() {
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
   const router = useRouter();
+  const [isOpen, setOpen] = useState(false);
+  const [type, setType] = useState("disable");
   const [queryParams, setQueryParams] = useState({
     user: "",
     page: 1,
@@ -42,7 +45,7 @@ export default function AssetComponent() {
     total: 0,
     status: null,
   });
-  
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -118,12 +121,17 @@ export default function AssetComponent() {
   }
   useEffect(() => {
     fetchData();
-  }, [
-    queryParams.page,
-    queryParams.count,
-    queryParams.user,
-    queryParams.status,
-  ]);
+  }, [queryParams.page]);
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
+  }, [queryParams.count, queryParams.user, queryParams.status]);
   function handleSearch(val: any) {
     setQueryParams({
       ...queryParams,
@@ -167,7 +175,7 @@ export default function AssetComponent() {
               placeholder="Select Status"
               onChange={(val: any) => handleStatus(val)}
             />
-            <AppButton text="Suspend wallets" />
+            <AppButton text="Suspend Withdrawal" />
           </div>
         </div>
         <TableCard
@@ -178,6 +186,12 @@ export default function AssetComponent() {
           setQueryParams={(data: any) => setQueryParams(data)}
         />
       </div>
+      <LockForm
+        setOpen={setOpen}
+        isOpen={isOpen}
+        type={type}
+        lockType={"Withdrawal"}
+      />
     </section>
   );
 }

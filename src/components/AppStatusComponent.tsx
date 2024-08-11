@@ -24,6 +24,14 @@ function StatusSpan({ status, type, stattype = "default" }: any) {
       text: "Approved",
       className: StatusClass[1],
     },
+    enabled: {
+      text: "Enabled",
+      className: StatusClass[1],
+    },
+    disabled: {
+      text: "Disabled",
+      className: StatusClass[4],
+    },
     success: {
       text: "Success",
       className: StatusClass[1],

@@ -94,8 +94,18 @@ const Activities = () => {
   }
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count, queryParams.type]);
+  }, [queryParams.page]);
 
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
+  }, [ queryParams.count, queryParams.type]);
   useEffect(() => {
     getOptions();
   }, []);

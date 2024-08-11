@@ -20,15 +20,12 @@ import {
 } from "@/services/userservice";
 import moment from "moment";
 import { ucFirst } from "@/utils/methods";
+import VerificationStatus from "../customers/customer/modals/VerifcationStatus";
 
 const Options = [
   {
-    label: "Approve",
-    value: "approve",
-  },
-  {
-    label: "Reject",
-    value: "reject",
+    label: "View",
+    value: "view",
   },
 ];
 
@@ -41,6 +38,8 @@ export default function VerficationComponent() {
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
   const [metrics, setMetrics] = useState([]);
+  const [isOpen, setOpen] = useState(false);
+  const [detail, setDetail] = useState<any>(null);
   const [queryParams, setQueryParams] = useState({
     user: "",
     page: 1,
@@ -50,7 +49,7 @@ export default function VerficationComponent() {
     type: "",
     total: 0,
     id: null,
-    is_approved: null
+    is_approved: null,
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -68,7 +67,10 @@ export default function VerficationComponent() {
     });
     setValue(newValue);
   };
-  function handleSelected(val: any, data: any) {}
+  function handleSelected(val: any, data: any) {
+    setDetail(data);
+    setOpen(true);
+  }
   function handleType(type: string) {
     switch (type) {
       case "business":
@@ -146,8 +148,17 @@ export default function VerficationComponent() {
 
   useEffect(() => {
     fetchData();
+  }, [queryParams.page]);
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
   }, [
-    queryParams.page,
     queryParams.count,
     queryParams.created_at_stop,
     queryParams.created_at_start,
@@ -258,7 +269,7 @@ export default function VerficationComponent() {
               placeholder="Select status"
               onChange={handleStatusType}
             />
-             <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
+            <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
             <Datepicker
               showShortcuts
               useRange={false}
@@ -280,6 +291,14 @@ export default function VerficationComponent() {
           setQueryParams={(data: any) => setQueryParams(data)}
         />
       </div>
+      {isOpen && (
+        <VerificationStatus
+          setOpen={setOpen}
+          isOpen={isOpen}
+          detail={detail}
+          onClose={fetchData}
+        />
+      )}
     </section>
   );
 }

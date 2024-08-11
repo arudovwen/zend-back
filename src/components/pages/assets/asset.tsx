@@ -16,14 +16,13 @@ import MenuSelect from "@/components/forms/MenuSelect";
 import {
   getUserAssetBalance,
   getDashboardMetrics,
-  enableWithdrawal,
-  disableWithdrawal,
   getWallets,
 } from "@/services/walletservice";
 import { currencyFormat, ucFirst } from "@/utils/methods";
 import moment from "moment";
 import router from "next/router";
 import { useParams, useSearchParams } from "next/navigation";
+import LockForm from "../customers/customer/modals/LockForm";
 
 const Options = [
   {
@@ -35,8 +34,10 @@ const Options = [
 export default function AssetComponent() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
+  const [isOpen, setOpen] = useState(false);
+  const [type, setType] = useState("suspend");
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
+  const [detail, setDetail] = useState<any>(null);
   const [rows, setRows] = useState<any>([]);
   const [queryParams, setQueryParams] = useState({
     user: "",
@@ -65,8 +66,17 @@ export default function AssetComponent() {
     });
   }
 
+  function handleWallet() {
+    getWallets({ user: id }).then((res) => {
+      if (res.status === 200) {
+        setDetail(res.data?.wallets[0]);
+      }
+    });
+  }
+
   useEffect(() => {
     getData();
+    handleWallet();
     const tempRow = cryptoTokens.map((key: any) => {
       return {
         token: `${key.label} (${key.value})`,
@@ -74,8 +84,7 @@ export default function AssetComponent() {
         tradingBal: currencyFormat(0),
       };
     });
-    setRows(tempRow)
-    console.log("🚀 ~ tempRow ~ tempRow:", tempRow);
+    setRows(tempRow);
   }, []);
   return (
     <section>
@@ -96,13 +105,40 @@ export default function AssetComponent() {
 
       <div className=" w-full ">
         <div className="mb-4 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
-          <div></div>
+          <div className="text-sm flex gap-x-2 items-center text-secondary dark:bg-gray-800 dark:text-white/80">
+         <span>   Withdrawal:</span>
+            <AppStatusComponent
+              status={detail?.withdrawal?.enabled ? "enabled" : "disabled"}
+            />
+          </div>
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
-            <AppButton text="Suspend wallet" />
+            <AppButton
+              onClick={() => {
+                setType(detail?.withdrawal?.enabled ? "disable" : "enable");
+                setOpen(true);
+              }}
+              text={
+                detail?.withdrawal?.enabled
+                  ? "Suspend Withdrawal"
+                  : "Enable withdrawal"
+              }
+            />
           </div>
         </div>
         <TableCard columns={AssetHeader} rows={rows} />
       </div>
+      <LockForm
+        setOpen={setOpen}
+        isOpen={isOpen}
+        type={type}
+        lockType={"Withdrawal"}
+        user={id}
+        detail={{
+          name: name,
+          id: id,
+        }}
+        onClose={handleWallet}
+      />
     </section>
   );
 }

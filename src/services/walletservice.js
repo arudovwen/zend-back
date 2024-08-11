@@ -4,22 +4,23 @@ import {cleanObject} from "@/utils/cleanObject";
 
 const { post, get, patch } = DataService;
 
-const walletBaseUrl = process.env.NEXT_PUBLIC_PERSONAL_WALLET_ENDPOINT;
+const walletBaseUrl = process.env.NEXT_PUBLIC_WALLET_ENDPOINT;
+const personalWalletBaseUrl = process.env.NEXT_PUBLIC_PERSONAL_WALLET_ENDPOINT;
 const quickSellBaseUrl = process.env.NEXT_PUBLIC_QUICK_SELL_ENDPOINT;
 const transactionBaseUrl = process.env.NEXT_PUBLIC_TRANSACTION_ENDPOINT;
 
 export const sendNotification = async (payload) => {
-  return post(`${url.NOTIFICATION}/broadcast`, payload, walletBaseUrl);
+  return post(`${url.NOTIFICATION}/broadcast`, payload, personalWalletBaseUrl);
 };
 
 export const getWithdrawSettings = async (payload) => {
-  return get(`${url.WALLET}/settings?feature=withdrawal`, walletBaseUrl);
+  return get(`${url.WALLET}/settings?feature=withdrawal`, personalWalletBaseUrl);
 };
 
 export const getWallets = async (payload) => {
   return get(
     `${url.WALLET}?${new URLSearchParams(cleanObject(payload))}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -28,7 +29,7 @@ export const resolveTransaction = async (payload) => {
   return patch(
     `${url.WALLET}/resolve-${type}?${new URLSearchParams(cleanObject(rest))}`,
     payload,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -37,7 +38,7 @@ export const getSanctionList = async (payload) => {
     `${url.WALLET}/sanctioned-user?${new URLSearchParams(
       cleanObject(payload)
     )}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -45,7 +46,7 @@ export const getAllTransactions = async (payload) => {
   const { type, ...rest } = payload;
   return get(
     `${type}/history?${new URLSearchParams(cleanObject(rest))}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -53,7 +54,7 @@ export const getAllStatement = async (payload) => {
   const { type, ...rest } = payload;
   return get(
     `${type}/soa?${new URLSearchParams(cleanObject(rest))}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -99,12 +100,12 @@ export const getUserQuickSellMetric = async (payload) => {
     quickSellBaseUrl
   );
 };
-export const disableWithdrawal = async (payload) => {
-  return post(`/withdraw/disable`, payload, walletBaseUrl);
+export const updateWithdrawal = async (payload) => {
+  return post(`/withdraw/${payload.type}`, payload, personalWalletBaseUrl);
 };
 
 export const enableWithdrawal = async (payload) => {
-  return post(`/withdraw/enable`, payload, walletBaseUrl);
+  return post(`/withdraw/enable`, payload, personalWalletBaseUrl);
 };
 
 export const getZendHistory = async (payload) => {
@@ -118,7 +119,7 @@ export const getUserAssetBalance = async (payload) => {
   const { type, ...rest } = payload;
   return get(
     `/balance/${type}?${new URLSearchParams(cleanObject(rest))}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 
@@ -145,7 +146,7 @@ export const getRate = async (payload) => {
 export const getDashboardMetrics = async (payload) => {
   return get(
     `/transaction/metrics?${new URLSearchParams(cleanObject(payload))}`,
-    walletBaseUrl
+    personalWalletBaseUrl
   );
 };
 

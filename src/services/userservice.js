@@ -4,19 +4,19 @@ import { cleanObject } from "@/utils/cleanObject";
 const { post, get, del } = DataService;
 
 export const banUser = async (payload) => {
-  const {id,...rest}= payload
+  const { id, ...rest } = payload;
   return post(`${url.USERS}/${id}/ban`, payload);
 };
 export const lockUser = async (payload) => {
-  const {id,...rest}= payload
+  const { id, ...rest } = payload;
   return post(`${url.USERS}/${id}/lock`, payload);
 };
 export const unlockUser = async (payload) => {
-  const {id,...rest}= payload
+  const { id, ...rest } = payload;
   return post(`${url.USERS}/${id}/unlock`, payload);
 };
 export const unbanUser = async (payload) => {
-  const {id,...rest}= payload
+  const { id, ...rest } = payload;
   return post(`${url.USERS}/${id}/unban`, payload);
 };
 
@@ -49,7 +49,8 @@ export const updateProfile = async (payload) => {
 
 export const getAllAdmin = async (payload) => {
   return post(
-    `${url.ADMIN}/find?${new URLSearchParams(cleanObject(payload))}`,cleanObject(payload)
+    `${url.ADMIN}/find?${new URLSearchParams(cleanObject(payload))}`,
+    cleanObject(payload)
   );
 };
 
@@ -109,7 +110,9 @@ export const getAllUsers = async (payload) => {
 };
 
 export const getAllUsersCount = async (payload) => {
-  return get(`${url.USERS}/count-all?${new URLSearchParams(cleanObject(payload))}`);
+  return get(
+    `${url.USERS}/count-all?${new URLSearchParams(cleanObject(payload))}`
+  );
 };
 
 export const getUserTransaction = async () => {
@@ -117,17 +120,25 @@ export const getUserTransaction = async () => {
 };
 
 export const getUserKyc = async (payload) => {
-  return get(`${url.USERS}/kyc/data?${new URLSearchParams(cleanObject(payload))}`);
+  return get(
+    `${url.USERS}/kyc/data?${new URLSearchParams(cleanObject(payload))}`
+  );
 };
 
 export const getUserKyb = async (payload) => {
   return get(
-    `${url.USERS}/businesses/find-all?${new URLSearchParams(cleanObject(payload))}`
+    `${url.USERS}/businesses/find-all?${new URLSearchParams(
+      cleanObject(payload)
+    )}`
   );
 };
 
 export const modifyUserKyb = async (payload) => {
-  return get(`${url.USERS}/businesses/update?${new URLSearchParams(cleanObject(payload))}`);
+  return get(
+    `${url.USERS}/businesses/update?${new URLSearchParams(
+      cleanObject(payload)
+    )}`
+  );
 };
 
 export const getUserMetrics = async (payload) => {
@@ -163,8 +174,9 @@ export const getUserInfo = async (payload) => {
 };
 
 export const updateVerificationRequest = async (payload) => {
-  const { action, ...rest } = payload;
-  return post(`${url.USERS}/verifications/${action}`, rest);
+  console.log("🚀 ~ updateVerificationRequest ~ payload:", payload)
+  const { action, id, ...rest } = payload;
+  return post(`${url.USERS}/verifications/${id}/${action}`, rest);
 };
 
 export const handleBroadcast = async (payload) => {
@@ -177,7 +189,11 @@ export const searchUser = async (payload) => {
 };
 
 export const getUsersVerifications = async (payload) => {
-  return get(`${url.USERS}/verifications/find?${new URLSearchParams(cleanObject(payload))}`);
+  return get(
+    `${url.USERS}/verifications/find?${new URLSearchParams(
+      cleanObject(payload)
+    )}`
+  );
 };
 
 export const getUsersVerificationMetrics = async () => {
@@ -194,9 +210,7 @@ export const getUserVerifications = async (payload) => {
 
 export const getUserKycDetail = async (payload) => {
   return get(
-    `${url.USERS}/kyc-data?${new URLSearchParams(
-      cleanObject(payload)
-    )}`
+    `${url.USERS}/kyc-data?${new URLSearchParams(cleanObject(payload))}`
   );
 };
 

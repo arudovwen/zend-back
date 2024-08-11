@@ -62,6 +62,11 @@ export const LockSchema = yup.object().shape({
   reason: yup.string().required("Reason is required"),
   id: yup.string().required(),
 });
+export const VerificationSchema = yup.object().shape({
+  type: yup.string(),
+  reason: yup.string(),
+  id: yup.string().required(),
+});
 export const BroadcastSchema = yup.object().shape({
   type: yup.string().required("Type is required"),
   subject: yup.string().required("Subject is required"),

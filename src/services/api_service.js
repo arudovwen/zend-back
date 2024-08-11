@@ -36,7 +36,7 @@ class DataService {
     });
   }
 
-  static post(path = "", data = {}, optionalHeader = {}, baseURL) {
+  static post(path = "", data = {}, baseURL, optionalHeader = {}) {
     const client = createClient(baseURL || API_ENDPOINT);
     return client({
       method: "POST",

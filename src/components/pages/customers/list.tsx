@@ -167,7 +167,6 @@ export default function List() {
     }
   }
   function handleOptions(user: any) {
-
     const tempData = Options.filter((i) => {
       if (user.isBanned && i.value === "ban") {
         return false;
@@ -183,14 +182,23 @@ export default function List() {
       }
       return true;
     });
-  
+
     return tempData;
   }
-  
+
   useEffect(() => {
     fetchData();
+  }, [queryParams.page]);
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
   }, [
-    queryParams.page,
     queryParams.count,
     queryParams.is_banned,
     queryParams.is_locked,

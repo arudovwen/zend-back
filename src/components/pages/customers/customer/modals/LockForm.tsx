@@ -19,31 +19,40 @@ import {
 import { ucFirst } from "@/utils/methods";
 import BanSvg from "@/assets/svgs/ban";
 import LockSvg from "@/assets/svgs/lock";
+import { updateWithdrawal, enableWithdrawal } from "@/services/walletservice";
 
 interface FormData {
   reason: string;
   id: string;
+  user?: any;
 }
 
-interface KinFormProps {
+interface LockFormProps {
   setOpen: (open: boolean) => void;
   isOpen: boolean;
-  type: "view" | "ban" | "unlock" | "lock" | "unban"; // Adjusted type definition based on usage
+  type: string; // Adjusted type definition based on usage
   detail?: any;
   userType?: any;
+  lockType?: any;
+  user?: any;
+  onClose?: any;
 }
 
-const KinForm: React.FC<KinFormProps> = ({
+const LockForm: React.FC<LockFormProps> = ({
   setOpen,
   isOpen,
   type,
   detail,
   userType = "customers",
+  lockType = "account",
+  user,
+  onClose,
 }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [formData] = useState<FormData>({
     reason: "",
     id: detail?.id,
+    user,
   });
 
   const {
@@ -59,6 +68,8 @@ const KinForm: React.FC<KinFormProps> = ({
     unban: unbanUser,
     lock: lockUser,
     unlock: unlockUser,
+    enable: updateWithdrawal,
+    disable: updateWithdrawal,
   };
   const adminmethods: any = {
     ban: banAdmin,
@@ -67,11 +78,13 @@ const KinForm: React.FC<KinFormProps> = ({
   const onSubmit = (data: FormData) => {
     setLoading(true);
     // Perform your form submission logic here
-    (userType === "customers" ? methods : adminmethods)[type](data)
+    (userType === "customers" ? methods : adminmethods)
+      [type]({ ...data, type })
       .then((res: any) => {
         if (res.status === 200) {
           toast.success(`${ucFirst(type)} Request submitted successfully!`);
           setLoading(false);
+          onClose && onClose();
           setOpen(false); // Example of closing modal after successful submission
         }
       })
@@ -98,11 +111,16 @@ const KinForm: React.FC<KinFormProps> = ({
           {type === "ban" || type === "unban" ? <BanSvg /> : <LockSvg />}
         </div>
         <h2 className="font-semibold text-xl mb-2 text-center capitalize">
-          {type} User Account
+          {type} User {lockType}
         </h2>
         <p className="text-xs mb-10 text-[#555555] dark:text-white/70 max-w-[465px] text-center">
-          Are you sure you want to {type} this user&apos;s account? This action
-          will temporarily restrict the user from accessing their account.
+          Are you sure you want to {type} this user&apos;s {lockType}?{" "}
+          {lockType.includes(["lock", "disabled", "bane"]) && (
+            <span>
+              This action will temporarily restrict the user from accessing
+              their {lockType}.
+            </span>
+          )}
         </p>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="grid grid-cols-1 gap-y-3 mb-6">
@@ -146,4 +164,4 @@ const KinForm: React.FC<KinFormProps> = ({
   );
 };
 
-export default KinForm;
+export default LockForm;

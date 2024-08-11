@@ -10,23 +10,21 @@ import moment from "moment";
 import AppStatusComponent from "@/components/AppStatusComponent";
 import AppIcon from "@/components/AppIcon";
 import MenuSelect from "@/components/forms/MenuSelect";
+import VerificationStatus from "./modals/VerifcationStatus";
 
 const Options = [
   {
-    label: "Approve",
-    value: "approve",
+    label: "View",
+    value: "view",
   },
-  {
-    label: "Reject",
-    value: "reject",
-  },
- 
 ];
 
 export default function KYC() {
   const { user, id } = useParams();
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
+  const [isOpen, setOpen] = useState(false);
+  const [detail, setDetail] = useState<any>(null);
   const [queryParams, setQueryParams] = useState({
     user: "",
     page: 1,
@@ -56,6 +54,10 @@ export default function KYC() {
         return type;
     }
   }
+  function handleSelected(val: any, data: any) {
+    setDetail(data);
+    setOpen(true);
+  }
   const fetchData = async () => {
     setLoading(true);
 
@@ -77,7 +79,15 @@ export default function KYC() {
             <MenuSelect
               label={<AppIcon icon="uil:ellipsis-v" />}
               options={Options}
-              handleSelected={(val: string) => {}}
+              handleSelected={(val: string) =>
+                handleSelected(val, {
+                  ...i,
+                  name: ` ${ucFirst(i?.user?.firstName)} ${ucFirst(
+                    i?.user?.lastName
+                  )}`,
+                  id: i?.user?.id,
+                })
+              }
             />
           ),
         }));
@@ -97,7 +107,17 @@ export default function KYC() {
 
   useEffect(() => {
     fetchData();
-  }, [queryParams.page, queryParams.count]);
+  }, [queryParams.page, ]);
+  useEffect(() => {
+    if (queryParams.page !== 1) {
+      setQueryParams({
+        ...queryParams,
+        page: 1,
+      });
+    } else {
+      fetchData();
+    }
+  }, [queryParams.count]);
 
   return (
     <div className=" w-full ">
@@ -109,6 +129,14 @@ export default function KYC() {
         queryParams={queryParams}
         setQueryParams={(data: any) => setQueryParams(data)}
       />
+       {isOpen && (
+        <VerificationStatus
+          setOpen={setOpen}
+          isOpen={isOpen}
+          detail={detail}
+          onClose={fetchData}
+        />
+      )}
     </div>
   );
 }

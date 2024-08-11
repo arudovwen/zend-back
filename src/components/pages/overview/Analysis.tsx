@@ -46,6 +46,7 @@ export default function Analysis() {
     fetchData();
   }, [value]);
 
+  
   return (
     <div className="w-full">
       <div className="flex flex-col lg:flex-row gap-y-4 lg:items-center lg:justify-between mb-4">
