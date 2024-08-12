@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -8,22 +8,41 @@ import { LoginSchema } from "@/schema";
 import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
 import HeaderComponent from "@/components/HeaderComponent";
+import { getRate, setRate } from "@/services/walletservice";
 
 export default function Rates() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<any>({
+    zendrate: null,
+    quicksell: null,
+  });
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(LoginSchema),
+    defaultValues: formData,
   });
   const onSubmit = (data: any) => {
     setLoading(true);
     console.log("🚀 ~ onSubmit ~ data:", data);
   };
+
+  function fetchRate() {
+    getRate().then((res) => {
+      if (res.status === 200) {
+        setValue("zendrate", res.data.data.rate.rate);
+      }
+    });
+  }
+  useEffect(() => {
+    fetchRate();
+  }, []);
+
   return (
     <div className=" px-7 py-10 rounded-lg bg-white  dark:bg-gray-800 dark:border-gray-600  border border-[#EAECF0]">
       <div className="mb-10">
@@ -48,6 +67,7 @@ export default function Rates() {
                 register={register}
                 errors={errors.password}
                 maxW="max-w-none"
+                value={1}
               />
             </div>
             <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
@@ -62,6 +82,7 @@ export default function Rates() {
                 errors={errors.password}
                 maxW="max-w-none"
                 icon="USDT"
+                value={1}
               />
             </div>
           </div>
@@ -78,7 +99,10 @@ export default function Rates() {
       </div>
       <div className="w-full max-w-[800px]">
         <h2 className="text-sm font-semibold mb-4">Quick Sell</h2>
-        <form className="grid grid-cols-1 gap-y-10" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="grid grid-cols-1 gap-y-10"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
             <div className="flex items-center gap-4 mb-2">
               <div className="flex-1">
@@ -104,6 +128,7 @@ export default function Rates() {
                   errors={errors.password}
                   maxW="max-w-none"
                   icon="USD"
+                  value={1}
                 />
               </div>
             </div>
@@ -128,6 +153,7 @@ export default function Rates() {
                   register={register}
                   errors={errors.password}
                   maxW="max-w-none"
+                  value={1}
                 />
               </div>
               <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
@@ -142,6 +168,7 @@ export default function Rates() {
                   errors={errors.password}
                   maxW="max-w-none"
                   icon="USD"
+                  value={1}
                 />
               </div>
             </div>
@@ -166,6 +193,7 @@ export default function Rates() {
                   register={register}
                   errors={errors.password}
                   maxW="max-w-none"
+                  value={1}
                 />
               </div>
               <span className="border dark:border-gray-600 flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
@@ -180,6 +208,7 @@ export default function Rates() {
                   errors={errors.password}
                   maxW="max-w-none"
                   icon="USD"
+                  value={1}
                 />
               </div>
             </div>

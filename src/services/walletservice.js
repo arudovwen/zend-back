@@ -136,9 +136,9 @@ export const setRate = async (payload) => {
   );
 };
 
-export const getRate = async (payload) => {
+export const getRate = async () => {
   return get(
-    `/zend-usd/rates/find/one?${new URLSearchParams(cleanObject(payload))}`,
+    `/zend-usd/rates/find/one`,
     transactionBaseUrl
   );
 };

@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 export function cleanObject(obj) {
+  if (!obj) return;
   const cleaned = {};
 
   Object.keys(obj).forEach((key) => {

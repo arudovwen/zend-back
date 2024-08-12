@@ -44,7 +44,7 @@ export default function Announcement() {
     formState: { errors },
     getValues,
     trigger,
-  } = useForm<FormData>({
+  } = useForm<any>({
     resolver: yupResolver(BroadcastSchema),
     defaultValues: formData,
   });
