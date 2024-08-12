@@ -213,7 +213,7 @@ export default function SideBar() {
                     src={userData.image || "/ava.png"}
                     width={36}
                     height={36}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-lg object-cover"
                   />
               </span>
               <div className="text-left">
