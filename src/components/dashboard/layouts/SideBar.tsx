@@ -205,7 +205,7 @@ export default function SideBar() {
         <Menu>
           <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-700 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
             <div className="flex items-center gap-x-3">
-              <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-800 rounded-lg items-center justify-center text-sm">
+              <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-800 rounded-full items-center justify-center text-sm">
                 {" "}
               
                  <Image
@@ -213,7 +213,7 @@ export default function SideBar() {
                     src={userData.image || "/ava.png"}
                     width={36}
                     height={36}
-                    className="w-full h-full rounded-lg object-cover"
+                    className="w-full h-full rounded-full object-cover"
                   />
               </span>
               <div className="text-left">
