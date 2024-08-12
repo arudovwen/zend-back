@@ -49,7 +49,7 @@ html{
     @apply flex active:scale-95 transition-all duration-300 justify-center items-center px-[14px] py-[10px] bg-[#F2F2F2] dark:bg-transparent border border-transparent dark:border-gray-400 font-normal text-xs sm:text-sm text-primary dark:text-white/90 capitalize tracking-widest hover:opacity-90  disabled:opacity-60 rounded-lg outline-none;
   }
   .input {
-    @apply text-[#475467] border border-[#D2D2D7] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60 dark:border-gray-600 text-sm;
+    @apply text-[#475467] border border-[#EAECF0] rounded-[6px] px-[14px] py-[10px] w-full pr-11 outline-none focus:border-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-white/60 dark:border-gray-600 text-sm;
   }
   .template {
     @apply bg-white dark:bg-gray-800 rounded-lg border border-[#EDEFEB] dark:border-gray-600;
@@ -63,22 +63,7 @@ html{
 .ck-editor__editable_inline {
   min-height: 260px;
 }
-/* @media (prefers-color-scheme: light) {
-  .ck.ck-button:not(.ck-disabled):hover, .ck-dropdown__panel, .ck-editor__editable_inline, .ck-list {
-     background: white !important;
-     color: #333 !important;
-   }
-   .ck-toolbar {
-     background: #fff !important;
-     color: #333 !important;
-   }
-   .ck,
-   .ck-button__label,
-   .ck-icon {
-     color: #333 !important;
-   }
- } */
-/* @media (prefers-color-scheme: dark) { */
+
   .dark_editor .ck.ck-button:not(.ck-disabled):hover,   .dark_editor .ck-dropdown__panel,  .dark_editor .ck-editor__editable_inline,  .dark_editor .ck-list {
     background: #1f2937 !important;
     color: #ffffff90 !important;
@@ -92,4 +77,3 @@ html{
   .dark_editor .ck-icon {
     color: #ffffff90 !important;
   }
-/* } */
