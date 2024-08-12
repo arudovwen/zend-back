@@ -221,7 +221,7 @@ export default function Announcement() {
             <div className="flex gap-x-5 items-center mt-10">
               <ButtonComponent
                 onClick={() => setOpen(false)}
-                className="w-full text-center !bg-transparent !border !border-gray-200 !text-secondary dark:!text-white/80 items-center"
+                className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-secondary dark:!text-white/80 items-center"
                 type="button"
                 disabled={loading}
               >

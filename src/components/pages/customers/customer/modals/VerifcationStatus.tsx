@@ -136,7 +136,7 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
             <div className="flex gap-x-5 items-center mt-8">
               <ButtonComponent
                 onClick={() => setRejectOpen(true)}
-                className="w-full text-center !bg-transparent !border !border-gray-200 !text-red-700 dark:!text-red-200  items-center"
+                className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-red-700 dark:!text-red-200  items-center"
                 type="button" // Changed to "button" type for cancel button
               >
                 Reject

@@ -156,27 +156,27 @@ export const AssetsTab = [
 export const VerificationTab = [
   {
     label: "Address",
-    icon: "flowbite:users-group-outline",
+    icon: "mdi:address-marker-outline",
     key: "numberOfBusinessVerifications",
   },
   {
     label: "Email Address",
-    icon: "icons8:remove-user",
+    icon: "line-md:email",
     key: "numberOfEmailAddressVerifications",
   },
   {
     label: "BVN",
-    icon: "solar:user-check-linear",
+    icon: "hugeicons:security",
     key: "numberOfBvnVerifications",
   },
   {
     label: "Government ID",
-    icon: "hugeicons:user-block-01",
+    icon: "teenyicons:id-outline",
     key: "numberOfGovernmentIdVerifications",
   },
   {
     label: "Phone number",
-    icon: "icons8:remove-user",
+    icon: "basil:phone-out-outline",
     key: "numberOfPhoneNumberVerifications",
   },
 ];

@@ -9,7 +9,7 @@ export default function Active() {
     <div className="mb-6 flex justify-between flex-col lg:flex-row gap-y-4 items-center">
       <input
         placeholder="Search role"
-        className=" border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded md:max-w-[280px] w-full"
+        className=" border border-[#EAECF0] dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded md:max-w-[280px] w-full"
       />
       <div className="flex  gap-x-4 items-center w-full lg:w-auto">
     

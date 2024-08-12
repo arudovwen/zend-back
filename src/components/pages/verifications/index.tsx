@@ -254,17 +254,17 @@ export default function VerficationComponent() {
           <input
             placeholder="Search email address"
             onChange={(e) => debouncedSearch(e.target.value)}
-            className="text-secondary dark:text-white/80 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
+            className="text-secondary dark:text-white/80 border border-[#EAECF0] dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded lg:max-w-[280px] w-full"
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
+              className=" border border-[#EAECF0] dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
               options={VerifyTypeData}
               placeholder="Select type"
               onChange={handleSelectType}
             />
             <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
+              className=" border border-[#EAECF0] dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
               options={VerifyStatusData}
               placeholder="Select status"
               onChange={handleStatusType}

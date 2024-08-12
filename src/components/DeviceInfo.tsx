@@ -15,10 +15,10 @@ export default function DeviceInfo({tab}: any) {
         </span>
       </div>
       <div className="flex gap-x-4 items-center">
-        <span className="text-xs border border-gray-200 rounded-full px-2 py-1">
+        <span className="text-xs border border-[#EAECF0] rounded-full px-2 py-1">
           Locked
         </span>
-        <button className="border h-7 w-7 border-gray-200 rounded-lg flex items-center justify-center">
+        <button className="border h-7 w-7 border-[#EAECF0] rounded-lg flex items-center justify-center">
           <AppIcon icon="solar:trash-bin-trash-linear" />
         </button>
       </div>

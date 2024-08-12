@@ -103,7 +103,7 @@ export default function OrdersComponent() {
           <div></div>
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
-              className=" border border-gray-200 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
+              className=" border border-[#EAECF0] dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
               options={[]}
               placeholder="Select status"
             />

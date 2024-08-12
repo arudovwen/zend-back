@@ -252,7 +252,7 @@ export default function SideBar() {
           </p>
           <div className="flex gap-x-4 items-center justify-center text-sm font-medium">
             <button
-              className="border border-gray-200 dark:!border-gray-600  rounded px-3 py-1 w-full"
+              className="border border-[#EAECF0] dark:!border-gray-600  rounded px-3 py-1 w-full"
               onClick={() => setOpen(false)}
             >
               No
@@ -261,7 +261,7 @@ export default function SideBar() {
               onClick={() => handleLogout()}
               isDisabled={loading}
               isLoading={loading}
-              btnClass="!border !border-gray-200 dark:!border-gray-600 !rounded !px-3 !py-1 w-full !text-red-500 dark:!text-red-300 !bg-transparent"
+              btnClass="!border !border-[#EAECF0] dark:!border-gray-600 !rounded !px-3 !py-1 w-full !text-red-500 dark:!text-red-300 !bg-transparent"
               text="Yes"
             />
           </div>

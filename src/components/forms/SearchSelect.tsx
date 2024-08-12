@@ -43,7 +43,7 @@ export default function SearchSelect({
           control: (state) =>
             `${
               state.isFocused
-                ? "border-gray-200 dark:!border-gray-600"
+                ? "border-[#EAECF0] dark:!border-gray-600"
                 : "border-gray-100  dark:!border-gray-600"
             } bg-white dark:!bg-gray-800 text-secondary dark:!text-gray-100 min-w-[200px] !rounded`,
           menu: () =>

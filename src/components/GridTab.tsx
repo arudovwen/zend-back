@@ -14,9 +14,9 @@ export default function GridTab({
 }: any) {
 
   return (
-    <div className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-600 flex gap-x-3 items-center ">
+    <div className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-[#EAECF0] dark:border-gray-600 flex gap-x-3 items-center ">
       <span
-        className={`${borderClass} h-14 w-14 rounded flex items-center justify-center border border-gray-200 dark:border-gray-600`}
+        className={`${borderClass} h-14 w-14 rounded flex items-center justify-center border border-[#EAECF0] dark:border-gray-600`}
       >
         <AppIcon
           icon={tab.icon}
@@ -25,7 +25,7 @@ export default function GridTab({
       </span>
       <span className="block">
         <span
-          className={`${labelClass} block leading-tight text-[#475467] dark:text-white text-sm font-normal mb-1`}
+          className={`${labelClass} block leading-tight text-[#475467] dark:text-white text-sm font-normal mb-[2px]`}
         >
           {tab.label}
         </span>
