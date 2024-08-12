@@ -33,7 +33,7 @@ export default function KinForm({ setOpen, isOpen, data }: any) {
   const onSubmit = (data: any) => {
     setLoading(true);
 
-    updateProfile({ ...data, type: "admin" })
+    updateProfile({ ...data, type: "administrators" })
       .then((res) => {
         if (res.status === 200) {
           getUserData();

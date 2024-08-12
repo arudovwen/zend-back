@@ -134,22 +134,22 @@ export const OverviewTabs = [
 export const AssetsTab = [
   {
     label: "Total transactions (USD)",
-    icon: "flowbite:users-group-outline",
+    icon: "cil:swap-vertical",
     key: "totalTokenTransactionsUsd",
   },
   {
     label: "Total withdrawals (USD)",
-    icon: "solar:user-check-linear",
+    icon: "ph:hand-withdraw-light",
     key: "totalWithdrawalsUsd",
   },
   {
     label: "Total deposits (USD)",
-    icon: "hugeicons:user-block-01",
+    icon: "ph:hand-deposit-light",
     key: "totalDepositUsd",
   },
   {
     label: "Total swapped (USD)",
-    icon: "icons8:remove-user",
+    icon: "ph:swap-light",
     key: "totalSwapsUsd",
   },
 ];
@@ -212,17 +212,17 @@ export const QuickSellOrdersTab = [
 export const AnalysisTab = [
   {
     label: "Total deposits",
-    icon: "ph:hand-deposit-bold",
+    icon: "ph:hand-deposit-light",
     key: "totalDeposits",
   },
   {
     label: "Total withdrawal",
-    icon: "ph:hand-withdraw-bold",
+    icon: "ph:hand-withdraw-light",
     key: "totalWithdrawals",
   },
   {
     label: "Total swap",
-    icon: "ph:swap-bold",
+    icon: "ph:swap-light",
     key: "totalSwaps",
   },
 ];

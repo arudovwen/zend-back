@@ -53,6 +53,7 @@ export const PersonalSchema = yup.object().shape({
   dateOfBirth: yup.string(),
   gender: yup.string(),
 });
+
 export const AdminSchema = yup.object().shape({
   id: yup.string().required(),
   firstName: yup.string().required("First name is required"),
@@ -60,6 +61,7 @@ export const AdminSchema = yup.object().shape({
   phoneNumber: yup.string(),
   gender: yup.string(),
   role: yup.string(),
+  image:yup.string()
 });
 
 export const LockSchema = yup.object().shape({

@@ -12,7 +12,7 @@ import { AssetsHeader } from "@/constants/headers";
 import AppIcon from "@/components/AppIcon";
 import AppStatusComponent from "@/components/AppStatusComponent";
 import MenuSelect from "@/components/forms/MenuSelect";
-
+import { getAllUsers } from "@/services/userservice";
 import { getWallets } from "@/services/walletservice";
 import { ucFirst } from "@/utils/methods";
 
@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import HeaderComponent from "@/components/HeaderComponent";
 import debounce from "debounce";
 import LockForm from "../customers/customer/modals/LockForm";
+import SearchSelect from "@/components/forms/SearchSelect";
 
 const Options = [
   {
@@ -122,6 +123,7 @@ export default function AssetComponent() {
   useEffect(() => {
     fetchData();
   }, [queryParams.page]);
+
   useEffect(() => {
     if (queryParams.page !== 1) {
       setQueryParams({
@@ -132,22 +134,47 @@ export default function AssetComponent() {
       fetchData();
     }
   }, [queryParams.count, queryParams.user, queryParams.status]);
-  function handleSearch(val: any) {
-    setQueryParams({
-      ...queryParams,
-      user: val,
-    });
-  }
-  const debouncedSearch = useCallback(
-    debounce((value) => handleSearch(value), 800),
-    []
-  );
+
   function handleStatus(val: any) {
     setQueryParams({
       ...queryParams,
       status: val.value,
     });
   }
+  const loadOptions = (inputValue: any, callback: any) => {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const searchDataT = await getAllUsers({
+          user: inputValue,
+          page: 1,
+          count: 1000,
+        });
+        const sdata = searchDataT.data?.data?.users.map((data: any) => ({
+          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)}`,
+          value: data?.id,
+        }));
+
+        setTimeout(() => {
+          if (sdata?.length) {
+            callback([{ label: "Default", value: "" }, , ...sdata]);
+            resolve([{ label: "Default", value: "" }, , ...sdata]);
+          } else {
+            reject(new Error("No data available."));
+          }
+        }, 1000);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  const handleUsers = (e: any) => {
+    setQueryParams({
+      ...queryParams,
+      user: e.value,
+    });
+  };
+
   return (
     <section>
       <div className="mb-10">
@@ -158,13 +185,9 @@ export default function AssetComponent() {
       </div>
       <div className=" w-full ">
         <div className="mb-4 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
-          <div>
+          <div className="w-full max-w-[300px]">
             {" "}
-            <input
-              placeholder="Search name or email"
-              onChange={(e) => debouncedSearch(e.target.value)}
-              className=" text-secondary dark:text-white/80 border border-gray-100 dark:border-gray-500 bg-white dark:bg-gray-800 text-sm px-[14px] py-[10px] rounded w-full lg:w-[280px] "
-            />
+            <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
           </div>
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select

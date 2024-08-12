@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import FormField from "@/components/forms/FormField";
-import { LoginSchema } from "@/schema";
+import { RateSchema } from "@/schema";
 import AppIcon from "@/components/AppIcon";
 import ButtonComponent from "@/components/ButtonComponent";
 import HeaderComponent from "@/components/HeaderComponent";
@@ -24,7 +24,7 @@ export default function Rates() {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(RateSchema),
     defaultValues: formData,
   });
   const onSubmit = (data: any) => {

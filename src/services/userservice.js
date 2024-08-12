@@ -174,7 +174,6 @@ export const getUserInfo = async (payload) => {
 };
 
 export const updateVerificationRequest = async (payload) => {
-  console.log("🚀 ~ updateVerificationRequest ~ payload:", payload)
   const { action, id, ...rest } = payload;
   return post(`${url.USERS}/verifications/${id}/${action}`, rest);
 };
