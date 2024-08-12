@@ -14,6 +14,8 @@ import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import CenterModal from "@/components/modals/CenterModal";
 import TypeSwitch from "./TypeSwitch";
 import { PageContext } from "@/constants/context";
+import { getItem } from "@/utils/localStorageControl";
+import Image from "next/image";
 
 export default function SideBar() {
   const { setColormode } = useContext(PageContext);
@@ -23,7 +25,7 @@ export default function SideBar() {
   const router = useRouter();
   const pathname = usePathname();
   const [enabled, setEnabled] = useState<boolean | null>(null);
-
+  const userData = getItem("userData");
   useEffect(() => {
     setEnabled(localStorage.theme === "light" ? false : true);
     setColormode(localStorage.theme);
@@ -205,17 +207,21 @@ export default function SideBar() {
             <div className="flex items-center gap-x-3">
               <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-800 rounded-lg items-center justify-center text-sm">
                 {" "}
-                <AppIcon
-                  icon="solar:user-bold-duotone"
-                  iconClass="text-xl text-[#475467] dark:text-white"
-                />
+              
+                 <Image
+                    alt="avatar"
+                    src={userData.image || "/ava.png"}
+                    width={36}
+                    height={36}
+                    className="w-full h-full rounded-full object-cover"
+                  />
               </span>
-              <div>
+              <div className="text-left">
                 <p className="test-sm block font-medium text-[#475467] dark:text-white">
-                  John Snow
+                {userData?.firstName} {userData?.lastName}
                 </p>
-                <p className="text-xs font-light text-[#475467] dark:text-white">
-                  Administrator
+                <p className="text-xs font-light text-[#475467] dark:text-white capitalize">
+                {userData?.primaryRole}
                 </p>
               </div>
             </div>

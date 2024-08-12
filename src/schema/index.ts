@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const RateSchema = yup.object().shape({
   zendrate: yup.mixed().nullable(),
-  quicksell:yup.mixed().nullable(),
+  quicksell: yup.mixed().nullable(),
 });
 export const LoginSchema = yup.object().shape({
   emailAddress: yup
@@ -61,7 +61,7 @@ export const AdminSchema = yup.object().shape({
   phoneNumber: yup.string(),
   gender: yup.string(),
   role: yup.string(),
-  image:yup.string()
+  image: yup.string(),
 });
 
 export const LockSchema = yup.object().shape({
@@ -69,10 +69,12 @@ export const LockSchema = yup.object().shape({
   id: yup.string().required(),
 });
 export const VerificationSchema = yup.object().shape({
-  type: yup.string(),
-  reason: yup.string(),
-  id: yup.string().required(),
+  type: yup.string().nullable(),
+  reason: yup.string().nullable(),
+  id: yup.string().nullable(),
+  action: yup.string().nullable(),
 });
+
 export const BroadcastSchema = yup.object().shape({
   type: yup.string().required("Type is required"),
   subject: yup.string().required("Subject is required"),

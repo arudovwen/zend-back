@@ -10,11 +10,13 @@ import ButtonComponent from "@/components/ButtonComponent";
 import AppButton from "@/components/AppButton";
 import Image from "next/image";
 import { getCurrentAdmin, updateProfile } from "@/services/userservice";
-import { getItem } from "@/utils/localStorageControl";
+import { getItem, setItem } from "@/utils/localStorageControl";
 import Loader from "@/components/Loader";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function Account() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageloading, setImageLoading] = useState<boolean>(false);
   const [formData] = useState<any>({
     firstName: null,
     lastName: null,
@@ -49,18 +51,22 @@ export default function Account() {
       reader.onerror = reject;
     });
   const handleFileChange = async (e: any) => {
+    setImageLoading(true);
     const userData = getItem("userData");
     const file = e.target.files[0];
     if (file) {
       const base64: any = await toBase64(file);
-      updateProfile({ id: userData?.id, image: base64, type: "administrators" }).then(
-        (res) => {
+      updateProfile({ id: userData?.id, image: base64, type: "administrators" })
+        .then((res) => {
           if (res.status === 200) {
             toast.success("Image updated");
             fetchData();
           }
-        }
-      );
+        })
+        .catch((err) => {
+          setImageLoading(false);
+          toast.error(err.response.data?.message || "Upload failed");
+        });
     }
   };
 
@@ -75,7 +81,9 @@ export default function Account() {
     getCurrentAdmin(userData.id)
       .then((res) => {
         if (res.status === 200) {
+          setImageLoading(false);
           setLoading(false);
+          setItem("userData", res?.data?.data?.administrator);
           setValue("firstName", res.data?.data?.administrator?.firstName);
           setValue("lastName", res.data?.data?.administrator?.lastName);
           setValue("emailAddress", res.data?.data?.administrator?.emailAddress);
@@ -100,13 +108,19 @@ export default function Account() {
           <div className="flex  flex-col md:flex-row gap-6 justify-start lg:justify-between lg:items-center mb-12 max-w-[800px]">
             <div className="flex  flex-col md:flex-row gap-4 items-center text-center sm:text-left">
               <div className="overflow-hidden h-20 lg:h-28 w-20 lg:w-28 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl font-semibold">
-                <Image
-                  alt="avatar"
-                  src={getValues()?.image || "/ava.png"}
-                  width={120}
-                  height={120}
-                  className="w-full h-full rounded-full object-cover"
-                />
+                {!imageloading ? (
+                  <Image
+                    alt="avatar"
+                    src={getValues()?.image || "/ava.png"}
+                    width={120}
+                    height={120}
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                ) : (
+                  <span>
+                    <AiOutlineLoading className="text-[60px] animate-spin text-primary" />
+                  </span>
+                )}
               </div>
               <div>
                 <div className="mb-4">

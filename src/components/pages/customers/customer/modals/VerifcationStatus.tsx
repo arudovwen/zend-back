@@ -14,8 +14,8 @@ import moment from "moment";
 import AppStatusComponent from "@/components/AppStatusComponent";
 
 interface FormData {
-  reason?: string;
-  id: any;
+  reason?: any;
+  id?: any;
   type?: any;
   action?: any;
 }
@@ -39,6 +39,7 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
     reason: "",
     id: detail?._id || detail?.id,
     type: "approve",
+    action:""
   });
   const [isRejectOpen, setRejectOpen] = useState(false);
   const {
