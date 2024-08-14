@@ -11,7 +11,7 @@ import Select from "@/components/forms/Select";
 import { AssetHeader } from "@/constants/headers";
 import AppIcon from "@/components/AppIcon";
 import AppStatusComponent from "@/components/AppStatusComponent";
-import MenuSelect from "@/components/forms/MenuSelect";
+import Image from "next/image";
 
 import {
   getUserAssetBalance,
@@ -79,7 +79,18 @@ export default function AssetComponent() {
     handleWallet();
     const tempRow = cryptoTokens.map((key: any) => {
       return {
-        token: `${key.label} (${key.value})`,
+        token: (
+          <span className="flex gap-x-2 items-center">
+            <Image
+              alt="token"
+              className="w-[18px] h-[18px] rounded-full"
+              width="18"
+              height="18"
+              src={key.imageUrl}
+            />
+            {`${key.label} (${key.value})`}
+          </span>
+        ),
         fundingBal: currencyFormat(0),
         tradingBal: currencyFormat(0),
       };
@@ -106,7 +117,7 @@ export default function AssetComponent() {
       <div className=" w-full ">
         <div className="mb-4 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
           <div className="text-sm flex gap-x-2 items-center text-secondary dark:bg-gray-800 dark:text-white/80">
-         <span>   Withdrawal:</span>
+            <span> Withdrawal:</span>
             <AppStatusComponent
               status={detail?.withdrawal?.enabled ? "enabled" : "disabled"}
             />

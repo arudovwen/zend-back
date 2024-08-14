@@ -37,22 +37,22 @@ export const navigations = [
     asSub: false,
     url: "/dashboard/assets",
   },
-  {
-    label: "P2P Management",
-    icon: "ri:p2p-line",
-    asSub: true,
-    url: "/dashboard/p2p-management",
-    submenus: [
-      {
-        label: "Recent Orders",
-        url: "/dashboard/p2p-management/orders",
-      },
-      {
-        label: "Recent Ads",
-        url: "/dashboard/p2p-management/ads",
-      },
-    ],
-  },
+  // {
+  //   label: "P2P Management",
+  //   icon: "ri:p2p-line",
+  //   asSub: true,
+  //   url: "/dashboard/p2p-management",
+  //   submenus: [
+  //     {
+  //       label: "Recent Orders",
+  //       url: "/dashboard/p2p-management/orders",
+  //     },
+  //     {
+  //       label: "Recent Ads",
+  //       url: "/dashboard/p2p-management/ads",
+  //     },
+  //   ],
+  // },
   {
     label: "Administrators",
     icon: "ic:outline-admin-panel-settings",
@@ -81,18 +81,18 @@ export const navigations = [
     asSub: false,
     url: "/dashboard/referrals",
   },
-  {
-    label: "Quick sell",
-    icon: "carbon:sales-ops",
-    asSub: false,
-    url: "/dashboard/quick-sell",
-  },
-  {
-    label: "Zend USD",
-    icon: "mingcute:usd-coin-usdc-line",
-    asSub: false,
-    url: "/dashboard/zend-usd",
-  },
+  // {
+  //   label: "Quick sell",
+  //   icon: "carbon:sales-ops",
+  //   asSub: false,
+  //   url: "/dashboard/quick-sell",
+  // },
+  // {
+  //   label: "Zend USD",
+  //   icon: "mingcute:usd-coin-usdc-line",
+  //   asSub: false,
+  //   url: "/dashboard/zend-usd",
+  // },
 ];
 
 export const bottomNavigations = [
@@ -507,21 +507,21 @@ export const AdminActivitiesData = [
 ];
 
 export const cryptoTokens = [
-  { label: "Tether", value: "USDT" },
-  { label: "Bitcoins", value: "BTC" },
-  { label: "USDC", value: "USDC" },
-  { label: "Tron", value: "TRX" },
-  { label: "Ethereum", value: "ETH" },
-  { label: "Solana", value: "SOL" },
-  { label: "Ripple", value: "XRP" },
-  { label: "Algorand", value: "ALGO" },
-  { label: "Bitcoin Cash", value: "BCH" },
-  { label: "Polygon", value: "MATIC" },
-  { label: "Avalanche", value: "AVAX" },
-  { label: "Stellar", value: "XLM" },
-  { label: "Litecoin", value: "LTC" },
-  { label: "DogeCoin", value: "DOGE" },
-  { label: "Binance Coin", value: "BNB" },
+  { label: "Tether", value: "USDT", imageUrl:"/coins/tether.png" },
+  { label: "Bitcoins", value: "BTC",imageUrl:"/coins/bitcoin.png" },
+  { label: "USDC", value: "USDC",imageUrl:"/coins/usdc.png" },
+  { label: "Tron", value: "TRX" ,imageUrl:"/coins/tron.png"},
+  { label: "Ethereum", value: "ETH",imageUrl:"/coins/ethereum.png" },
+  { label: "Solana", value: "SOL" ,imageUrl:"/coins/solana.png"},
+  { label: "Ripple", value: "XRP",imageUrl:"/coins/ripple.png" },
+  { label: "Algorand", value: "ALGO",imageUrl:"/coins/algorand.png" },
+  { label: "Bitcoin Cash", value: "BCH",imageUrl:"/coins/cash.png" },
+  { label: "Polygon", value: "MATIC" ,imageUrl:"/coins/polygon.png"},
+  { label: "Avalanche", value: "AVAX",imageUrl:"/coins/avalanche.png" },
+  { label: "Stellar", value: "XLM",imageUrl:"/coins/stellar.png" },
+  { label: "Litecoin", value: "LTC",imageUrl:"/coins/litecoin.png" },
+  { label: "DogeCoin", value: "DOGE",imageUrl:"/coins/Doge.png" },
+  { label: "Binance Coin", value: "BNB",imageUrl:"/coins/bnb.png" },
 ];
 
 export const CountryFilters = [
