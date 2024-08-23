@@ -170,8 +170,9 @@ export default function Account() {
                   label="First name"
                   name="firstName"
                   placeholder=""
-                  register={register}
+                  register={null}
                   errors={errors.firstName}
+                  disabled
                   maxW="max-w-none"
                   value={getValues().firstName}
                 />
@@ -179,9 +180,10 @@ export default function Account() {
                   label="Last name"
                   name="lastName"
                   placeholder=""
-                  register={register}
+                  register={null}
                   errors={errors.lastName}
                   maxW="max-w-none"
+                  disabled
                   value={getValues().lastName}
                 />
               </div>
@@ -191,8 +193,9 @@ export default function Account() {
                   name="emailAddress"
                   placeholder=""
                   type="email"
-                  register={register}
+                  register={null}
                   maxW="max-w-none"
+                  disabled
                   value={getValues().emailAddress}
                 />
               </div>

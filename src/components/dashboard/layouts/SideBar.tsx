@@ -202,47 +202,34 @@ export default function SideBar() {
           </li>
         </ul>
 
-        <Menu>
-          <MenuButton className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-700 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
+        <div>
+          <div className="inline-flex w-full items-center justify-between rounded-lg px-3 py-3 bg-gray-100 border border-gray-50 dark:bg-gray-700 dark:border-gray-500 text-sm/6 font-semibold text-[#475467] dark:text-white shadow-inner shadow-white/10 focus:outline-none dark:data-[hover]:bg-gray-700  dark:data-[open]:bg-gray-700  dark:data-[focus]:outline-1  dark:data-[focus]:outline-white">
             <div className="flex items-center gap-x-3">
               <span className="flex h-9 w-9 bg-gray-200 dark:bg-gray-800 rounded-full items-center justify-center text-sm">
                 {" "}
-              
-                 <Image
-                    alt="avatar"
-                    src={userData.image || "/ava.png"}
-                    width={36}
-                    height={36}
-                    className="w-full h-full rounded-full object-cover"
-                  />
+                <Image
+                  alt="avatar"
+                  src={userData.image || "/ava.png"}
+                  width={36}
+                  height={36}
+                  className="w-full h-full rounded-full object-cover"
+                />
               </span>
               <div className="text-left">
                 <p className="test-sm block font-medium text-[#475467] dark:text-white">
-                {userData?.firstName} {userData?.lastName}
+                  {userData?.firstName} {userData?.lastName}
                 </p>
                 <p className="text-xs font-light text-[#475467] dark:text-white capitalize">
-                {userData?.primaryRole}
+                  {userData?.primaryRole}
                 </p>
               </div>
             </div>
-            <AppIcon
+            {/* <AppIcon
               icon="humbleicons:chevron-down"
               iconClass="size-4 fill-white/60 text-[#475467] dark:text-white"
-            />
-          </MenuButton>
-
-          <MenuItems
-            transition
-            anchor="bottom end"
-            className="w-44 origin-top-right shadow-black mt-1 rounded-lg border border-gray-100 dark:border-gray-600 bg-white dark:bg-gray-700 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-          >
-            <MenuItem>
-              <span className="text-secondary dark:text-white cursor-pointer group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 text-">
-                Logout
-              </span>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
+            /> */}
+          </div>
+        </div>
       </div>
       <CenterModal setOpen={() => {}} open={isOpen}>
         <div className="bg-white dark:bg-gray-800 text-secondary text-center dark:text-white p-6 rounded-lg min-w-[300px] sm:min-w-[350px]">

@@ -116,7 +116,7 @@ export default function AssetComponent() {
 
       <div className=" w-full ">
         <div className="mb-4 flex flex-col lg:flex-row gap-y-4 justify-between items-center">
-          <div className="text-sm flex gap-x-2 items-center text-secondary dark:bg-gray-800 dark:text-white/80">
+          <div className="text-sm flex gap-x-2 items-center  text-secondary dark:text-white/80">
             <span> Withdrawal:</span>
             <AppStatusComponent
               status={detail?.withdrawal?.enabled ? "enabled" : "disabled"}

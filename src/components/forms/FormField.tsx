@@ -23,6 +23,7 @@ interface FormFieldProps {
   setValue?: any;
   trigger?: any;
   suffix?: any;
+  disabled?: boolean;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -42,7 +43,8 @@ const FormField: React.FC<FormFieldProps> = ({
   numInputs = 6,
   setValue,
   trigger,
-  suffix
+  suffix,
+  disabled
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [otp, setOtp] = useState("");
@@ -68,6 +70,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 type="checkbox"
                 value={value}
                 {...(register ? register(name) : {})}
+                disabled={disabled}
               />{" "}
               {label}
             </label>
@@ -78,6 +81,7 @@ const FormField: React.FC<FormFieldProps> = ({
               <input
                 className={`${merged} w-auto mt-1`}
                 type="radio"
+                disabled={disabled}
                 {...(register ? register(name) : {})}
               />{" "}
               {label}
@@ -104,6 +108,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 className={merged}
                 placeholder={placeholder}
                 {...(register ? register(name) : {})}
+                disabled={disabled}
                 type={type === "password" && isPasswordVisible ? "text" : type}
                 
               />

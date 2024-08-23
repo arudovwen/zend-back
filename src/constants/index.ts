@@ -512,7 +512,7 @@ export const cryptoTokens = [
   { label: "USDC", value: "USDC",imageUrl:"/coins/usdc.png" },
   { label: "Tron", value: "TRX" ,imageUrl:"/coins/tron.png"},
   { label: "Ethereum", value: "ETH",imageUrl:"/coins/ethereum.png" },
-  { label: "Solana", value: "SOL" ,imageUrl:"/coins/solana.png"},
+  { label: "Sol ana", value: "SOL" ,imageUrl:"/coins/solana.png"},
   { label: "Ripple", value: "XRP",imageUrl:"/coins/ripple.png" },
   { label: "Algorand", value: "ALGO",imageUrl:"/coins/algorand.png" },
   { label: "Bitcoin Cash", value: "BCH",imageUrl:"/coins/cash.png" },
