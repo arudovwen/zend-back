@@ -274,7 +274,7 @@ export default function Transactions() {
           sub="History of customer swaps and deposit transaction"
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6  w-full mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4  w-full mb-10">
         {AssetsTab.map((tab) => (
           <div key={tab.label}>
             <GridTab

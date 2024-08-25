@@ -14,7 +14,7 @@ export default function GridTab({
 }: any) {
 
   return (
-    <div className="px-6 py-5 rounded-lg bg-white dark:bg-gray-800 border border-[#EAECF0] dark:border-gray-600 flex gap-x-3 items-center ">
+    <div className="px-4 py-5 rounded-lg bg-white dark:bg-gray-800 border border-[#EAECF0] dark:border-gray-600 flex gap-x-3 items-center ">
       <span
         className={`${borderClass} h-14 w-14 rounded flex items-center justify-center border border-[#EAECF0] dark:border-gray-600`}
       >

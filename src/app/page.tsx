@@ -16,7 +16,7 @@ export default function Home() {
           {" "}
           <Image
             alt="logo"
-            src="/icon.png"
+            src="/zendicon.png"
             width={80}
             height={80}
             className="h-auto block mx-auto"
