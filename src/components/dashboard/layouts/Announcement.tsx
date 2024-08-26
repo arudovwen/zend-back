@@ -14,8 +14,14 @@ import FileUpload from "@/components/forms/FileUpload";
 import { handleBroadcast } from "@/services/userservice";
 // import { CKEditor } from "@ckeditor/ckeditor5-react";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { CountryFilters, EmailTypes, NotifyTypes, VerificationTab } from "@/constants";
+import {
+  CountryFilters,
+  EmailTypes,
+  NotifyTypes,
+  VerificationTab,
+} from "@/constants";
 import Image from "next/image";
+import FormMultiSelect from "@/components/forms/FormMultiSelect";
 
 interface FormData {
   type: string;
@@ -37,8 +43,8 @@ export default function Announcement() {
     body: "",
     notifyType: "email",
     banner: "",
-    country:[],
-    activity:[]
+    country: [],
+    activity: [],
   });
 
   const {
@@ -113,6 +119,10 @@ export default function Announcement() {
       reader.onerror = (error) => reject(error);
     });
   };
+  useEffect(() => {
+    const val = getValues();
+    console.log("🚀 ~ useEffect ~ val:", val);
+  }, [getValues()]);
 
   return (
     <div>
@@ -222,36 +232,37 @@ export default function Announcement() {
               )}
             </div>
             <div className="mb-6">
-            <FormSelect
+              <FormMultiSelect
                 label={`Select countries`}
                 name="country"
-                placeholder="Select countries"
+                placeholder=""
                 register={register}
                 errors={errors?.country}
-                options={CountryFilters} // Replace with actual options
+                options={CountryFilters.map((item, index) => ({
+                  ...item,
+                  id: index,
+                })).filter((i) => i.value !== "")} // Replace with actual options
                 setValue={setValue}
                 trigger={trigger}
-                isMultiple
               />
             </div>
-           <div className="mb-6">
-           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {VerificationTab.map((i) => (
-                <div key={i.label}>
-                  <FormField
-                    name="subject"
-                    placeholder=""
-                    register={register}
-                    errors={errors?.subject}
-                    type="checkbox"
-                    label={i.label}
-                    isCheckbox
-                  />
-                </div>
-              ))}
+            <div className="mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {VerificationTab.map((i) => (
+                  <div key={i.label}>
+                    <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
+                      <input
+                        className={` w-auto mt-1`}
+                        type="checkbox"
+                        value={i?.label}
+                        {...(register ? register("activity") : {})}
+                      />{" "}
+                      {i.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
             </div>
-
-           </div>
             <div className="flex gap-x-5 items-center mt-10">
               <ButtonComponent
                 onClick={() => setOpen(false)}

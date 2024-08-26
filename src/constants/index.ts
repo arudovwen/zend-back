@@ -529,43 +529,52 @@ export const CountryFilters = [
     key: "default",
     label: "Default",
     value: "",
+    name: "Default",
   },
   {
     key: "ghana",
     label: "Ghana",
     value: "ghana",
+    name: "Ghana",
   },
   {
     key: "nigeria",
     label: "Nigeria",
     value: "nigeria",
+    name: "Nigeria",
   },
   {
     key: "rwanda",
     label: "Rwanda",
     value: "rwanda",
+    name: "Rwanda",
   },
   {
     key: "south_africa",
     label: "South Africa",
     value: "south_africa",
+    name: "South Africa",
   },
   {
     key: "kenya",
     label: "Kenya",
     value: "kenya",
+    name: "Kenya",
   },
   {
     key: "uganda",
     label: "Uganda",
     value: "uganda",
+    name: "Uganda",
   },
   {
     key: "cameroon",
     label: "Cameroon",
     value: "cameroon",
+    name: "Cameroon",
   },
 ];
+
 
 export const currencies = [
   { label: "Default", value: "" },

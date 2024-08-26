@@ -19,8 +19,8 @@
 body {
   /* color: rgb(var(--foreground-rgb)); */
 }
-html{
-  padding:0 !important;
+html {
+  padding: 0 !important;
 }
 @layer utilities {
   p,
@@ -64,16 +64,30 @@ html{
   min-height: 260px;
 }
 
-  .dark_editor .ck.ck-button:not(.ck-disabled):hover,   .dark_editor .ck-dropdown__panel,  .dark_editor .ck-editor__editable_inline,  .dark_editor .ck-list {
-    background: #1f2937 !important;
-    color: #ffffff90 !important;
-  }
-  .dark_editor .ck-toolbar {
-    background: #1f2937 !important;
-    color: #ffffff90 !important;
-  }
-  .dark_editor .ck,
-  .dark_editor .ck-button__label,
-  .dark_editor .ck-icon {
-    color: #ffffff90 !important;
-  }
+.dark_editor .ck.ck-button:not(.ck-disabled):hover,
+.dark_editor .ck-dropdown__panel,
+.dark_editor .ck-editor__editable_inline,
+.dark_editor .ck-list {
+  background: #1f2937 !important;
+  color: #ffffff90 !important;
+}
+.dark_editor .ck-toolbar {
+  background: #1f2937 !important;
+  color: #ffffff90 !important;
+}
+.dark_editor .ck,
+.dark_editor .ck-button__label,
+.dark_editor .ck-icon {
+  color: #ffffff90 !important;
+}
+
+.searchWrapper {
+  border: 1px solid #eaecf0 !important;
+  border-radius: 6px !important;
+  min-height: 22px !important;
+  padding: 10px 14px !important;
+  position: relative;
+}
+.chip,.highlightOption{
+  background: #485fe6 !important;
+}

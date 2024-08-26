@@ -36,7 +36,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   trigger,
   isMultiple,
 }) => {
-  const [selected, setSelected] = useState<Option | null | Option[]>(
+  const [selected, setSelected] = useState<any>(
     isMultiple ? [] : null
   );
   const merged = clsx("input", className);
