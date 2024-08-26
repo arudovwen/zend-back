@@ -29,10 +29,10 @@ const Options = [
     label: "Unban",
     value: "unban",
   },
-  {
-    label: "Lock",
-    value: "lock",
-  },
+  // {
+  //   label: "Lock",
+  //   value: "lock",
+  // },
   {
     label: "Unlock",
     value: "unlock",
@@ -108,8 +108,11 @@ export default function List() {
               label={<AppIcon icon="uil:ellipsis-v" />}
               options={
                 user === "administrators"
-                  ? Options.filter((i) => i.value !== "view")
-                  : handleOptions(i)
+                  ? handleOptions(
+                      i,
+                      Options.filter((i) => i.value !== "view")
+                    )
+                  : handleOptions(i, Options)
               }
               handleSelected={(val: any) =>
                 handleSelected(val, {
@@ -166,8 +169,8 @@ export default function List() {
         break;
     }
   }
-  function handleOptions(user: any) {
-    const tempData = Options.filter((i) => {
+  function handleOptions(user: any, options: any) {
+    const tempData = options.filter((i: any) => {
       if (user.isBanned && i.value === "ban") {
         return false;
       }

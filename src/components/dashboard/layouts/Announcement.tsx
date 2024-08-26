@@ -14,7 +14,7 @@ import FileUpload from "@/components/forms/FileUpload";
 import { handleBroadcast } from "@/services/userservice";
 // import { CKEditor } from "@ckeditor/ckeditor5-react";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { EmailTypes, NotifyTypes } from "@/constants";
+import { CountryFilters, EmailTypes, NotifyTypes, VerificationTab } from "@/constants";
 import Image from "next/image";
 
 interface FormData {
@@ -23,6 +23,8 @@ interface FormData {
   subject: string;
   body: string;
   banner?: any;
+  activity?: any;
+  country?: any;
 }
 
 export default function Announcement() {
@@ -35,6 +37,8 @@ export default function Announcement() {
     body: "",
     notifyType: "email",
     banner: "",
+    country:[],
+    activity:[]
   });
 
   const {
@@ -191,7 +195,7 @@ export default function Announcement() {
               )}
             </div>
 
-            <div>
+            <div className="mb-6">
               {getValues().notifyType === "email" ? (
                 <>
                   <div className="block dark:hidden">
@@ -217,7 +221,37 @@ export default function Announcement() {
                 />
               )}
             </div>
+            <div className="mb-6">
+            <FormSelect
+                label={`Select countries`}
+                name="country"
+                placeholder="Select countries"
+                register={register}
+                errors={errors?.country}
+                options={CountryFilters} // Replace with actual options
+                setValue={setValue}
+                trigger={trigger}
+                isMultiple
+              />
+            </div>
+           <div className="mb-6">
+           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {VerificationTab.map((i) => (
+                <div key={i.label}>
+                  <FormField
+                    name="subject"
+                    placeholder=""
+                    register={register}
+                    errors={errors?.subject}
+                    type="checkbox"
+                    label={i.label}
+                    isCheckbox
+                  />
+                </div>
+              ))}
+            </div>
 
+           </div>
             <div className="flex gap-x-5 items-center mt-10">
               <ButtonComponent
                 onClick={() => setOpen(false)}

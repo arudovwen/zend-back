@@ -526,6 +526,11 @@ export const cryptoTokens = [
 
 export const CountryFilters = [
   {
+    key: "default",
+    label: "Default",
+    value: "",
+  },
+  {
     key: "ghana",
     label: "Ghana",
     value: "ghana",

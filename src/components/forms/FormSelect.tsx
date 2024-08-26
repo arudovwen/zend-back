@@ -6,7 +6,7 @@ import { triggerAsyncId } from "async_hooks";
 
 interface Option {
   label: string;
-  value: string | number;
+  value: string | number | null;
 }
 
 interface CustomSelectProps {
@@ -19,7 +19,8 @@ interface CustomSelectProps {
   name: string;
   label?: string;
   value?: string | number | null;
-  trigger?: any
+  trigger?: any;
+  isMultiple?: boolean;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -32,17 +33,19 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   name,
   label,
   value,
-  trigger
+  trigger,
+  isMultiple,
 }) => {
-
-  const [selected, setSelected] = useState<Option | null>(null);
+  const [selected, setSelected] = useState<Option | null | Option[]>(
+    isMultiple ? [] : null
+  );
   const merged = clsx("input", className);
 
   useEffect(() => {
     if (selected) {
       setValue(name, selected?.value);
       register(name);
-      trigger(name)
+      trigger(name);
     }
   }, [name, register, selected, setValue]);
 
@@ -61,18 +64,20 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   return (
     <div>
       {label && (
-        <label className="block text-sm text-[#686878] dark:!text-white/70  mb-2">{label}</label>
+        <label className="block text-sm text-[#686878] dark:!text-white/70  mb-2">
+          {label}
+        </label>
       )}
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={setSelected} multiple={isMultiple}>
         <div className="relative">
           <Listbox.Button className={merged}>
             <span className="block truncate text-sm text-left">
-              {selected?.label || <span className="opacity-60">{placeholder}</span>}
+              {selected?.label || (
+                <span className="opacity-60">{placeholder}</span>
+              )}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-            <AppIcon
-                icon="lucide:chevron-down"
-              />
+              <AppIcon icon="lucide:chevron-down" />
             </span>
           </Listbox.Button>
           <Transition
@@ -93,7 +98,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                   value={option}
                 >
                   {({ selected }) => (
-                    <div className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
+                    <div
+                      className={`block truncate ${
+                        selected ? "font-medium" : "font-normal"
+                      }`}
+                    >
                       {option.label}
                     </div>
                   )}

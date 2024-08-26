@@ -13,6 +13,7 @@ export default function Select({
   containerClass = "",
   optionClass = "",
   placement = "bottom-end",
+  isMultiple = false,
 }: any): React.JSX.Element {
   const [selected, setSelected] = useState<any>(null);
 
@@ -35,7 +36,7 @@ export default function Select({
       role="combobox"
       className={classnames("min-w-[150px]", containerClass)}
     >
-      <Listbox value={selected} onChange={handleSelected}>
+      <Listbox value={selected} onChange={handleSelected} multiple={isMultiple}>
         <div className="relative mt-1">
           <Float placement={placement} offset={4}>
             <Listbox.Button

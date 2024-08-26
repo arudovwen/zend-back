@@ -35,7 +35,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className}`}>
+      <body style={{ fontFamily: "ClashGrotesk-Regular" }}>
         {children} <ToastContainer />
       </body>
     </html>

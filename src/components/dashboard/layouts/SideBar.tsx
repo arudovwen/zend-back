@@ -70,7 +70,7 @@ export default function SideBar() {
   }
 
   return (
-    <div className="w-[280px] no-scrollbar flex flex-col gap-y-2 bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500 max-h-full h-screen overflow-y-auto">
+    <div className="w-[260px] no-scrollbar flex flex-col gap-y-2 bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500 max-h-full h-screen overflow-y-auto">
       <div className="pt-6 px-[25px] mb-6">
         <AppLogo w={160} />
       </div>

@@ -34,7 +34,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body style={{ fontFamily: "ClashGrotesk-Regular" }}>
         <Suspense fallback={<Loading />}>
           <Main>{children}</Main>
         </Suspense>

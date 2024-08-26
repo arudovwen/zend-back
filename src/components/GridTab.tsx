@@ -25,12 +25,12 @@ export default function GridTab({
       </span>
       <span className="block">
         <span
-          className={`${labelClass} block leading-tight text-[#475467] dark:text-white text-sm font-normal mb-[4px]`}
+          className={`${labelClass} block text-[#475467] dark:text-white text-sm font-normal mb-[2px]`}
         >
           {tab.label}
         </span>
         <span
-          className={`${numClass} block leading-tight text-[#475467] dark:text-white text-xl font-semibold`}
+          className={`${numClass} block text-[#475467] dark:text-white text-xl font-semibold`}
         >
           {!isVerification ? value : value?.total}
         </span>
