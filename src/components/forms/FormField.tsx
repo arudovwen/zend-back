@@ -110,6 +110,7 @@ const FormField: React.FC<FormFieldProps> = ({
                 {...(register ? register(name) : {})}
                 disabled={disabled}
                 type={type === "password" && isPasswordVisible ? "text" : type}
+                value={value}
                 
               />
             )}
