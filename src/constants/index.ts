@@ -515,7 +515,7 @@ export const cryptoTokens = [
   { label: "Sol ana", value: "SOL" ,imageUrl:"/coins/solana.png"},
   { label: "Ripple", value: "XRP",imageUrl:"/coins/ripple.png" },
   { label: "Algorand", value: "ALGO",imageUrl:"/coins/algorand.png" },
-  { label: "Bitcoin Cash", value: "BCH",imageUrl:"/coins/cash.png" },
+  { label: "Bitcoin Cash", value: "BCH",imageUrl:"/coins/bitcash.png" },
   { label: "Polygon", value: "MATIC" ,imageUrl:"/coins/polygon.png"},
   { label: "Avalanche", value: "AVAX",imageUrl:"/coins/avalanche.png" },
   { label: "Stellar", value: "XLM",imageUrl:"/coins/stellar.png" },
