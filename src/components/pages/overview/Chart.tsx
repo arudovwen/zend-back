@@ -47,7 +47,7 @@ export default function Chart() {
       mode: colormode,
     },
     chart: {
-      height: 320,
+      height: 260,
       toolbar: {
         show: false,
       },
@@ -170,7 +170,7 @@ export default function Chart() {
             options={options}
             series={series}
             type="area"
-            height={350}
+            height={280}
           />
         </div>
       </div>

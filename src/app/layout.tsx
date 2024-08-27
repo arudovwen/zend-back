@@ -35,7 +35,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body style={{ fontFamily: "ClashGrotesk-Regular" }}>
+      <body style={{ fontFamily: "ClashGrotesk-Variable" }}>
         {children} <ToastContainer />
       </body>
     </html>

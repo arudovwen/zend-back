@@ -34,7 +34,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body style={{ fontFamily: "ClashGrotesk-Regular" }}>
+      <body style={{ fontFamily: "ClashGrotesk-Variable" }}>
         <Suspense fallback={<Loading />}>
           <Main>{children}</Main>
         </Suspense>
