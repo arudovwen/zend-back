@@ -262,7 +262,7 @@ export default function List() {
   return (
     <section>
       <div className="mb-10">
-        <HeaderComponent title={user} sub={`List of ${user}`} />
+        <HeaderComponent title={user} sub={`List of ${user} on Zendwallet platform`} count={queryParams.total} />
       </div>
       <div>
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">

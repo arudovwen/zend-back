@@ -471,10 +471,10 @@ export const EmailTypes = [
     label: "Swap update",
     value: "swap_update",
   },
-  {
-    label: "P2P update",
-    value: "p2p_update",
-  },
+  // {
+  //   label: "P2P update",
+  //   value: "p2p_update",
+  // },
   {
     label: "ZendUsd update",
     value: "zend_usd_update",

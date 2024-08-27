@@ -57,12 +57,13 @@ export default function Chart() {
     },
     stroke: {
       curve: "smooth",
-      width: 3,
+      width: 2,
     },
     colors: ["#485fe6"],
 
     grid: {
-      show: false,
+      show: true,
+      borderColor: "#f7faf8"
     },
     xaxis: {
       categories: months,
@@ -146,12 +147,14 @@ export default function Chart() {
   }, []);
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row gap-y-4 text-left lg:items-center lg:justify-between mb-4">
+     
+      <div className="bg-white dark:bg-gray-800 px-6 pt-6 pb-2 rounded-lg border border-gray-100 dark:border-gray-600 w-full  z-10">
+      <div className="flex flex-col md:flex-row gap-y-4 text-left lg:items-center lg:justify-between mb-6">
         <h2 className="text-secondary dark:text-white font-semibold">
           Customers Signup Metrics
         </h2>
         <div className="relative">
-          <Datepicker
+          {/* <Datepicker
             showShortcuts
             useRange={false}
             showFooter
@@ -161,10 +164,9 @@ export default function Chart() {
             placeholder="Filter dates"
             inputClassName="border w-full px-3 py-2 rounded bg-white dark:bg-gray-800 text-secondary dark:text-white/80 border-gray-100 dark:border-gray-500"
             containerClassName="rounded-lg relative text-sm lg:w-[260px] min-w-[250px] text-secondary z-[99]"
-          />
+          /> */}
         </div>
       </div>
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-100 dark:border-gray-600 w-full  z-10">
         <div className="w-full">
           <ReactApexChart
             options={options}
