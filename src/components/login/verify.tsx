@@ -1,5 +1,5 @@
 "use client";
-import { setCookie } from 'cookies-next';
+import { setCookie } from "cookies-next";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -40,7 +40,7 @@ export default function VerifyLogin() {
           setCookie("token", data?.accessToken);
           router.push("/dashboard");
           setLoading(false);
-          toast.success("Login successful")
+          toast.success("Login successful");
         }
       })
       .catch((err: any) => {
@@ -62,7 +62,7 @@ export default function VerifyLogin() {
   function handleSendOtp() {
     setCounter(50);
     const { emailAddress } = getItem("userData");
-    resendOtp({ emailAddress });
+    resendOtp({ emailAddress, type: "administrator_authorization", administrator: id });
   }
   return (
     <div className="py-4 max-w-[340px] mx-auto text-center">
@@ -73,7 +73,11 @@ export default function VerifyLogin() {
         </h1>
         <p className="text-sm text-light text-secondary  dark:text-white/80">
           Kindly enter the OTP code sent to your email
-          <span> {emailAddress?.slice(0,4)}****{emailAddress?.slice(emailAddress.length-4,emailAddress.length)}</span>
+          <span>
+            {" "}
+            {emailAddress?.slice(0, 4)}****
+            {emailAddress?.slice(emailAddress.length - 4, emailAddress.length)}
+          </span>
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

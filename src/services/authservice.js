@@ -20,5 +20,5 @@ export const refreshToken = async (id) => {
 };
 
 export const resendOtp = async (payload) => {
-  return get(`${url.RESEND_OTP}?${new URLSearchParams(payload)}`);
+  return post(`${url.RESEND_OTP}`, payload);
 };
