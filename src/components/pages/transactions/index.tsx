@@ -238,7 +238,11 @@ export default function Transactions() {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.message || "Resolve failed");
+        toast.error(
+          `${err.response.data.message || "Resolve failed"}, ${
+            err.response.data.data
+          }`
+        );
         setTransactionLoading(false);
       });
   }
