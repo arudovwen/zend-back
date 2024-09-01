@@ -35,6 +35,8 @@ import SearchSelect from "@/components/forms/SearchSelect";
 import SideModal from "@/components/modals/SideModal";
 import Transaction from "./detail";
 import { toast } from "react-toastify";
+import ButtonComponent from "@/components/ButtonComponent";
+import CenterModal from "@/components/modals/CenterModal";
 
 const Options = [
   {
@@ -51,12 +53,16 @@ export default function Transactions() {
     { title: "swap transactions", key: "swap" },
     { title: "token transactions", key: "transaction" },
   ];
+  const [isOpen, setOpen] = useState<boolean>(false);
   const [metrics, setMetrics] = useState<any>({});
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState(null);
   const [isSideOpen, setSideOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
+  const [transactionId, setTransactinId] = useState<any>("");
+  const [type, setType] = useState<any>("deposit");
+  const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
   const [queryParams, setQueryParams] = useState<any>({
     page: 1,
     count: 15,
@@ -68,6 +74,8 @@ export default function Transactions() {
     currency: "",
     total: 0,
     user: "",
+    fromToken: null,
+    toToken: null,
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -217,6 +225,23 @@ export default function Transactions() {
         setLoading(false);
       });
   }
+  function handleResolve(e: any) {
+    e.preventDefault();
+    setTransactionLoading(true);
+    resolveTransaction({ type, txId: transactionId })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Transaction resolved successfully");
+          getAllTransactions();
+          setOpen(false);
+          setTransactionLoading(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || "Resolve failed");
+        setTransactionLoading(false);
+      });
+  }
   useEffect(() => {
     getTransactions({
       ...queryParams,
@@ -236,6 +261,8 @@ export default function Transactions() {
     queryParams.status,
     queryParams.customFromDate,
     queryParams.customToDate,
+    queryParams.fromToken,
+    queryParams.toToken,
   ]);
 
   const loadOptions = (inputValue: any, callback: any) => {
@@ -288,6 +315,17 @@ export default function Transactions() {
           </div>
         ))}
       </div>{" "}
+      <div className="flex justify-end my-6">
+        <ButtonComponent
+          onClick={() => setOpen(true)}
+          className="!bg-white dark:!bg-gray-800 !text-secondary dark:!text-white !text-sm !border !border-[#C9C8C8] dark:!border-gray-600"
+        >
+          <span className="flex gap-x-2 items-center">
+            <AppIcon icon="pajamas:retry" />
+            <span className="hidden lg:inline">Resolve transsction</span>
+          </span>
+        </ButtonComponent>
+      </div>
       <div>
         <AppTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
       </div>
@@ -300,27 +338,52 @@ export default function Transactions() {
           />
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
             <Select
-              className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
-              options={currencies}
-              placeholder="Select token"
-              onChange={handleCurrency}
-              value={queryParams.currency}
-            />
-            <Select
               className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px]"
               options={TransactionOptions}
               placeholder="Select status"
               onChange={handleStatus}
               value={queryParams.status}
             />
-            {activeTab === "transaction" && (
-              <Select
-                className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
-                options={TypeData}
-                placeholder="Select type"
-                onChange={handleType}
-                value={queryParams.transactionType}
-              />
+            {activeTab === "transaction" ? (
+              <>
+                <Select
+                  className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
+                  options={currencies}
+                  placeholder="Select token"
+                  onChange={handleCurrency}
+                  value={queryParams.currency}
+                />
+                <Select
+                  className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[180px]"
+                  options={TypeData}
+                  placeholder="Select type"
+                  onChange={handleType}
+                  value={queryParams.transactionType}
+                />
+              </>
+            ) : (
+              <div className="border border-[#EAECF0] rounded-[6px]  dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  flex gap-x-4 items-center">
+                <Select
+                  className=" !border-none  bg-transparent bg-white dark:bg-gray-800  text-sm px-0 py-0 rounded min-w-[120px]"
+                  options={currencies}
+                  placeholder="From token"
+                  onChange={handleCurrency}
+                  value={queryParams.fromToken}
+                />{" "}
+                <span className="flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
+                  <AppIcon
+                    icon="solar:transfer-horizontal-linear"
+                    iconClass="!text-secondary/60 dark:text-white/70"
+                  />
+                </span>
+                <Select
+                  className=" !border-none  bg-transparent bg-white dark:bg-gray-800  text-sm px-0 py-0 rounded min-w-[120px]"
+                  options={currencies}
+                  placeholder="To token"
+                  onChange={handleCurrency}
+                  value={queryParams.toToken}
+                />
+              </div>
             )}
 
             <SearchSelect loadOptions={loadOptions} onChange={handleUsers} />
@@ -350,6 +413,48 @@ export default function Transactions() {
       <SideModal setOpen={setSideOpen} open={isSideOpen}>
         <Transaction detail={detail} />
       </SideModal>
+      <CenterModal setOpen={setOpen} open={isOpen} canClose={true}>
+        <div className="bg-white dark:bg-gray-700 text-secondary dark:text-white p-6 rounded-lg sm:min-w-[400px] max-w-[500px]">
+          <h2 className="font-semibold text-xl mb-10 text-center capitalize">
+            Resolve transaction
+          </h2>
+          <form onSubmit={handleResolve} className="flex flex-col gap-y-10">
+            <div className="flex flex-col gap-y-6">
+              <Select
+                containerClass="w-full lg:max-w-[100%]"
+                className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
+                options={[
+                  {
+                    label: "Deposit",
+                    value: "deposit",
+                  },
+                  {
+                    label: "Withdrawal",
+                    value: "withdrawal",
+                  },
+                ]}
+                placeholder="Select type"
+                onChange={(e: any) => setType(e.value)}
+                value={type}
+              />
+              <input
+                className="input"
+                onChange={(e) => setTransactinId(e?.target?.value)}
+                placeholder="Provide transaction ID"
+                value={transactionId}
+              />
+            </div>
+            <ButtonComponent
+              disabled={!transactionId || transactionLoading}
+              className="w-full text-center !bg-primary !text-white items-center"
+              type="submit"
+              isLoading={transactionLoading}
+            >
+              Submit
+            </ButtonComponent>
+          </form>
+        </div>
+      </CenterModal>
     </section>
   );
 }

@@ -16,6 +16,7 @@ interface CustomSelectProps {
   label?: string;
   onChange?: any;
   value?: any;
+  containerClass?: string;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -25,6 +26,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   label,
   onChange,
   value,
+  containerClass = "w-full  lg:max-w-[180px]",
 }) => {
   const [selected, setSelected] = useState<Option | null>(null);
   const merged = clsx("input", className);
@@ -38,17 +40,17 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
   useEffect(() => {
     if (value) {
-      setSelected(options.find((i:any) => i.value === value));
+      setSelected(options.find((i: any) => i.value === value));
     }
   }, [value]);
 
   return (
-    <div className="w-full  lg:max-w-[180px]">
+    <div className={containerClass}>
       {label && (
         <label className="block text-sm text-[#686878] mb-2">{label}</label>
       )}
       <Listbox value={selected} onChange={setSelected}>
-        <div className="relative">
+        <div className="relative w-full">
           <Listbox.Button className={merged}>
             <span className="block truncate text-sm text-left">
               {selected?.label || (
