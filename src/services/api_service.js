@@ -96,6 +96,7 @@ DataService.client.interceptors.request.use((config) => {
 DataService.client.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("🚀 ~interceptors error:", error)
     const { response } = error;
     const originalRequest = error.config;
 

@@ -11,7 +11,7 @@ import Devices from "./devices";
 export default function SettingsComponent() {
   const tabs = [
     { title: "Account information", key: "account", component: <Account /> },
-    { title: "Roles & Permissions", key: "roles", component: <Roles /> },
+    // { title: "Roles & Permissions", key: "roles", component: <Roles /> },
     { title: "Devices", key: "devices", component: <Devices /> },
     { title: "Security", key: "security", component: <Security /> },
     { title: "Rate settings", key: "rate", component: <Rates /> },
