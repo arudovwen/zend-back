@@ -83,4 +83,5 @@ export const BroadcastSchema = yup.object().shape({
   notifyType: yup.string().required("Type is required"),
   country: yup.array(),
   activity: yup.array(),
+  dry_run: yup.boolean()
 });

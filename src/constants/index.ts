@@ -1,5 +1,3 @@
-import { permission } from "process";
-
 export const navigations = [
   {
     label: "Overview",

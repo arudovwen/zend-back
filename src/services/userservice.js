@@ -179,8 +179,8 @@ export const updateVerificationRequest = async (payload) => {
 };
 
 export const handleBroadcast = async (payload) => {
-  const { type, ...rest } = payload;
-  return post(`broadcast?type=${type}`, payload);
+  const { type,notifyType,dry_run, ...rest } = payload;
+  return post(`broadcast?type=${type}&channel=${notifyType}&dry_run=${dry_run}`, rest);
 };
 
 export const searchUser = async (payload) => {

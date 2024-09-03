@@ -91,3 +91,7 @@ html {
 .chip,.highlightOption{
   background: #485fe6 !important;
 }
+
+.darkcss .optionListContainer, .darkcss .searchWrapper {
+  background: #1f2937 !important;
+}

@@ -63,7 +63,7 @@ export default function Chart() {
 
     grid: {
       show: true,
-      borderColor: "#edefeb"
+      borderColor: "#f7f8fa"
     },
     xaxis: {
       categories: months,

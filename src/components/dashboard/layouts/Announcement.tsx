@@ -31,12 +31,14 @@ interface FormData {
   banner?: any;
   activity?: any;
   country?: any;
+  dry_run?: boolean;
 }
 
 export default function Announcement() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isOpen, setOpen] = useState<boolean>(false);
   const [imgBanner, setImgBanner] = useState<any>("");
+  const filters = useRef();
   const [formData, setFormData] = useState<FormData>({
     type: "",
     subject: "",
@@ -45,6 +47,7 @@ export default function Announcement() {
     banner: "",
     country: [],
     activity: [],
+    dry_run: false,
   });
 
   const {
@@ -73,7 +76,18 @@ export default function Announcement() {
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
-    handleBroadcast(data)
+    const { country, activity, ...others } = data;
+    handleBroadcast({
+      ...others,
+      filters: {
+        hasVerifiedEmailAddress: activity.includes("Email Address"),
+        hasVerifiedPhoneNumber: activity.includes("Phone number"),
+        hasVerifiedGovernmentId: activity.includes("Government ID"),
+        hasVerifiedAddress: activity.includes("Address"),
+        hasVerifiedBvn: activity.includes("BVN"),
+        country: country.map((i: any) => i.value),
+      },
+    })
       .then((res: any) => {
         if (res.status === 200) {
           toast.success(`Broadcast sent successfully!`);
@@ -246,7 +260,7 @@ export default function Announcement() {
                 trigger={trigger}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {VerificationTab.map((i) => (
                   <div key={i.label}>
@@ -261,6 +275,18 @@ export default function Announcement() {
                     </label>
                   </div>
                 ))}
+              </div>
+            </div>
+            <div className="mb-6">
+              <div className="flex justify-end">
+                <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
+                  <input
+                    className={`w-auto mt-1`}
+                    type="checkbox"
+                    {...(register ? register("dry_run") : {})}
+                  />{" "}
+                  Toggle to send test email
+                </label>
               </div>
             </div>
             <div className="flex gap-x-5 items-center mt-10">

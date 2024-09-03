@@ -41,6 +41,7 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
 
   useEffect(() => {
     if (selected) {
+
       setValue(name, selected?.value);
       register(name);
       trigger(name);
@@ -60,7 +61,7 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
   }, [value, options]);
 
   function onSelect(selectedList: any, selectedItem: any) {
-    if (selected) {
+    if (selectedList) {
       setValue(name, selectedList);
       register(name);
       trigger(name);
@@ -68,7 +69,6 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
   }
 
   function onRemove(selectedList: any, removedItem: any) {
-   
     setValue(name, selectedList);
   }
   return (
@@ -80,14 +80,24 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
       )}
 
       <Multiselect
-       
         options={options} // Options to display in the dropdown
         selectedValues={selected} // Preselected value to persist in dropdown
         onSelect={onSelect} // Function will trigger on select event
         onRemove={onRemove} // Function will trigger on remove event
         placeholder={placeholder} // Property name to display in the dropdown options
         displayValue="label"
+        className="hidden dark:inline darkcss dark:bg-gray-800"
       />
+      <Multiselect
+        options={options} // Options to display in the dropdown
+        selectedValues={selected} // Preselected value to persist in dropdown
+        onSelect={onSelect} // Function will trigger on select event
+        onRemove={onRemove} // Function will trigger on remove event
+        placeholder={placeholder} // Property name to display in the dropdown options
+        displayValue="label"
+        className="inline dark:hidden"
+      />
+
       {errors && <span className="text-sm text-red-500">{errors.message}</span>}
     </div>
   );
