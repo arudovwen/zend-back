@@ -522,6 +522,17 @@ export const NotifyTypes = [
   },
 ];
 
+export const TransactionTypes = [
+  {
+    label: "Withdrawal",
+    value: "withdrawal",
+  },
+  {
+    label: "Deposit",
+    value: "deposit",
+  },
+];
+
 export const AdminActivitiesData = [
   { label: "Sign in", value: "sign_in" },
   { label: "Sign out", value: "sign_out" },

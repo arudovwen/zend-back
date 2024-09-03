@@ -11,7 +11,7 @@ interface Option {
 
 interface CustomSelectProps {
   className?: string;
-  options: Option[];
+  options: any[];
   placeholder?: string;
   errors?: any;
   register: any; // Adjust type based on your useForm usage

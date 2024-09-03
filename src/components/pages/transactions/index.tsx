@@ -38,6 +38,8 @@ import { toast } from "react-toastify";
 import ButtonComponent from "@/components/ButtonComponent";
 import CenterModal from "@/components/modals/CenterModal";
 import { PageContext } from "@/constants/context";
+import FormField from "@/components/forms/FormField";
+import ResolveForm from "./resolveForm";
 
 const Options = [
   {
@@ -422,46 +424,7 @@ export default function Transactions() {
         <Transaction detail={detail} />
       </SideModal>
       <CenterModal setOpen={setOpen} open={isOpen} canClose={true}>
-        <div className="bg-white dark:bg-gray-700 text-secondary dark:text-white p-6 rounded-lg sm:min-w-[400px] max-w-[500px]">
-          <h2 className="font-semibold text-xl mb-10 text-center capitalize">
-            Resolve transaction
-          </h2>
-          <form onSubmit={handleResolve} className="flex flex-col gap-y-10">
-            <div className="flex flex-col gap-y-6">
-              <Select
-                containerClass="w-full lg:max-w-[100%]"
-                className=" border border-gray-100 dark:border-gray-500 bg-transparent bg-white dark:bg-gray-800  text-sm px-[14px] py-[7px] rounded min-w-[130px] w-full"
-                options={[
-                  {
-                    label: "Deposit",
-                    value: "deposit",
-                  },
-                  {
-                    label: "Withdrawal",
-                    value: "withdrawal",
-                  },
-                ]}
-                placeholder="Select type"
-                onChange={(e: any) => setType(e.value)}
-                value={type}
-              />
-              <input
-                className="input"
-                onChange={(e) => setTransactinId(e?.target?.value)}
-                placeholder="Provide transaction ID"
-                value={transactionId}
-              />
-            </div>
-            <ButtonComponent
-              disabled={!transactionId || transactionLoading}
-              className="w-full text-center !bg-primary !text-white items-center"
-              type="submit"
-              isLoading={transactionLoading}
-            >
-              Submit
-            </ButtonComponent>
-          </form>
-        </div>
+       <ResolveForm />
       </CenterModal>
     </section>
   );

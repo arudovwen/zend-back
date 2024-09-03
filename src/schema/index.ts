@@ -44,6 +44,14 @@ export const KinSchema = yup.object().shape({
   relationship: yup.string().required("Relationship is required"),
   emailAddress: yup.string().email().required("Email is required"),
 });
+export const ResolveSchema = yup.object().shape({
+  type: yup.string().required(),
+  transactionId: yup.string(),
+  wxId: yup.string(),
+  username: yup.string().required(),
+  transactionDate: yup.string(),
+  currency: yup.string(),
+});
 export const PersonalSchema = yup.object().shape({
   id: yup.string().required(),
   firstName: yup.string().required("First name is required"),
