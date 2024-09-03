@@ -62,8 +62,8 @@ export default function Chart() {
     colors: ["#485fe6"],
 
     grid: {
-      show: true,
-      borderColor: "#f7f8fa"
+      show: false,
+     
     },
     xaxis: {
       categories: months,
