@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CenterModal from "@/components/modals/CenterModal";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +12,7 @@ import { ucFirst } from "@/utils/methods";
 import Documents from "./verifications/documents";
 import moment from "moment";
 import AppStatusComponent from "@/components/AppStatusComponent";
+import { PageContext } from "@/constants/context";
 
 interface FormData {
   reason?: any;
@@ -33,13 +34,14 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
   detail,
   onClose,
 }: any) => {
+  const { permissions } = useContext(PageContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<any>(null);
   const [formData] = useState<FormData>({
     reason: "",
     id: detail?._id || detail?.id,
     type: "approve",
-    action:""
+    action: "",
   });
   const [isRejectOpen, setRejectOpen] = useState(false);
   const {
@@ -132,24 +134,25 @@ const VerificationStatus: React.FC<VerificationStatusProps> = ({
             <Documents detail={detail} />
           </div>
 
-          {!detail?.isApproved && (
-            <div className="flex gap-x-5 items-center mt-8">
-              <ButtonComponent
-                onClick={() => setRejectOpen(true)}
-                className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-red-700 dark:!text-red-200  items-center"
-                type="button" // Changed to "button" type for cancel button
-              >
-                Reject
-              </ButtonComponent>
-              <ButtonComponent
-                className="w-full text-center !border !border-primary !bg-primary !text-white items-center"
-                type="submit"
-                isLoading={loading}
-              >
-                Approve
-              </ButtonComponent>
-            </div>
-          )}
+          {!detail?.isApproved &&
+            permissions.includes("accounts.users.verifications.update") && (
+              <div className="flex gap-x-5 items-center mt-8">
+                <ButtonComponent
+                  onClick={() => setRejectOpen(true)}
+                  className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-red-700 dark:!text-red-200  items-center"
+                  type="button" // Changed to "button" type for cancel button
+                >
+                  Reject
+                </ButtonComponent>
+                <ButtonComponent
+                  className="w-full text-center !border !border-primary !bg-primary !text-white items-center"
+                  type="submit"
+                  isLoading={loading}
+                >
+                  Approve
+                </ButtonComponent>
+              </div>
+            )}
         </form>
         {isRejectOpen && (
           <CenterModal setOpen={() => setRejectOpen(false)} open={isRejectOpen}>

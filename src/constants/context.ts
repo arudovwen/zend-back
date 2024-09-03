@@ -4,18 +4,22 @@ export const UserContext = createContext<{
   userData: any;
   loading: boolean;
   getUserData: any;
+  
 
 }>({
   userData: null,
   loading: false,
   getUserData: null,
+ 
 
 });
 
 export const PageContext = createContext<{
   colormode: any;
   setColormode: any;
+  permissions: any;
 }>({
   colormode: "light",
   setColormode: () => {},
+  permissions: []
 });

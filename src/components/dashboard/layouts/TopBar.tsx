@@ -1,7 +1,7 @@
 "use client";
 import Marquee from "react-fast-marquee";
 import AppIcon from "@/components/AppIcon";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -12,9 +12,12 @@ import { toLightMode, toDarkMode } from "@/plugins/Theme";
 import Search from "./Search";
 import Announcement from "./Announcement";
 import { socket } from "@/constants/socket";
+import { PageContext } from "@/constants/context";
 
 export default function TopBar() {
   const pathname = usePathname();
+  const { permissions } = useContext(PageContext);
+  // console.log("🚀 ~ TopBar ~ permissions:", permissions);
   const [enabled, setEnabled] = useState<boolean | null>(null);
   const [isSideOpen, setSideOpen] = useState(false);
   const formattedData = useRef<any>(DefaultCurrency);
@@ -96,10 +99,11 @@ export default function TopBar() {
         <span className="hidden lg:inline">
           <Search />
         </span>
-        <span>
-          <Announcement />
-        </span>
-
+        {permissions.includes("accounts.broadcast") && (
+          <span>
+            <Announcement />
+          </span>
+        )}
         <span className="lg:hidden" onClick={() => setSideOpen(true)}>
           <AppIcon
             icon={

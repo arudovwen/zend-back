@@ -4,9 +4,10 @@ import LockForm from "./modals/LockForm";
 import AppButton from "@/components/AppButton";
 import AppStatusComponent from "@/components/AppStatusComponent";
 import Image from "next/image";
-import { UserContext } from "@/constants/context";
+import { PageContext, UserContext } from "@/constants/context";
 
 export default function Profile() {
+  const { permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const [type, setType] = useState<"ban" | "unlock" | "lock" | "unban">("lock");
   const { userData, loading } = useContext(UserContext);
@@ -74,7 +75,7 @@ export default function Profile() {
           </div>
         )}
       </div>
-      <div className="flex gap-x-4 items-center justify-center md:justify-start">
+    {permissions.includes("accounts.users.update")  &&  <div className="flex gap-x-4 items-center justify-center md:justify-start">
         <AppButton
           text="Ban Account"
           icon="solar:forbidden-circle-linear"
@@ -94,7 +95,7 @@ export default function Profile() {
             setOpen(true);
           }}
         />
-      </div>
+      </div>}
       {isOpen && (
         <LockForm
           setOpen={setOpen}

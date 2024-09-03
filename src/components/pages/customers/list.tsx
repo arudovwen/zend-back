@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import debounce from "debounce";
 import HeaderComponent from "@/components/HeaderComponent";
 import Select from "@/components/forms/Select";
@@ -15,6 +15,7 @@ import Image from "next/image";
 import MenuSelect from "@/components/forms/MenuSelect";
 import AppIcon from "@/components/AppIcon";
 import LockForm from "./customer/modals/LockForm";
+import { PageContext } from "@/constants/context";
 
 const Options = [
   {
@@ -41,6 +42,7 @@ const Options = [
 export default function List() {
   const router = useRouter();
   const params = useParams();
+  const { permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const [type, setType] = useState<
     "view" | "ban" | "unlock" | "lock" | "unban"
@@ -62,9 +64,10 @@ export default function List() {
     country: null,
     gender: null,
   });
+
+
   const fetchData = async () => {
     setLoading(true);
-
     try {
       const fetchQuery = user === "customers" ? getAllUsers : getAllAdmin;
       const res = await fetchQuery(queryParams);
@@ -110,7 +113,7 @@ export default function List() {
                 user === "administrators"
                   ? handleOptions(
                       i,
-                      Options.filter((i) => i.value !== "view")
+                      Options.filter((i: any) => i.value !== "view")
                     )
                   : handleOptions(i, Options)
               }
@@ -169,29 +172,38 @@ export default function List() {
         break;
     }
   }
-  function handleOptions(user: any, options: any) {
-    const tempData = options.filter((i: any) => {
-      if (user.isBanned && i.value === "ban") {
-        return false;
-      }
-      if (user.isLocked && i.value === "lock") {
-        return false;
-      }
-      if (!user.isBanned && i.value === "unban") {
-        return false;
-      }
-      if (!user.isLocked && i.value === "unlock") {
-        return false;
-      }
+  function handleOptions(data: any, options: any) {
+    let optTemp = options;
+
+    if (user === "customers" && !permissions.includes("accounts.users.update")) {
+      optTemp = optTemp.filter((i: any) => i.value === "view");
+   
+    }
+  
+    if (
+      user === "administrators" &&
+      !permissions.includes("accounts.administrators.update")
+    ) {
+      optTemp = optTemp.filter((i: any) => i.value === "view");
+    }
+  
+    const tempData = optTemp.filter((i: any) => {
+      if (data.isBanned && i.value === "ban") return false;
+      if (data.isLocked && i.value === "lock") return false;
+      if (!data.isBanned && i.value === "unban") return false;
+      if (!data.isLocked && i.value === "unlock") return false;
       return true;
     });
-
+  
+    // console.log("🚀 ~ handleOptions ~ tempData:", tempData);
     return tempData;
   }
+  
 
   useEffect(() => {
     fetchData();
   }, [queryParams.page]);
+
   useEffect(() => {
     if (queryParams.page !== 1) {
       setQueryParams({
@@ -262,7 +274,11 @@ export default function List() {
   return (
     <section>
       <div className="mb-10">
-        <HeaderComponent title={user} sub={`List of ${user} on Zendwallet platform`} count={queryParams.total} />
+        <HeaderComponent
+          title={user}
+          sub={`List of ${user} on Zendwallet platform`}
+          count={queryParams.total}
+        />
       </div>
       <div>
         <div className="mb-6 flex flex-col lg:flex-row gap-y-4 justify-between items-center">

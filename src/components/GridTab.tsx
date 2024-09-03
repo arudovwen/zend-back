@@ -32,7 +32,7 @@ export default function GridTab({
         <span
           className={`${numClass} block text-[#475467] dark:text-white text-xl font-semibold`}
         >
-          {!isVerification ? value : value?.total}
+          {(!isVerification ? value : value?.total) || 0}
         </span>
       </span>
     </div>

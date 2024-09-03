@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import moment from "moment";
 import debounce from "debounce";
 import AppTab from "@/components/AppTab";
@@ -37,6 +37,7 @@ import Transaction from "./detail";
 import { toast } from "react-toastify";
 import ButtonComponent from "@/components/ButtonComponent";
 import CenterModal from "@/components/modals/CenterModal";
+import { PageContext } from "@/constants/context";
 
 const Options = [
   {
@@ -53,6 +54,7 @@ export default function Transactions() {
     { title: "swap transactions", key: "swap" },
     { title: "token transactions", key: "transaction" },
   ];
+  const { permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState<boolean>(false);
   const [metrics, setMetrics] = useState<any>({});
   const [rows, setRows] = useState([]);
@@ -319,17 +321,19 @@ export default function Transactions() {
           </div>
         ))}
       </div>{" "}
-      <div className="flex justify-end my-6">
-        <ButtonComponent
-          onClick={() => setOpen(true)}
-          className="!bg-white dark:!bg-gray-800 !text-secondary dark:!text-white !text-sm !border !border-[#C9C8C8] dark:!border-gray-600"
-        >
-          <span className="flex gap-x-2 items-center">
-            <AppIcon icon="pajamas:retry" />
-            <span className="hidden lg:inline">Resolve transsction</span>
-          </span>
-        </ButtonComponent>
-      </div>
+      {permissions.includes("wallets.transactions.update") && (
+        <div className="flex justify-end my-6">
+          <ButtonComponent
+            onClick={() => setOpen(true)}
+            className="!bg-white dark:!bg-gray-800 !text-secondary dark:!text-white !text-sm !border !border-[#C9C8C8] dark:!border-gray-600"
+          >
+            <span className="flex gap-x-2 items-center">
+              <AppIcon icon="pajamas:retry" />
+              <span className="hidden lg:inline">Resolve transsction</span>
+            </span>
+          </ButtonComponent>
+        </div>
+      )}
       <div>
         <AppTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
       </div>

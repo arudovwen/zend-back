@@ -1,8 +1,9 @@
 "use client";
 import SideBar from "@/components/dashboard/layouts/SideBar";
 import TopBar from "@/components/dashboard/layouts/TopBar";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { PageContext } from "@/constants/context";
+import { getItem } from "@/utils/localStorageControl";
 
 export default function Main({
   children,
@@ -10,13 +11,19 @@ export default function Main({
   children: React.ReactNode;
 }>) {
   const [colormode, setColormode] = useState<"light" | "dark">("light");
-
+  const [permissions, setPermissions] = useState<any>([]);
+  useEffect(() => {
+  const data = getItem("userData")
+  setPermissions(data?.permissions)
+  }, [])
+  
   const value = useMemo(() => {
     return {
       setColormode,
       colormode,
+      permissions
     };
-  }, [setColormode, colormode]);
+  }, [setColormode, colormode, permissions]);
 
   return (
     <PageContext.Provider value={value}>

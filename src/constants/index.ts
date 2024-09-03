@@ -1,27 +1,38 @@
+import { permission } from "process";
+
 export const navigations = [
   {
     label: "Overview",
     icon: "akar-icons:grid",
     asSub: false,
     url: "/dashboard",
+    key:"dashboard",
   },
   {
     label: "Customers",
     icon: "solar:users-group-two-rounded-linear",
     asSub: true,
     url: "/dashboard/customers",
+    permissions:["accounts.users.find","accounts.users.activity-logs.find", "accounts.users.sanctions"],
+    key:"customers",
     submenus: [
       {
         label: "List",
         url: "/dashboard/customers/list",
+        permissions:["accounts.users.find"],
+        key:"customers",
       },
       {
         label: "Activities",
         url: "/dashboard/customers/activities",
+        permissions:["accounts.users.activity-logs.find"],
+        key:"customers",
       },
       {
         label: "Sanctions",
         url: "/dashboard/customers/sanctions",
+        permissions:["accounts.users.sanctions"],
+        key:"customers",
       },
     ],
   },
@@ -30,12 +41,16 @@ export const navigations = [
     icon: "uil:transaction",
     asSub: false,
     url: "/dashboard/transactions",
+    permissions:["wallets.transactions.find"],
+    key:"transactions",
   },
   {
     label: "Assets",
     icon: "streamline:coins-stack",
     asSub: false,
     url: "/dashboard/assets",
+    permissions:["wallets.wallets.find"],
+    key:"assets", 
   },
   // {
   //   label: "P2P Management",
@@ -58,14 +73,20 @@ export const navigations = [
     icon: "ic:outline-admin-panel-settings",
     asSub: true,
     url: "/dashboard/administrators",
+    permissions:["accounts.administrators.find","accounts.administrators.activity-logs.find"],
+    key:"administrators",
     submenus: [
       {
         label: "List",
         url: "/dashboard/administrators/list",
+        permissions:["accounts.administrators.find"],
+        key:"administrators",
       },
       {
         label: "Activities",
         url: "/dashboard/administrators/activities",
+        permissions:["accounts.administrators.activity-logs.find"],
+        key:"administrators",
       },
     ],
   },
@@ -74,24 +95,30 @@ export const navigations = [
     icon: "hugeicons:user-id-verification",
     asSub: false,
     url: "/dashboard/verifications",
+    permissions:["accounts.users.verifications.find"],
+    key:"verifications",
   },
   {
     label: "Referral Monitor",
     icon: "heroicons:trophy",
     asSub: false,
     url: "/dashboard/referrals",
+    permissions:[],
+    key:"referrals",
   },
   // {
   //   label: "Quick sell",
   //   icon: "carbon:sales-ops",
   //   asSub: false,
   //   url: "/dashboard/quick-sell",
+  // permissions:[],
   // },
   // {
   //   label: "Zend USD",
   //   icon: "mingcute:usd-coin-usdc-line",
   //   asSub: false,
   //   url: "/dashboard/zend-usd",
+  // permissions:[],
   // },
 ];
 
@@ -101,6 +128,7 @@ export const bottomNavigations = [
     icon: "uil:cog",
     asSub: false,
     url: "/dashboard/settings",
+    key:"settings",
   },
 ];
 

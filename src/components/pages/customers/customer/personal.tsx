@@ -6,9 +6,10 @@ import { PersonalInformationData } from "@/constants";
 import AppButton from "@/components/AppButton";
 import InfoDisplay from "@/components/InfoDisplay";
 import InformationForm from "./modals/InformationForm";
-import { UserContext } from "@/constants/context";
+import { PageContext, UserContext } from "@/constants/context";
 
 export default function Personal() {
+  const { permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const { userData } = useContext(UserContext);
 
@@ -25,17 +26,19 @@ export default function Personal() {
           <h2 className="font-semibold text-sm text-secondary dark:text-white/80">
             Personal information
           </h2>
-          <div>
-            {" "}
-            <AppButton
-              type="button"
-              onClick={() => setOpen(true)}
-              text="Edit"
-              btnClass="!text-xs !py-[6px] !px-[8px]"
-              icon="solar:pen-2-linear"
-              iconClass="text-sm"
-            />
-          </div>
+          {permissions.includes("accounts.users.update") && (
+            <div>
+              {" "}
+              <AppButton
+                type="button"
+                onClick={() => setOpen(true)}
+                text="Edit"
+                btnClass="!text-xs !py-[6px] !px-[8px]"
+                icon="solar:pen-2-linear"
+                iconClass="text-sm"
+              />
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {PersonalInformationData.map((i) => (

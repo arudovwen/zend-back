@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { AssetsTab, cryptoTokens } from "@/constants";
 import GridTab from "@/components/GridTab";
@@ -23,6 +23,7 @@ import moment from "moment";
 import router from "next/router";
 import { useParams, useSearchParams } from "next/navigation";
 import LockForm from "../customers/customer/modals/LockForm";
+import { PageContext } from "@/constants/context";
 
 const Options = [
   {
@@ -32,6 +33,7 @@ const Options = [
 ];
 
 export default function AssetComponent() {
+  const { permissions } = useContext(PageContext);
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
   const [isOpen, setOpen] = useState(false);
@@ -123,7 +125,7 @@ export default function AssetComponent() {
             />
           </div>
           <div className="flex flex-col lg:flex-row gap-y-2 gap-x-2 items-center w-full lg:w-auto">
-            <AppButton
+           {permissions.includes("wallets.wallets.update")  && <AppButton
               onClick={() => {
                 setType(detail?.withdrawal?.enabled ? "disable" : "enable");
                 setOpen(true);
@@ -133,7 +135,7 @@ export default function AssetComponent() {
                   ? "Suspend Withdrawal"
                   : "Enable withdrawal"
               }
-            />
+            />}
           </div>
         </div>
         <TableCard columns={AssetHeader} rows={rows} />

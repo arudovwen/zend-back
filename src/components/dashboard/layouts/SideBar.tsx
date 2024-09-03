@@ -16,15 +16,17 @@ import TypeSwitch from "./TypeSwitch";
 import { PageContext } from "@/constants/context";
 import { getItem } from "@/utils/localStorageControl";
 import Image from "next/image";
+import { permission } from "process";
 
 export default function SideBar() {
-  const { setColormode } = useContext(PageContext);
+  const { setColormode, permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openMenus, setopenMenus] = useState<any>([]);
   const router = useRouter();
   const pathname = usePathname();
   const [enabled, setEnabled] = useState<boolean | null>(null);
+
   const userData = getItem("userData");
   useEffect(() => {
     setEnabled(localStorage.theme === "light" ? false : true);
@@ -69,6 +71,26 @@ export default function SideBar() {
     // });
   }
 
+  function handleSubMenus(value: any) {
+    return value.filter((i: any) =>
+      i?.permissions?.length
+        ? i?.permissions?.some((item: any) => permissions.includes(item))
+        : i
+    );
+  }
+
+  useEffect(() => {
+    if (!permissions.length) return;
+    const tempData: any = navigations
+      .filter((i) => i.key !== "dashboard")
+      .find((i) => pathname.includes(i.key));
+    if (!tempData?.permissions.length) return;
+    const canProceed = tempData?.permissions?.some((item: any) => {
+      return permissions.includes(item);
+    });
+    if (!canProceed) router.push("/dashboard");
+  }, [pathname, navigations, permissions]);
+
   return (
     <div className="w-[260px] no-scrollbar flex flex-col gap-y-2 bg-white pb-8 dark:bg-gray-800 lg:border-r border-[#ECECEC] dark:border-gray-500 max-h-full h-screen overflow-y-auto">
       <div className="pt-6 px-[25px] mb-6">
@@ -79,7 +101,7 @@ export default function SideBar() {
           <TypeSwitch />
         </div>
         <ul className="grid gap-y-[4px] px-[25px]">
-          {navigations.map((nav: any, idx: number) => (
+          {handleSubMenus(navigations).map((nav: any, idx: number) => (
             <li onClick={() => !nav.asSub && router.push(nav.url)} key={idx}>
               <span className="block">
                 <span
@@ -123,7 +145,7 @@ export default function SideBar() {
                 </span>
                 {nav.asSub && openMenus.includes(nav.label) && (
                   <ul className="grid grid-cols-1 py-2 gap-y-1 overflow-hidden">
-                    {nav.submenus?.map((submenu: any) => (
+                    {handleSubMenus(nav.submenus)?.map((submenu: any) => (
                       <li
                         onClick={() => router.push(submenu.url)}
                         key={submenu.label}
