@@ -58,10 +58,11 @@ export default function SideBar() {
     // logOut()
     //   .then((res: any) => {
     //     if (res.status === 200) {
+
+    deleteCookie("token");
     localStorage.clear();
     sessionStorage.clear();
-    deleteCookie("token");
-    router.push("/");
+    window?.location?.replace("/");
     setLoading(false);
     //   }
     // })
@@ -260,19 +261,19 @@ export default function SideBar() {
             Are you sure you want to logout?
           </p>
           <div className="flex gap-x-4 items-center justify-center text-sm font-medium">
+            <AppButton
+              onClick={() => handleLogout()}
+              isDisabled={loading}
+              isLoading={loading}
+              btnClass="!border !border-[#EAECF0] dark:!border-red-400 !rounded !px-3 !py-1 w-full !text-white !font-medium !bg-red-500"
+              text="Yes"
+            />
             <button
               className="border border-[#EAECF0] dark:!border-gray-600  rounded px-3 py-1 w-full"
               onClick={() => setOpen(false)}
             >
               No
             </button>
-            <AppButton
-              onClick={() => handleLogout()}
-              isDisabled={loading}
-              isLoading={loading}
-              btnClass="!border !border-[#EAECF0] dark:!border-gray-600 !rounded !px-3 !py-1 w-full !text-red-500 dark:!text-red-300 !bg-transparent"
-              text="Yes"
-            />
           </div>
         </div>
       </CenterModal>

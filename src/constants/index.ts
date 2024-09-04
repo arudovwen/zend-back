@@ -93,7 +93,7 @@ export const navigations = [
     icon: "hugeicons:user-id-verification",
     asSub: false,
     url: "/dashboard/verifications",
-    permissions:["accounts.users.verifications.find"],
+    permissions:["accounts.users.verifications.find","accounts.users.verifications.metrics"],
     key:"verifications",
   },
   {

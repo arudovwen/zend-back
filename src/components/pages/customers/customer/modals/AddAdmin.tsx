@@ -8,8 +8,9 @@ import FormField from "@/components/forms/FormField";
 import { AddAdminSchema } from "@/schema";
 import ButtonComponent from "@/components/ButtonComponent";
 import { createAdmin } from "@/services/userservice";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function AddAdminForm({ setOpen, isOpen,refresh }: any) {
+export default function AddAdminForm({ setOpen, isOpen, refresh }: any) {
 
   const [loading, setLoading] = useState<boolean>(false);
   const {
@@ -20,31 +21,31 @@ export default function AddAdminForm({ setOpen, isOpen,refresh }: any) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(AddAdminSchema),
-  
   });
   const onSubmit = (data: any) => {
     setLoading(true);
-
-    createAdmin({ ...data})
-      .then((res) => {
+ 
+    createAdmin({ ...data }).then((res) => {
+      
         if (res.status === 200) {
-        
           toast.success("Request successful");
           setLoading(false);
           setOpen(false);
-          refresh()
+          refresh();
         }
       })
       .catch((err: any) => {
+   
         setLoading(false);
         toast.error(err?.response?.data?.message || "Process failed");
       });
+        console.log("🚀 ~ onSubmit ~ toast:", )
   };
   return (
     <CenterModal setOpen={() => {}} open={isOpen}>
       <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white pt-6 pb-10 px-8 rounded-lg">
         <h2 className="font-semibold text-xl mb-10 text-center">
-         Create Admin
+          Create Admin
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-x-6">

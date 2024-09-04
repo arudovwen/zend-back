@@ -310,13 +310,16 @@ export default function List() {
         toast.error(err?.response?.data?.message || "Process failed");
       });
   }
+
   return (
     <section>
-      <AddAdminForm
-        isOpen={isAdminOpen}
-        setOpen={setAdminOpen}
-        refresh={fetchData}
-      />
+      {isAdminOpen && (
+        <AddAdminForm
+          isOpen={isAdminOpen}
+          setOpen={setAdminOpen}
+          refresh={fetchData}
+        />
+      )}
       <div className="mb-10">
         <HeaderComponent
           title={user}
