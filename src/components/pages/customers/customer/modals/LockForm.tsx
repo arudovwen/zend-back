@@ -106,7 +106,7 @@ const LockForm: React.FC<LockFormProps> = ({
 
   return (
     <CenterModal setOpen={() => setOpen(false)} open={isOpen}>
-      <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white py-8 px-8 rounded-lg">
+      <div className="bg-white dark:bg-gray-800 text-secondary dark:text-white py-8 px-8 rounded-lg md:min-w-[400px]">
         <div className="flex justify-center mb-4">
           {type === "ban" || type === "unban" ? <BanSvg /> : <LockSvg />}
         </div>

@@ -133,10 +133,6 @@ export default function Announcement() {
       reader.onerror = (error) => reject(error);
     });
   };
-  useEffect(() => {
-    const val = getValues();
-    console.log("🚀 ~ useEffect ~ val:", val);
-  }, [getValues()]);
 
   return (
     <div>

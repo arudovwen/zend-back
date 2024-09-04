@@ -1,5 +1,11 @@
 "use client";
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+  useRef,
+} from "react";
 import debounce from "debounce";
 import HeaderComponent from "@/components/HeaderComponent";
 import Select from "@/components/forms/Select";
@@ -9,13 +15,17 @@ import { StatusOptions, GenderOptions, CountryFilters } from "@/constants";
 import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
 import { ucFirst } from "@/utils/methods";
-import { getAllUsers, getAllAdmin } from "@/services/userservice";
+import { getAllUsers, getAllAdmin, deleteAdmin } from "@/services/userservice";
 import AppStatusComponent from "@/components/AppStatusComponent";
 import Image from "next/image";
 import MenuSelect from "@/components/forms/MenuSelect";
 import AppIcon from "@/components/AppIcon";
 import LockForm from "./customer/modals/LockForm";
 import { PageContext } from "@/constants/context";
+import AddAdminForm from "./customer/modals/AddAdmin";
+import ButtonComponent from "@/components/ButtonComponent";
+import Confirm from "./customer/modals/Confirm";
+import { toast } from "react-toastify";
 
 const Options = [
   {
@@ -38,18 +48,26 @@ const Options = [
     label: "Unlock",
     value: "unlock",
   },
+  {
+    label: "Delete",
+    value: "delete",
+  },
 ];
+
 export default function List() {
   const router = useRouter();
   const params = useParams();
   const { permissions } = useContext(PageContext);
   const [isOpen, setOpen] = useState(false);
   const [type, setType] = useState<
-    "view" | "ban" | "unlock" | "lock" | "unban"
+    "view" | "ban" | "unlock" | "lock" | "unban" | "delete"
   >("lock");
   const { user } = params;
   const [customer, setCustomer] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isAdminOpen, setAdminOpen] = useState(false);
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   const [rows, setRows] = useState([]);
   const [queryParams, setQueryParams] = useState<any>({
     user: "",
@@ -64,7 +82,6 @@ export default function List() {
     country: null,
     gender: null,
   });
-
 
   const fetchData = async () => {
     setLoading(true);
@@ -115,7 +132,10 @@ export default function List() {
                       i,
                       Options.filter((i: any) => i.value !== "view")
                     )
-                  : handleOptions(i, Options)
+                  : handleOptions(
+                      i,
+                      Options.filter((i: any) => i.value !== "delete")
+                    )
               }
               handleSelected={(val: any) =>
                 handleSelected(val, {
@@ -141,7 +161,7 @@ export default function List() {
   };
 
   function handleSelected(
-    value: "view" | "ban" | "unlock" | "lock" | "unban",
+    value: "view" | "ban" | "unlock" | "lock" | "unban" | "delete",
     data: any
   ) {
     setCustomer(data);
@@ -168,6 +188,10 @@ export default function List() {
         setOpen(true);
         break;
 
+      case "delete":
+        setDeleteOpen(true);
+        break;
+
       default:
         break;
     }
@@ -175,18 +199,20 @@ export default function List() {
   function handleOptions(data: any, options: any) {
     let optTemp = options;
 
-    if (user === "customers" && !permissions.includes("accounts.users.update")) {
-      optTemp = optTemp.filter((i: any) => i.value === "view");
-   
-    }
-  
     if (
-      user === "administrators" &&
-      !permissions.includes("accounts.administrators.update")
+      user === "customers" &&
+      !permissions.includes("accounts.users.update")
     ) {
       optTemp = optTemp.filter((i: any) => i.value === "view");
     }
-  
+
+    if (
+      user === "administrators" &&
+      !permissions.includes("accounts.administrators.create")
+    ) {
+      optTemp = optTemp.filter((i: any) => i.value === "view");
+    }
+
     const tempData = optTemp.filter((i: any) => {
       if (data.isBanned && i.value === "ban") return false;
       if (data.isLocked && i.value === "lock") return false;
@@ -194,11 +220,9 @@ export default function List() {
       if (!data.isLocked && i.value === "unlock") return false;
       return true;
     });
-  
-    // console.log("🚀 ~ handleOptions ~ tempData:", tempData);
+
     return tempData;
   }
-  
 
   useEffect(() => {
     fetchData();
@@ -271,8 +295,28 @@ export default function List() {
         break;
     }
   }
+  function handleDelete() {
+    setDeleting(true);
+    deleteAdmin(customer?.id)
+      .then((res) => {
+        if (res.status === 200) {
+          setDeleting(false);
+          setDeleteOpen(false);
+          toast.success("Admin deleted");
+        }
+      })
+      .catch((err: any) => {
+        setDeleting(false);
+        toast.error(err?.response?.data?.message || "Process failed");
+      });
+  }
   return (
     <section>
+      <AddAdminForm
+        isOpen={isAdminOpen}
+        setOpen={setAdminOpen}
+        refresh={fetchData}
+      />
       <div className="mb-10">
         <HeaderComponent
           title={user}
@@ -318,6 +362,16 @@ export default function List() {
                 })
               }
             />
+            {user === "administrators" &&
+              permissions.includes("accounts.administrators.create") && (
+                <ButtonComponent
+                  className="text-center !bg-primary !border-primary !text-white items-center !px-10"
+                  type="button"
+                  onClick={() => setAdminOpen(true)}
+                >
+                  Create Admin
+                </ButtonComponent>
+              )}
           </div>
         </div>
         <div className=" w-full ">
@@ -343,6 +397,14 @@ export default function List() {
             id: customer?.id,
           }}
           userType={user}
+        />
+      )}
+      {isDeleteOpen && (
+        <Confirm
+          setOpen={setDeleteOpen}
+          isOpen={isDeleteOpen}
+          loading={isDeleting}
+          onProceed={handleDelete}
         />
       )}
     </section>

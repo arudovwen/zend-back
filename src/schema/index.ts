@@ -72,6 +72,13 @@ export const AdminSchema = yup.object().shape({
   image: yup.string(),
 });
 
+
+export const AddAdminSchema = yup.object().shape({
+  emailAddress: yup.string().email().required(),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+
+});
 export const LockSchema = yup.object().shape({
   reason: yup.string().required("Reason is required"),
   id: yup.string().required(),
