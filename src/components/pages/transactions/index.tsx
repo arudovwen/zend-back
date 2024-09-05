@@ -331,7 +331,7 @@ export default function Transactions() {
           >
             <span className="flex gap-x-2 items-center">
               <AppIcon icon="pajamas:retry" />
-              <span className="hidden lg:inline">Resolve transsction</span>
+              <span className="hidden lg:inline">Resolve transaction</span>
             </span>
           </ButtonComponent>
         </div>

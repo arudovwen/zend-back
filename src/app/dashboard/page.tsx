@@ -15,7 +15,7 @@ export default function Dashboard() {
       {permissions.includes("accounts.users.metrics") && <Chart />}
       <Analysis />
       <Activities />
-      <Transactions />
+     {permissions.includes("wallets.transactions.find") &&  <Transactions />}
     </main>
   );
 }

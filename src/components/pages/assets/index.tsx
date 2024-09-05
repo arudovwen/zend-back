@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { AssetsTab, StatusOptions } from "@/constants";
 import GridTab from "@/components/GridTab";
@@ -21,6 +21,7 @@ import HeaderComponent from "@/components/HeaderComponent";
 import debounce from "debounce";
 import LockForm from "../customers/customer/modals/LockForm";
 import SearchSelect from "@/components/forms/SearchSelect";
+import { PageContext } from "@/constants/context";
 
 const Options = [
   {
@@ -34,6 +35,7 @@ const Options = [
 ];
 
 export default function AssetComponent() {
+  const { permissions } = useContext(PageContext);
   const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState([]);
   const router = useRouter();
@@ -198,7 +200,7 @@ export default function AssetComponent() {
               placeholder="Select Status"
               onChange={(val: any) => handleStatus(val)}
             />
-            <AppButton text="Suspend Withdrawal" />
+          {permissions.includes("wallets.wallets.update") &&  <AppButton text="Suspend Withdrawal" />}
           </div>
         </div>
         <TableCard

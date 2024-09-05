@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import moment from "moment";
 import AppTab from "@/components/AppTab";
 import TableCard from "@/components/table";
@@ -10,12 +10,14 @@ import { capitalizeSentence, ucFirst } from "@/utils/methods";
 import { OverviewSwapHeader, OverviewTokenHeader } from "@/constants/headers";
 import Link from "next/link";
 import AppStatusComponent from "@/components/AppStatusComponent";
+import { PageContext } from "@/constants/context";
 
 export default function Transactions() {
   const tabs = [
     { title: "swap transactions", key: "swap" },
     { title: "token transactions", key: "transaction" },
   ];
+
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(tabs[0].key);

@@ -208,7 +208,7 @@ export default function List() {
 
     if (
       user === "administrators" &&
-      !permissions.includes("accounts.administrators.create")
+      !permissions.includes("accounts.administrators.update")
     ) {
       optTemp = optTemp.filter((i: any) => i.value === "view");
     }
@@ -310,7 +310,22 @@ export default function List() {
         toast.error(err?.response?.data?.message || "Process failed");
       });
   }
+  function handleColumns(headers: any) {
+    if (
+      user === "customers" &&
+      !permissions.includes("accounts.users.update")
+    ) {
+      return headers.filter((i: any) => i.key !== "action");
+    }
 
+    if (
+      user === "administrators" &&
+      !permissions.includes("accounts.administrators.update")
+    ) {
+      return headers.filter((i: any) => i.key !== "action");
+    }
+    return headers;
+  }
   return (
     <section>
       {isAdminOpen && (
@@ -380,7 +395,7 @@ export default function List() {
         <div className=" w-full ">
           <TableCard
             columns={
-              user === "customers" ? CustomerListHeader : AdministratorHeader
+              user === "customers" ? handleColumns(CustomerListHeader) : handleColumns(AdministratorHeader)
             }
             rows={rows}
             isLoading={loading}

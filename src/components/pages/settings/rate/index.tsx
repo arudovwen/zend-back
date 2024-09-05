@@ -93,7 +93,7 @@ export default function Rates() {
             </div>
             <div className="flex justify-end">
               <ButtonComponent
-                className="text-center !bg-primary !text-white items-center"
+                className="text-center text-sm !bg-primary !text-white items-center"
                 type="submit"
                 isLoading={loading}
               >
