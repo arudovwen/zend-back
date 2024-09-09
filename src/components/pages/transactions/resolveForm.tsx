@@ -109,7 +109,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
         <FormField
           label="Transaction Date"
           name="transactionDate"
-          type="transactionDate"
+          type="date"
           placeholder=""
           register={register}
           errors={errors.transactionDate}
@@ -130,7 +130,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
           <ButtonComponent
             onClick={() => setOpen(false)}
             className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-secondary dark:!text-white/80 items-center"
-            type="submit"
+            type="button"
             isLoading={loading}
           >
             Cancel

@@ -378,7 +378,7 @@ export default function Transactions() {
                   options={currencies}
                   placeholder="From token"
                   onChange={handleCurrency}
-                  value={queryParams.fromToken}
+                  value={queryParams.fromCurrency}
                 />{" "}
                 <span className="flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
                   <AppIcon
@@ -391,7 +391,7 @@ export default function Transactions() {
                   options={currencies}
                   placeholder="To token"
                   onChange={handleCurrency}
-                  value={queryParams.toToken}
+                  value={queryParams.toCurrency}
                 />
               </div>
             )}
