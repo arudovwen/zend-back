@@ -78,8 +78,8 @@ export default function Transactions() {
     currency: "",
     total: 0,
     user: "",
-    fromToken: null,
-    toToken: null,
+    fromCurrency: null,
+    toCurrency: null,
   });
   const [value, setValue] = useState<{
     startDate: Date | null;
@@ -269,8 +269,8 @@ export default function Transactions() {
     queryParams.status,
     queryParams.customFromDate,
     queryParams.customToDate,
-    queryParams.fromToken,
-    queryParams.toToken,
+    queryParams.fromCurrency,
+    queryParams.toCurrency,
   ]);
 
   const loadOptions = (inputValue: any, callback: any) => {
@@ -377,7 +377,12 @@ export default function Transactions() {
                   className=" !border-none  bg-transparent bg-white dark:bg-gray-800  text-sm px-0 py-0 rounded min-w-[120px]"
                   options={currencies}
                   placeholder="From token"
-                  onChange={handleCurrency}
+                  onChange={(e: any) =>
+                    setQueryParams({
+                      ...queryParams,
+                      fromCurrency: e.value,
+                    })
+                  }
                   value={queryParams.fromCurrency}
                 />{" "}
                 <span className="flex items-center w-[42px] h-[42px] justify-center rounded-[6px]">
@@ -388,9 +393,16 @@ export default function Transactions() {
                 </span>
                 <Select
                   className=" !border-none  bg-transparent bg-white dark:bg-gray-800  text-sm px-0 py-0 rounded min-w-[120px]"
-                  options={currencies}
+                  options={currencies.filter(
+                    (i) => i.value !== queryParams.fromCurrency
+                  )}
                   placeholder="To token"
-                  onChange={handleCurrency}
+                  onChange={(e: any) =>
+                    setQueryParams({
+                      ...queryParams,
+                      toCurrency: e.value,
+                    })
+                  }
                   value={queryParams.toCurrency}
                 />
               </div>
@@ -424,7 +436,7 @@ export default function Transactions() {
         <Transaction detail={detail} />
       </SideModal>
       <CenterModal setOpen={setOpen} open={isOpen} canClose={true}>
-       <ResolveForm />
+        <ResolveForm />
       </CenterModal>
     </section>
   );
