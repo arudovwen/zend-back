@@ -71,7 +71,7 @@ export default function AssetComponent() {
   function handleWallet() {
     getWallets({ user: id }).then((res) => {
       if (res.status === 200) {
-        setDetail(res.data?.wallets[0]);
+        setDetail(res.data?.data?.wallets[0]);
       }
     });
   }

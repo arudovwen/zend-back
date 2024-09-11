@@ -12,8 +12,9 @@ import { currencies, TransactionTypes } from "@/constants";
 import { getAllUsers } from "@/services/userservice";
 import { ucFirst } from "@/utils/methods";
 import SearchSelect from "@/components/forms/SearchSelect";
+import { resolveTransaction } from "@/services/walletservice";
 
-export default function KinForm({ setOpen, isOpen }: any) {
+export default function ResolveForm({ setOpen, isOpen, onClose }: any) {
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -28,8 +29,18 @@ export default function KinForm({ setOpen, isOpen }: any) {
   });
   const onSubmit = (data: any) => {
     setLoading(true);
-    console.log("🚀 ~ onSubmit ~ data:", data);
-    // router.push("/verify");
+    resolveTransaction({ ...data, txId: data?.transactionId })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Request sent");
+          onClose();
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || "Request failed");
+        setLoading(false);
+      });
   };
 
   const loadOptions = (inputValue: any, callback: any) => {
@@ -42,7 +53,9 @@ export default function KinForm({ setOpen, isOpen }: any) {
           count: 1000,
         });
         const sdata = searchDataT.data?.data?.users.map((data: any) => ({
-          label: `${ucFirst(data?.firstName)} ${ucFirst(data.lastName)} - @${ucFirst(data.username)}`,
+          label: `${ucFirst(data?.firstName)} ${ucFirst(
+            data.lastName
+          )} - @${ucFirst(data.username)}`,
           value: data?.username,
         }));
 
@@ -131,7 +144,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
             onClick={() => setOpen(false)}
             className="w-full text-center !bg-transparent !border !border-[#EAECF0] !text-secondary dark:!text-white/80 items-center"
             type="button"
-            isLoading={loading}
+            disabled={loading}
           >
             Cancel
           </ButtonComponent>
@@ -139,6 +152,7 @@ export default function KinForm({ setOpen, isOpen }: any) {
             className="w-full text-center !bg-primary !text-white items-center"
             type="submit"
             isLoading={loading}
+            disabled={loading}
           >
             Submit
           </ButtonComponent>

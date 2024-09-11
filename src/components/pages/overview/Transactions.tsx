@@ -37,7 +37,7 @@ export default function Transactions() {
       .then((res) => {
         if (res.status === 200) {
           setLoading(false);
-          const detail = res.data.transactions.map((i: any) => ({
+          const detail = res.data.data.transactions.map((i: any) => ({
             ...i,
             name: `${ucFirst(i.user?.firstName)} ${ucFirst(i.user?.lastName)}`,
             transactionId: i.txId || i.billId || i.ordId || i.wdId,

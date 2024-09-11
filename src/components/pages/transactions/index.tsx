@@ -174,7 +174,7 @@ export default function Transactions() {
       .then((res) => {
         if (res.status === 200) {
           setLoading(false);
-          const detail = res.data.transactions.map((i: any) => ({
+          const detail = res.data.data.transactions.map((i: any) => ({
             ...i,
             name: `${ucFirst(i.user?.firstName)} ${ucFirst(i.user?.lastName)}`,
             transactionId: i.txId || i.billId || i.ordId || i.wdId,
@@ -229,27 +229,7 @@ export default function Transactions() {
         setLoading(false);
       });
   }
-  function handleResolve(e: any) {
-    e.preventDefault();
-    setTransactionLoading(true);
-    resolveTransaction({ type, txId: transactionId })
-      .then((res) => {
-        if (res.status === 200) {
-          toast.success("Transaction resolved successfully");
-          getAllTransactions();
-          setOpen(false);
-          setTransactionLoading(false);
-        }
-      })
-      .catch((err) => {
-        toast.error(
-          `${err.response.data.message || "Resolve failed"}, ${
-            err.response.data.data
-          }`
-        );
-        setTransactionLoading(false);
-      });
-  }
+
   useEffect(() => {
     getTransactions({
       ...queryParams,
@@ -436,7 +416,13 @@ export default function Transactions() {
         <Transaction detail={detail} />
       </SideModal>
       <CenterModal setOpen={setOpen} open={isOpen} canClose={true}>
-        <ResolveForm />
+        <ResolveForm
+          onClose={() => {
+            getAllTransactions();
+            setOpen(false);
+            setTransactionLoading(false);
+          }}
+        />
       </CenterModal>
     </section>
   );

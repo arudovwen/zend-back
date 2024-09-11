@@ -58,7 +58,7 @@ export default function AssetComponent() {
       });
 
       if (res.status === 200) {
-        const detail = res.data?.wallets?.map((i: any) => ({
+        const detail = res.data?.data?.wallets?.map((i: any) => ({
           ...i,
           name: (
             <span className="flex gap-x-[10px] items-center">
