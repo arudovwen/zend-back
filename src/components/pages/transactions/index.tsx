@@ -181,9 +181,8 @@ export default function Transactions() {
             date: moment(i.timeStamp).format("lll"),
             token: i.currency,
             transactionType: capitalizeSentence(i?.transactionType),
-            tokenamount:
-              formatCurrency(parseFloat(i?.amount)) + " " + i?.currency,
-            swapamount: `${formatCurrency(i?.toCurrencyAmt)} ${i?.toCurrency}`,
+            tokenamount: parseFloat(i?.amount) + " " + i?.currency,
+            swapamount: `${i?.toCurrencyAmt} ${i?.toCurrency}`,
             tokenSwapped: `${i?.fromCurrency} > ${i?.toCurrency}`,
             status: <AppStatusComponent status={i.status} />,
             type: ucFirst(i.type),
