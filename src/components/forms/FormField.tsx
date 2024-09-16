@@ -116,9 +116,10 @@ const FormField: React.FC<FormFieldProps> = ({
             )}
           </>
         )}
+   
         {icon && (
           <span
-            className={`text-xl absolute right-4 text-secondary dark:text-white ${
+            className={`h-[16px] absolute right-4 text-secondary dark:text-white ${
               type === "password" ? "top-1/2 transform -translate-y-1/2" : ""
             }`}
           >

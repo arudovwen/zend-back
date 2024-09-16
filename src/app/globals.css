@@ -88,10 +88,15 @@ html {
   padding: 10px 14px !important;
   position: relative;
 }
-.chip,.highlightOption{
+.chip,
+.highlightOption {
   background: #485fe6 !important;
 }
 
-.darkcss .optionListContainer, .darkcss .searchWrapper {
+.darkcss .optionListContainer,
+.darkcss .searchWrapper {
   background: #1f2937 !important;
+}
+.optionListContainer {
+  z-index: 90 !important;
 }

@@ -86,7 +86,7 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
         onRemove={onRemove} // Function will trigger on remove event
         placeholder={placeholder} // Property name to display in the dropdown options
         displayValue="label"
-        className="hidden dark:inline darkcss dark:bg-gray-800"
+        className="hidden dark:block darkcss dark:bg-gray-800 z-[90]"
       />
       <Multiselect
         options={options} // Options to display in the dropdown
@@ -95,7 +95,7 @@ const FormMultiSelect: React.FC<FormMultiSelectProps> = ({
         onRemove={onRemove} // Function will trigger on remove event
         placeholder={placeholder} // Property name to display in the dropdown options
         displayValue="label"
-        className="inline dark:hidden"
+        className="block dark:hidden z-[90]"
       />
 
       {errors && <span className="text-sm text-red-500">{errors.message}</span>}

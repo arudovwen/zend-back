@@ -99,7 +99,7 @@ export default function TopBar() {
         <span className="hidden lg:inline">
           <Search />
         </span>
-        {permissions.includes("accounts.broadcast") && (
+        {!permissions.includes("accounts.broadcast") && (
           <span>
             <Announcement />
           </span>
