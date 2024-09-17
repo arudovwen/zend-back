@@ -108,6 +108,10 @@ export const enableWithdrawal = async (payload) => {
   return post(`/withdraw/enable`, payload, personalWalletBaseUrl);
 };
 
+export const sendPushNotification = async (payload) => {
+  return post(`/notification/broadcast`, payload, personalWalletBaseUrl);
+};
+
 export const getZendHistory = async (payload) => {
   return get(
     `zend-usd/find?${new URLSearchParams(cleanObject(payload))}`,

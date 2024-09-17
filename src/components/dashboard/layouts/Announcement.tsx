@@ -22,6 +22,7 @@ import {
 } from "@/constants";
 import Image from "next/image";
 import FormMultiSelect from "@/components/forms/FormMultiSelect";
+import { sendPushNotification } from "@/services/walletservice";
 
 interface FormData {
   type: string;
@@ -40,7 +41,7 @@ export default function Announcement() {
   const [imgBanner, setImgBanner] = useState<any>("");
   const filters = useRef();
   const [formData, setFormData] = useState<FormData>({
-    type: "",
+    type: "announcement",
     subject: "",
     body: "",
     notifyType: "email",
@@ -57,6 +58,7 @@ export default function Announcement() {
     formState: { errors },
     getValues,
     trigger,
+    reset,
   } = useForm<any>({
     resolver: yupResolver(BroadcastSchema),
     defaultValues: formData,
@@ -77,8 +79,9 @@ export default function Announcement() {
   const onSubmit = (data: FormData) => {
     setLoading(true);
     const { country, activity, ...others } = data;
-    handleBroadcast({
+    (data.type === "email" ? handleBroadcast : sendPushNotification)({
       ...others,
+      title: data.subject,
       filters: {
         hasVerifiedEmailAddress: activity.includes("Email Address"),
         hasVerifiedPhoneNumber: activity.includes("Phone number"),
@@ -93,6 +96,7 @@ export default function Announcement() {
           toast.success(`Broadcast sent successfully!`);
           setLoading(false);
           setOpen(false);
+          reset();
         }
       })
       .catch((err: any) => {
@@ -172,16 +176,19 @@ export default function Announcement() {
                 value={getValues().notifyType}
                 trigger={trigger}
               />
-              <FormSelect
-                label={`Email Type`}
-                name="type"
-                placeholder="Select email type"
-                register={register}
-                errors={errors?.type}
-                options={EmailTypes} // Replace with actual options
-                setValue={setValue}
-                trigger={trigger}
-              />
+              {getValues().notifyType === "email" && (
+                <FormSelect
+                  label={`Email Type`}
+                  name="type"
+                  placeholder="Select email type"
+                  register={register}
+                  errors={errors?.type}
+                  options={EmailTypes} // Replace with actual options
+                  setValue={setValue}
+                  trigger={trigger}
+                  value={getValues().type}
+                />
+              )}
             </div>
 
             <div className="mb-6">
@@ -194,26 +201,28 @@ export default function Announcement() {
                 icon={undefined}
               />
             </div>
-            <div className="mb-6">
-              <div className="mb-1">
-                <FileUpload
-                  handleUpload={handleFile}
-                  title={imgBanner ? "Banner.png" : "Upload Broadcast banner"}
-                >
-                  <AppIcon icon="solar:upload-linear" />
-                </FileUpload>
-              </div>
+            {getValues().notifyType === "email" && (
+              <div className="mb-6">
+                <div className="mb-1">
+                  <FileUpload
+                    handleUpload={handleFile}
+                    title={imgBanner ? "Banner.png" : "Upload Broadcast banner"}
+                  >
+                    <AppIcon icon="solar:upload-linear" />
+                  </FileUpload>
+                </div>
 
-              {imgBanner && (
-                <Image
-                  src={imgBanner}
-                  alt="banner"
-                  width={500}
-                  height={10}
-                  className="object-contain w-full h-16"
-                />
-              )}
-            </div>
+                {imgBanner && (
+                  <Image
+                    src={imgBanner}
+                    alt="banner"
+                    width={500}
+                    height={10}
+                    className="object-contain w-full h-16"
+                  />
+                )}
+              </div>
+            )}
 
             <div className="mb-6">
               {getValues().notifyType === "email" ? (
@@ -241,50 +250,56 @@ export default function Announcement() {
                 />
               )}
             </div>
-            <div className="mb-6">
-              <FormMultiSelect
-                label={`Select countries`}
-                name="country"
-                placeholder=""
-                register={register}
-                errors={errors?.country}
-                options={CountryFilters.map((item, index) => ({
-                  ...item,
-                  id: index,
-                })).filter((i) => i.value !== "")} // Replace with actual options
-                setValue={setValue}
-                trigger={trigger}
-              />
-            </div>
-            <div className="mb-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {VerificationTab.map((i) => (
-                  <div key={i.label}>
-                    <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
-                      <input
-                        className={` w-auto mt-1`}
-                        type="checkbox"
-                        value={i?.label}
-                        {...(register ? register("activity") : {})}
-                      />{" "}
-                      {i.label}
-                    </label>
+            {getValues().notifyType === "email" && (
+              <>
+                <div className="mb-6">
+                  <FormMultiSelect
+                    label={`Select countries`}
+                    name="country"
+                    placeholder=""
+                    register={register}
+                    errors={errors?.country}
+                    options={CountryFilters.map((item, index) => ({
+                      ...item,
+                      id: index,
+                    })).filter((i) => i.value !== "")} // Replace with actual options
+                    setValue={setValue}
+                    trigger={trigger}
+                  />
+                </div>
+                <div className="mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {VerificationTab.map((i) => (
+                      <div key={i.label}>
+                        <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
+                          <input
+                            className={` w-auto mt-1`}
+                            type="checkbox"
+                            value={i?.label}
+                            {...(register ? register("activity") : {})}
+                          />{" "}
+                          {i.label}
+                        </label>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+              </>
+            )}
+            {getValues().notifyType === "email" && (
+              <div className="mb-6">
+                <div className="flex justify-end">
+                  <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
+                    <input
+                      className={`w-auto mt-1`}
+                      type="checkbox"
+                      {...(register ? register("dry_run") : {})}
+                    />{" "}
+                    Toggle to send test email
+                  </label>
+                </div>
               </div>
-            </div>
-            <div className="mb-6">
-              <div className="flex justify-end">
-                <label className="text-sm text-[#686878] dark:text-white/70   flex gap-x-2 items-start whitespace-nowrap">
-                  <input
-                    className={`w-auto mt-1`}
-                    type="checkbox"
-                    {...(register ? register("dry_run") : {})}
-                  />{" "}
-                  Toggle to send test email
-                </label>
-              </div>
-            </div>
+            )}
             <div className="flex gap-x-5 items-center mt-10">
               <ButtonComponent
                 onClick={() => setOpen(false)}
