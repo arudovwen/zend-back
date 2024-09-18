@@ -1,0 +1,36 @@
+name: deploy_production
+
+on:
+  push:
+    branches: ["production"]
+  pull_request:
+    branches: ["production"]
+  workflow_dispatch:
+
+env:
+  NEXT_PUBLIC_USER_ENDPOINT: https://service.accounts.zendwallet.com/
+  NEXT_PUBLIC_WALLET_ENDPOINT: https://service.wallets.zendwallet.com/
+  NEXT_PUBLIC_TRANSACTION_ENDPOINT: https://service.transactions.zendwallet.com/
+  NEXT_PUBLIC__TINY_APIKEY: zryhmo2q30xmcrdy1y7c2u2qbcym44l833uxtw2up6f42ya5
+  NEXT_PUBLIC_USD_ENDPOINT: https://service.zend-usd.zendwallet.com/
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install --force
+      - run: CI=false npm run build
+      - name: copy files to server
+        uses: garygrossgarten/github-action-scp@v0.8.0
+        with:
+          local: /home/runner/work/zend-back-office/zend-back-office/out
+          remote: /var/www/frontend-back-office/production
+          host: ${{ secrets.EC2_IP_ADDRESS }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_PASSWORD }}
