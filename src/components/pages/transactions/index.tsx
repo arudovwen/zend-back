@@ -220,7 +220,7 @@ export default function Transactions() {
           setRows(detail);
           setQueryParams({
             ...queryParams,
-            total: res.data?.totalTransactions,
+            total: res.data?.data?.totalTransactions,
           });
         }
       })
